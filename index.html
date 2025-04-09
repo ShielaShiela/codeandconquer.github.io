@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Elisha & Greg</title>
+  <title>Elisha & Greg Wedding</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway&display=swap" rel="stylesheet">
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
     body {
       margin: 0;
       font-family: 'Raleway', sans-serif;
@@ -18,6 +21,25 @@
       text-align: center;
       padding: 5rem 1rem;
       font-family: 'Playfair Display', serif;
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      background-color: #fff0ec;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+    nav a {
+      text-decoration: none;
+      color: #8b3f3f;
+      font-weight: bold;
+    }
+    nav a.active {
+      border-bottom: 2px solid #8b3f3f;
     }
     section {
       padding: 2rem;
@@ -34,16 +56,25 @@
       border: 0;
       margin-top: 1rem;
     }
+    .gallery {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
     .gallery img {
       width: 100%;
       max-width: 300px;
-      margin: 0.5rem;
       border-radius: 8px;
+      scroll-snap-align: center;
     }
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+    .countdown {
+      font-size: 1.5rem;
+      text-align: center;
+      margin: 1rem 0;
+      font-weight: bold;
+      color: #8b3f3f;
     }
     footer {
       background: #8b3f3f;
@@ -54,12 +85,26 @@
   </style>
 </head>
 <body>
+  <nav>
+    <a href="#when">WEDDING DAY</a>
+    <a href="#venue">VENUE</a>
+    <a href="#dress">DRESS CODE</a>
+    <a href="#program">PROGRAM</a>
+    <a href="#rsvp">RSVP</a>
+  </nav>
+
   <header>
     <h1>You're Invited to Our Wedding</h1>
-    <p>Anna & Ben — December 20, 2025</p>
+    <p>Elisha & Greg — August 22, 2025</p>
+    <div class="countdown" id="countdown"></div>
   </header>
 
-  <section>
+  <section id="when">
+    <h2>When</h2>
+    <p>Save the date: <strong>August 22, 2025</strong></p>
+  </section>
+
+  <section id="venue">
     <h2>Venue Details</h2>
     <p><strong>Ceremony:</strong> St. Mary's Church, 10:00 AM</p>
     <iframe src="https://www.google.com/maps/embed?..." allowfullscreen></iframe>
@@ -72,13 +117,13 @@
     <p>Parking is available at both locations. Shuttle buses will run between the church and reception venue starting at 3:30 PM.</p>
   </section>
 
-  <section>
+  <section id="rsvp">
     <h2>RSVP</h2>
     <p>Please confirm your attendance by December 1st:</p>
     <iframe src="https://docs.google.com/forms/d/e/your-google-form-link/viewform?embedded=true" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
   </section>
 
-  <section>
+  <section id="dress">
     <h2>Dress Code</h2>
     <p>Rustic elegance. Ladies, please wear burgundy or rust tones. Gentlemen, earthy tones are appreciated.</p>
   </section>
@@ -92,7 +137,7 @@
     </ul>
   </section>
 
-  <section>
+  <section id="program">
     <h2>Ceremony Program</h2>
     <ul>
       <li>10:00 AM – Ceremony Begins</li>
@@ -113,8 +158,54 @@
   </section>
 
   <footer>
-    <p>With love, Anna & Ben ❤️</p>
-    <p>Contact us at: annaandbenwedding@gmail.com</p>
+    <p>With love, Nina & Greg ❤️</p>
+    <p></p>
   </footer>
+
+  <script>
+    // Countdown Timer
+    const countdownElement = document.getElementById('countdown');
+    const weddingDate = new Date('December 20, 2025 10:00:00').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownElement.innerHTML = `Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+      if (distance < 0) {
+        clearInterval(timer);
+        countdownElement.innerHTML = "We're Married! 💍";
+      }
+    }
+
+    const timer = setInterval(updateCountdown, 1000);
+
+    // Highlight nav on scroll
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        if (scrollY >= sectionTop) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
