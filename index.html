@@ -2,74 +2,119 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Elisha & Greggy – Wedding Website</title>
-  <!-- Google Fonts example: Playfair Display for headings, Lora for body -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link 
-    href="https://fonts.googleapis.com/css2?family=Lora:ital@0;1&family=Playfair+Display:wght@400;700&display=swap" 
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elisha & Greg</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Raleway', sans-serif;
+      background-color: #fef9f5;
+      color: #3b2f2f;
+    }
+    header {
+      background: linear-gradient(rgba(120, 50, 40, 0.8), rgba(120, 50, 40, 0.8)), url('photos/hero.jpg') center/cover;
+      color: white;
+      text-align: center;
+      padding: 5rem 1rem;
+      font-family: 'Playfair Display', serif;
+    }
+    section {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    h2 {
+      border-bottom: 2px solid #8b3f3f;
+      padding-bottom: 0.3rem;
+    }
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: 0;
+      margin-top: 1rem;
+    }
+    .gallery img {
+      width: 100%;
+      max-width: 300px;
+      margin: 0.5rem;
+      border-radius: 8px;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    footer {
+      background: #8b3f3f;
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+  </style>
 </head>
 <body>
-
-  <!-- Header / Hero Section -->
-  <header class="hero-section">
-    <div class="overlay">
-      <div class="hero-content">
-        <h1>Elisha Niña &amp; Greggy</h1>
-        <p class="date">22.08.2025</p>
-        <p class="location">Cebu, Philippines</p>
-        <p class="invitation">Formal invitation to follow</p>
-      </div>
-    </div>
+  <header>
+    <h1>You're Invited to Our Wedding</h1>
+    <p>Anna & Ben — December 20, 2025</p>
   </header>
 
-  <!-- Main Content -->
-  <main>
-    <!-- Optional sections: Our Story, Event Details, RSVP, etc. -->
-    <section class="section-intro">
-      <div class="container">
-        <h2>We’re Getting Married!</h2>
-        <p>
-          We can’t wait to celebrate our special day with all of our 
-          closest friends and family. Please save the date and join us in 
-          Cebu as we say “I do.”
-        </p>
-      </div>
-    </section>
+  <section>
+    <h2>Venue Details</h2>
+    <p><strong>Ceremony:</strong> St. Mary's Church, 10:00 AM</p>
+    <iframe src="https://www.google.com/maps/embed?..." allowfullscreen></iframe>
+    <p><strong>Reception:</strong> The Rustic Barn, 5:00 PM</p>
+    <iframe src="https://www.google.com/maps/embed?..." allowfullscreen></iframe>
+  </section>
 
-    <section class="section-details">
-      <div class="container">
-        <h2>Wedding Details</h2>
-        <p>
-          <strong>Date:</strong> August 22, 2025<br/>
-          <strong>Location:</strong> Cebu, Philippines<br/>
-        </p>
-        <p>
-          More information about the ceremony and reception venue will 
-          follow in our formal invitations.
-        </p>
-      </div>
-    </section>
-    
-    <!-- Example RSVP Section -->
-    <section class="section-rsvp">
-      <div class="container">
-        <h2>RSVP</h2>
-        <p>Let us know if you can join our celebration!</p>
-        <a href="#" class="button">RSVP Here</a>
-      </div>
-    </section>
-    
-  </main>
+  <section>
+    <h2>How to Get There</h2>
+    <p>Parking is available at both locations. Shuttle buses will run between the church and reception venue starting at 3:30 PM.</p>
+  </section>
 
-  <!-- Footer -->
+  <section>
+    <h2>RSVP</h2>
+    <p>Please confirm your attendance by December 1st:</p>
+    <iframe src="https://docs.google.com/forms/d/e/your-google-form-link/viewform?embedded=true" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+  </section>
+
+  <section>
+    <h2>Dress Code</h2>
+    <p>Rustic elegance. Ladies, please wear burgundy or rust tones. Gentlemen, earthy tones are appreciated.</p>
+  </section>
+
+  <section>
+    <h2>Gift Registry</h2>
+    <p>We are registered at:</p>
+    <ul>
+      <li><a href="https://www.zola.com/registry/example" target="_blank">Zola</a></li>
+      <li><a href="https://www.amazon.com/wedding/example" target="_blank">Amazon</a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Ceremony Program</h2>
+    <ul>
+      <li>10:00 AM – Ceremony Begins</li>
+      <li>11:30 AM – Group Photos</li>
+      <li>12:00 PM – Brunch (Optional)</li>
+      <li>3:30 PM – Shuttle to Reception</li>
+      <li>5:00 PM – Dinner & Dancing</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Our Photos</h2>
+    <div class="gallery">
+      <img src="photos/photo1.jpg" alt="Anna and Ben">
+      <img src="photos/photo2.jpg" alt="Engagement">
+      <img src="photos/photo3.jpg" alt="Rustic Theme">
+    </div>
+  </section>
+
   <footer>
-    <p>Elisha &amp; Greggy – August 22, 2025 – Cebu, Philippines</p>
+    <p>With love, Anna & Ben ❤️</p>
+    <p>Contact us at: annaandbenwedding@gmail.com</p>
   </footer>
-
 </body>
 </html>
