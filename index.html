@@ -16,11 +16,29 @@
       color: #3b2f2f;
     }
     header {
-      background: linear-gradient(rgba(120, 50, 40, 0.8), rgba(120, 50, 40, 0.8)), url('photos/hero.jpg') center/cover;
+      background-image: url('photos/EXP_DSC04451.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       color: white;
       text-align: center;
       padding: 5rem 1rem;
       font-family: 'Playfair Display', serif;
+      position: relative;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(120, 50, 40, 0.6);
+      z-index: 0;
+    }
+    header * {
+      position: relative;
+      z-index: 1;
     }
     nav {
       position: sticky;
