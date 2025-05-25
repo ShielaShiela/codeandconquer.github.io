@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -58,29 +57,37 @@ nav a:hover {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, #2563eb, #1e40af);
+    background: linear-gradient(135deg, #2980b9, #3498db);
     color: white;
-    padding: 120px 0 80px;
+    padding: 120px 0 60px;
     margin-top: 70px;
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    gap: 2rem;
     align-items: center;
+    position: relative;
+    z-index: 2;
 }
 
 .hero-text h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    line-height: 1.2;
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    line-height: 1.1;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .hero-text p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
+    font-size: 1.3rem;
+    margin-bottom: 3rem;
+    opacity: 0.95;
+    line-height: 1.6;
+    max-width: 500px;
 }
 
 .cta-buttons {
@@ -123,13 +130,32 @@ nav a:hover {
 }
 
 .hero-image {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
 .hero-image img {
-    max-width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    max-width: 90%;
+    height: auto;
+    border-radius: 0;
+    box-shadow: none;
+    object-fit: contain;
+}
+
+.brand-badge {
+    position: absolute;
+    bottom: 20px;
+    right: 50px;
+    background: rgba(30, 64, 175, 0.9);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: 2px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(10px);
 }
 
 /* Highlights */
@@ -489,10 +515,21 @@ footer {
     .hero-content {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: 2rem;
     }
 
     .hero-text h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
+    }
+
+    .hero-text p {
+        max-width: 100%;
+    }
+
+    .brand-badge {
+        position: static;
+        margin-top: 1rem;
+        display: inline-block;
     }
 
     .about-content {
