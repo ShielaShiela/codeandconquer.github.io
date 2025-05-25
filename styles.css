@@ -57,13 +57,20 @@ nav a:hover {
 
 /* Hero Section */
 .hero {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    /* Replace the URL below with your actual image path */
     background-image: url('photos/newbackground.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
     padding: 120px 0 60px;
     margin-top: 70px;
     position: relative;
     overflow: hidden;
+    min-height: 70vh;
 }
+
 
 .hero-content {
     display: grid;
