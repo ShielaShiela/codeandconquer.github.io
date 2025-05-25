@@ -1,229 +1,402 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Elisha & Greg Wedding</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway&display=swap" rel="stylesheet">
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-    body {
-      margin: 0;
-      font-family: 'Raleway', sans-serif;
-      background-color: #fef9f5;
-      color: #3b2f2f;
-    }
-    header {
-      background-image: url('photos/MS_DSC04179.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      color: white;
-      text-align: center;
-      padding: 5rem 1rem;
-      font-family: 'Playfair Display', serif;
-      position: relative;
-    }
-    header::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(120, 50, 40, 0.6);
-      z-index: 0;
-    }
-    header * {
-      position: relative;
-      z-index: 1;
-    }
-    nav {
-      position: sticky;
-      top: 0;
-      background-color: #fff0ec;
-      padding: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      z-index: 999;
-    }
-    nav a {
-      text-decoration: none;
-      color: #8b3f3f;
-      font-weight: bold;
-    }
-    nav a.active {
-      border-bottom: 2px solid #8b3f3f;
-    }
-    section {
-      padding: 2rem;
-      max-width: 900px;
-      margin: auto;
-    }
-    h2 {
-      border-bottom: 2px solid #8b3f3f;
-      padding-bottom: 0.3rem;
-    }
-    iframe {
-      width: 100%;
-      height: 300px;
-      border: 0;
-      margin-top: 1rem;
-    }
-    .gallery {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      gap: 1rem;
-      padding: 1rem 0;
-    }
-    .gallery img {
-      width: 100%;
-      max-width: 300px;
-      border-radius: 8px;
-      scroll-snap-align: center;
-    }
-    .countdown {
-      font-size: 1.5rem;
-      text-align: center;
-      margin: 1rem 0;
-      font-weight: bold;
-      color: #ffffff;
-    }
-    footer {
-      background: #8b3f3f;
-      color: white;
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code & Conquer with Shiela - Learn Programming at Any Age</title>
+    
 </head>
 <body>
-  <nav>
-    <a href="#when">WEDDING DAY</a>
-    <a href="#venue">VENUE</a>
-    <a href="#dress">DRESS CODE</a>
-    <a href="#program">PROGRAM</a>
-    <a href="#rsvp">RSVP</a>
-  </nav>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Code & Conquer with Shiela</div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#courses">Courses</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-  <header>
-    <h1>You're Invited to Our Wedding</h1>
-    <p>Elisha & Greg — August 22, 2025</p>
-    <div class="countdown" id="countdown"></div>
-  </header>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Learn Programming at Any Age — Learn with an Experienced Teacher</h1>
+                    <p>Personalized computer and coding lessons for kids, teens, and adults. Online or in-person (subject for availability and location).</p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn btn-primary">Book a Free Trial</a>
+                        <a href="#courses" class="btn btn-secondary">Explore Courses</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Programming Instructor">
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section id="when">
-    <h2>When</h2>
-    <p>Save the date: <strong>August 22, 2025</strong></p>
-  </section>
+    <!-- Highlights -->
+    <section class="highlights">
+        <div class="container">
+            <div class="highlights-grid">
+                <div class="highlight-item">
+                    <div class="highlight-icon">✅</div>
+                    <h3>6+ Years of Teaching Experience</h3>
+                    <p>Proven track record in programming education</p>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🎓</div>
+                    <h3>College-Level Instructor</h3>
+                    <p>Professional academic teaching background</p>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🌍</div>
+                    <h3>Lessons in English, Filipino, Bahasa</h3>
+                    <p>Multilingual instruction available</p>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">👥</div>
+                    <h3>Courses for Kids, Students & Professionals</h3>
+                    <p>Tailored programs for every age group</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section id="venue">
-    <h2>Venue Details</h2>
-    <p><strong>Ceremony:</strong> San Roque Church, 03:00 PM</p>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3925.2009928656557!2d123.92162301108468!3d10.325793867300469!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a9990423f191c5%3A0x557b65e9a166cce3!2sSan%20Roque%20Parish%20Church!5e0!3m2!1sen!2stw!4v1744208840032!5m2!1sen!2stw" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    <p><strong>Reception:</strong> The Events Space, 6:00 PM</p>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4076.438890457267!2d123.91404439827055!3d10.326361559586251!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a9990d6cbfecfd%3A0x2e28fdd2e5431af6!2sThe%20Event%20Space!5e0!3m2!1sen!2stw!4v1744208920372!5m2!1sen!2stw" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-  </section>
+    <!-- About Me -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1494790108755-2616c9c37944?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Shiela - Programming Instructor">
+                </div>
+                <div class="about-text">
+                    <h3>Hi! I'm Shiela</h3>
+                    <p>A passionate programming educator with 6+ years of teaching experience — including 5 years as a college lecturer. I specialize in making code accessible and engaging for all age groups.</p>
+                    <p>My mission is to break down complex programming concepts into digestible, fun lessons that inspire confidence and creativity in every student, regardless of their starting point.</p>
+                    
+                    <div class="credentials">
+                        <h4>Key Credentials</h4>
+                        <ul>
+                            <li>6+ years of programming education experience</li>
+                            <li>5 years as college-level instructor</li>
+                            <li>Specialized in multi-age teaching approaches</li>
+                            <li>Fluent in English, Filipino, and Bahasa</li>
+                            <li>Expert in Python, JavaScript, C/C++, and web technologies</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section>
-    <h2>How to Get There</h2>
-    <p>Parking is available at both locations. Shuttle buses will run between the church and reception venue starting at 3:30 PM.</p>
-  </section>
+    <!-- Courses -->
+    <section id="courses" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Courses</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-icon">🧒</div>
+                    <h3>Kids (7–12 years)</h3>
+                    <p>Introduction to programming through fun, interactive games and projects using Scratch and basic Python concepts.</p>
+                    <div class="course-details">
+                        <span>Beginner</span>
+                        <span>1-2 hrs/week</span>
+                        <span>Scratch & Python</span>
+                    </div>
+                    <a href="#contact" class="btn btn-primary">Enroll Now</a>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-icon">🧑‍🎓</div>
+                    <h3>Teens / Students</h3>
+                    <p>Comprehensive programming education covering Python, C/C++, and modern web development with HTML, CSS, and JavaScript.</p>
+                    <div class="course-details">
+                        <span>Beginner to Advanced</span>
+                        <span>2-3 hrs/week</span>
+                        <span>Python, C/C++, Web Dev</span>
+                    </div>
+                    <a href="#contact" class="btn btn-primary">Enroll Now</a>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-icon">👨‍💼</div>
+                    <h3>Adults / Professionals</h3>
+                    <p>Professional development courses in Python for data science, SQL, automation, JavaScript, and PHP for career advancement.</p>
+                    <div class="course-details">
+                        <span>Intermediate to Advanced</span>
+                        <span>Flexible scheduling</span>
+                        <span>Python, SQL, JS, PHP</span>
+                    </div>
+                    <a href="#contact" class="btn btn-primary">Request Info</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section id="rsvp">
-    <h2>RSVP</h2>
-    <p>Please confirm your attendance by December 1st:</p>
-    <iframe src="https://docs.google.com/forms/d/e/your-google-form-link/viewform?embedded=true" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-  </section>
+    <!-- How It Works -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Book a Free Trial</h3>
+                    <p>Choose your preferred time and we'll set up an introductory session to understand your goals and current skill level.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Customized Learning Plan</h3>
+                    <p>Based on your age, goals, and experience level, I'll create a personalized curriculum just for you.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Start Learning</h3>
+                    <p>Begin your coding journey with fun, practical, and results-focused lessons designed to build real skills.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section id="dress">
-    <h2>Dress Code</h2>
-    <p>Rustic elegance. Ladies, please wear burgundy or rust tones. Gentlemen, earthy tones are appreciated.</p>
-  </section>
+    <!-- Pricing -->
+    <section id="pricing" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Pricing</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>1-on-1 Lessons</h3>
+                    <div class="price">$35<span style="font-size: 1rem;">/hr</span></div>
+                    <ul style="text-align: left; list-style: none; padding: 0;">
+                        <li>✓ Personalized attention</li>
+                        <li>✓ Flexible scheduling</li>
+                        <li>✓ Custom curriculum</li>
+                        <li>✓ Progress tracking</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Book Now</a>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <h3>Group Classes</h3>
+                    <div class="price">$25<span style="font-size: 1rem;">/hr</span></div>
+                    <ul style="text-align: left; list-style: none; padding: 0;">
+                        <li>✓ Small groups (2-4 students)</li>
+                        <li>✓ Peer learning</li>
+                        <li>✓ Cost-effective</li>
+                        <li>✓ Interactive sessions</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Join Group</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Monthly Plans</h3>
+                    <div class="price">Save<span style="font-size: 1rem;"> 20%</span></div>
+                    <ul style="text-align: left; list-style: none; padding: 0;">
+                        <li>✓ 8 sessions per month</li>
+                        <li>✓ Priority booking</li>
+                        <li>✓ Free materials</li>
+                        <li>✓ Progress reports</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem; padding: 1rem; background: white; border-radius: 8px;">
+                <strong>Special Offer:</strong> Discount for siblings/students from the same family!
+            </div>
+        </div>
+    </section>
 
-  <section>
-    <h2>Gift Registry</h2>
-    <p>We are registered at:</p>
-    <ul>
-      <li><a href="https://www.zola.com/registry/example" target="_blank">Zola</a></li>
-      <li><a href="https://www.amazon.com/wedding/example" target="_blank">Amazon</a></li>
-    </ul>
-  </section>
+    <!-- Testimonials -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">What Students Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <div class="testimonial-text">"My daughter learned Scratch in just 4 weeks! Shiela's patient teaching style made all the difference."</div>
+                    <div class="testimonial-author">— Maria, Parent of a 10-year-old</div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-text">"Helped me pass my Python course at university. The explanations were clear and the examples were practical."</div>
+                    <div class="testimonial-author">— James, University Student</div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-text">"As a working professional, the flexible scheduling and focused lessons helped me transition into a tech career."</div>
+                    <div class="testimonial-author">— Sarah, Career Switcher</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section id="program">
-    <h2>Ceremony Program</h2>
-    <ul>
-      <li>10:00 AM – Ceremony Begins</li>
-      <li>11:30 AM – Group Photos</li>
-      <li>12:00 PM – Brunch (Optional)</li>
-      <li>3:30 PM – Shuttle to Reception</li>
-      <li>5:00 PM – Dinner & Dancing</li>
-    </ul>
-  </section>
+    <!-- Contact -->
+    <section id="contact" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Contact & Booking</h2>
+            <div class="contact-content">
+                <div class="contact-form">
+                    <h3>Book Your Free Trial</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age Group</label>
+                            <select id="age" name="age" required>
+                                <option value="">Select Age Group</option>
+                                <option value="kids">Kids (7-12)</option>
+                                <option value="teens">Teens/Students (13-22)</option>
+                                <option value="adults">Adults/Professionals (23+)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="experience">Programming Experience</label>
+                            <select id="experience" name="experience" required>
+                                <option value="">Select Experience Level</option>
+                                <option value="beginner">Complete Beginner</option>
+                                <option value="some">Some Experience</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="schedule">Preferred Schedule</label>
+                            <textarea id="schedule" name="schedule" rows="3" placeholder="Let me know your preferred days/times and any specific requirements"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Book Free Trial</button>
+                    </form>
+                </div>
+                
+                <div class="contact-methods">
+                    <h3>Get in Touch</h3>
+                    <div class="contact-method">
+                        <div class="contact-method-icon">📧</div>
+                        <div>
+                            <strong>Email</strong><br>
+                            shiela@codeconquer.com
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-method-icon">💬</div>
+                        <div>
+                            <strong>WhatsApp</strong><br>
+                            +1 (555) 123-4567
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-method-icon">🌐</div>
+                        <div>
+                            <strong>Languages</strong><br>
+                            English, Filipino, Bahasa
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-method-icon">📍</div>
+                        <div>
+                            <strong>Location</strong><br>
+                            Online & In-Person<br>
+                            <small>(Subject to availability and location)</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section>
-    <h2>Our Photos</h2>
-    <div class="gallery">
-      <img src="photos/EXP_DSC04451.jpg" alt="Anna and Ben">
-      <img src="photos/MS_DSC04385.jpg" alt="Engagement">
-      <img src="photos/MS_DSC04254.jpg" alt="Rustic Theme">
-    </div>
-  </section>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Code & Conquer with Shiela</h3>
+                    <p>Empowering students of all ages to master programming through personalized, engaging instruction.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#courses">Courses</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Courses Offered</h3>
+                    <ul>
+                        <li>Kids Programming (Scratch, Python)</li>
+                        <li>Teen Development (Python, C/C++, Web)</li>
+                        <li>Professional Skills (Data, SQL, Automation)</li>
+                        <li>Custom Curriculum Available</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li>📧 shiela@codeconquer.com</li>
+                        <li>💬 +1 (555) 123-4567</li>
+                        <li>🌍 English, Filipino, Bahasa</li>
+                        <li>📍 Online & In-Person Available</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Code & Conquer with Shiela. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-  <footer>
-    <p>With love, Nina & Greg ❤️</p>
-    <p></p>
-  </footer>
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
 
-  <script>
-    // Countdown Timer
-    const countdownElement = document.getElementById('countdown');
-    const weddingDate = new Date('August 22, 2025 15:00:00').getTime();
+        // Form submission handler
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your interest! I will contact you within 24 hours to schedule your free trial.');
+        });
 
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = weddingDate - now;
+        // Add animation on scroll (simple version)
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
 
-      countdownElement.innerHTML = `Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-      if (distance < 0) {
-        clearInterval(timer);
-        countdownElement.innerHTML = "We're Married! 💍";
-      }
-    }
-
-    const timer = setInterval(updateCountdown, 1000);
-
-    // Highlight nav on scroll
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('nav a');
-
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
-        if (scrollY >= sectionTop) {
-          current = section.getAttribute('id');
-        }
-      });
-
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-          link.classList.add('active');
-        }
-      });
-    });
-  </script>
+        // Observe all sections for animation
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
