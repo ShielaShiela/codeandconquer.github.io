@@ -61,14 +61,14 @@ nav a:hover {
     /* Replace the URL below with your actual image path */
     background-image: url('photos/newbackground.png');
     background-size: cover;
-    background-position: center;
+    background-position: fill;
     background-repeat: no-repeat;
     color: white;
     padding: 120px 0 60px;
     margin-top: 70px;
     position: relative;
     overflow: hidden;
-    min-height: 70vh;
+    min-height: 100vh;
 }
 
 .hero::before {
