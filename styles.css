@@ -71,14 +71,21 @@ nav a:hover {
     min-height: 70vh;
 }
 
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(41, 128, 185, 0.7);
+    z-index: 1;
+}
 
 .hero-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    align-items: center;
     position: relative;
     z-index: 2;
+    max-width: 600px;
 }
 
 .hero-text h1 {
@@ -86,7 +93,7 @@ nav a:hover {
     margin-bottom: 2rem;
     line-height: 1.1;
     font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .hero-text p {
@@ -94,7 +101,7 @@ nav a:hover {
     margin-bottom: 3rem;
     opacity: 0.95;
     line-height: 1.6;
-    max-width: 500px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 .cta-buttons {
@@ -520,9 +527,7 @@ footer {
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero-content {
-        grid-template-columns: 1fr;
         text-align: center;
-        gap: 2rem;
     }
 
     .hero-text h1 {
@@ -530,13 +535,12 @@ footer {
     }
 
     .hero-text p {
-        max-width: 100%;
+        font-size: 1.1rem;
     }
 
-    .brand-badge {
-        position: static;
-        margin-top: 1rem;
-        display: inline-block;
+    .hero {
+        min-height: 60vh;
+        padding: 100px 0 40px;
     }
 
     .about-content {
