@@ -226,24 +226,6 @@
             100% { transform: rotate(360deg); }
         }
     </style>
-    <link rel="stylesheet" href="styles.css">
-    <div>
-        <!-- <div class="container"> -->
-            <div class="header-content">
-                <div class="logo">Code & Conquer with Shiela</div>
-                <nav>
-                    <ul>
-                        <li><a href="/codeandconquer/index.html">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#courses">Courses</a></li>
-                        <li><a href="/codeandconquer/booking.html">Book A Class</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-        <!-- </div> -->
-    </div>
 </head>
 <body>
     <div class="container">
@@ -415,19 +397,11 @@
             button.disabled = true;
 
             try {
-                // Call Google Apps Script
-                const response = await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'verify',
-                        nickname: nickname
-                    })
+                // Use form submission to avoid CORS issues
+                const result = await submitToGoogleScript({
+                    action: 'verify',
+                    nickname: nickname
                 });
-
-                const result = await response.json();
                 
                 if (result.success) {
                     foundStudents = result.students;
@@ -452,6 +426,58 @@
                 button.textContent = originalText;
                 button.disabled = false;
             }
+        }
+
+        // Function to submit data to Google Script without CORS issues
+        async function submitToGoogleScript(data) {
+            return new Promise((resolve, reject) => {
+                // Create a temporary form
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = APPS_SCRIPT_URL;
+                form.target = 'hidden_iframe';
+                form.style.display = 'none';
+
+                // Add data as hidden inputs
+                for (const key in data) {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key];
+                    form.appendChild(input);
+                }
+
+                // Create hidden iframe to receive response
+                let iframe = document.getElementById('hidden_iframe');
+                if (!iframe) {
+                    iframe = document.createElement('iframe');
+                    iframe.name = 'hidden_iframe';
+                    iframe.id = 'hidden_iframe';
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+                }
+
+                // Set up response handler
+                const timeout = setTimeout(() => {
+                    reject(new Error('Request timeout'));
+                }, 10000);
+
+                iframe.onload = function() {
+                    clearTimeout(timeout);
+                    try {
+                        const response = iframe.contentDocument.body.textContent;
+                        const result = JSON.parse(response);
+                        resolve(result);
+                    } catch (error) {
+                        reject(error);
+                    }
+                };
+
+                // Submit form
+                document.body.appendChild(form);
+                form.submit();
+                document.body.removeChild(form);
+            });
         }
 
         function showStudentSelection() {
@@ -556,20 +582,12 @@
         async function processBooking() {
             try {
                 // Call Google Apps Script to update the sheet
-                const response = await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'book',
-                        student: currentStudent,
-                        slot: selectedSlot,
-                        email: document.getElementById('studentEmail').value
-                    })
+                const result = await submitToGoogleScript({
+                    action: 'book',
+                    student: currentStudent,
+                    slot: selectedSlot,
+                    email: document.getElementById('studentEmail').value
                 });
-
-                const result = await response.json();
                 
                 if (result.success) {
                     // Update local student data
