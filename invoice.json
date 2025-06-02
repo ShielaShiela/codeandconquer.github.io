@@ -1,0 +1,72 @@
+{
+  "invoiceType": "SERVICE INVOICE",
+  "invoiceSerialNumber": "0000001",
+  "date": "2025-05-30",
+  "businessInfo": {
+    "buinesslogo": "photos/logo.svg",
+    "businessName": "CODEANDCONQUER WITH SHIELA ONLINE TUTORIAL SERVICES",
+    "businessAddress": "Level 40, PBCom Tower, 6795 Ayala Avenue Corner V.A., Rufino Street, Makati City, Makati, 1226, Philippines",
+    "nonVatRegLbl": "NON-VAT",
+    "businessTIN": "123-456-789-XXXX"
+  },
+   "customerDetails":{
+  "soldTo": {
+    "customerName": "",
+    "customerTIN": "",
+    "customerAddress": ""
+  }
+  },
+  "paymentDetails":{
+  "transactionType": {
+    "PayPal": false,
+    "Payooneer": false,
+    "Card": false,
+    "GCash": false,
+    "Cash": false,
+    "Bank Transfer": true
+  },
+   "transactionItems": [
+    {
+      "description": "Pay-per-session Class",
+      "quantity": 1,
+      "unitPrice": 1500.00,
+      "amount": 1500.00
+    }
+  ],
+  "totals": {
+    "totalSales": 1500.00,
+    "lessDiscount": 0.00,
+    "lessWithholdingTax": 0.00,
+    "totalAmountDue": 1500.00
+  },
+  "discountInfo": {
+    "discountType": {
+      "soloParent": false,
+      "seniorCitizen": false,
+      "PWD": true
+    },
+    "discountDetails": {
+    "discountID": "-",
+    "signature": ""
+    }
+  }
+  },
+  "footnotes": {
+      "complianceNote": {
+    "documentNotValidForInputTax": true,
+    "documentText": "THIS DOCUMENT IS NOT VALID FOR CLAIM OF INPUT TAX"
+  },
+  "permitToUseATPDetails": {
+      "LooseLeafNo": "LLSI000000-000XX",
+      "dateIssued": "31-MAY-2025",
+      "birPrintAuthorizedNo":"3AU000000805XXXX",
+      "approvedInclusiveSerialNumber": "00000001 - 0002000 (3X)"
+    },
+     "additionalNotes": {
+    "remarks": "Thank you for your continued trust.",
+    "website": "www.cacwithshiela.com"
+    }
+  }
+}
+ 
+ 
