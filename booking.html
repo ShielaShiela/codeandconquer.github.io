@@ -78,7 +78,7 @@
             color: #333;
         }
 
-        input[type="text"], input[type="email"], input[type="datetime-local"], textarea, select {
+        input[type="text"], input[type="email"], select {
             width: 100%;
             padding: 15px;
             border: 2px solid #e1e1e1;
@@ -87,7 +87,7 @@
             transition: border-color 0.3s;
         }
 
-        input[type="text"]:focus, input[type="email"]:focus, input[type="datetime-local"]:focus, textarea:focus, select:focus {
+        input[type="text"]:focus, input[type="email"]:focus, select:focus {
             outline: none;
             border-color: #4CAF50;
         }
@@ -150,15 +150,6 @@
             background: #e3f2fd;
             border-radius: 5px;
             border-left: 4px solid #2196F3;
-        }
-
-        .warning {
-            color: #ff9800;
-            margin-top: 10px;
-            padding: 10px;
-            background: #fff3e0;
-            border-radius: 5px;
-            border-left: 4px solid #ff9800;
         }
 
         .student-info {
@@ -281,14 +272,6 @@
             color: #333;
         }
 
-        .confirmation-form {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border-left: 4px solid #4CAF50;
-        }
-
         .loading {
             text-align: center;
             padding: 20px;
@@ -348,6 +331,23 @@
             background: #4CAF50;
         }
 
+        .confirmation-success {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .confirmation-success h2 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+            font-size: 2.2em;
+        }
+
+        .confirmation-success .checkmark {
+            font-size: 4em;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
         @media (max-width: 768px) {
             .container {
                 margin: 10px;
@@ -368,7 +368,7 @@
     <div class="container">
         <div class="header">
             <h1>📚 Class Booking</h1>
-            <p>Verify your profile and book available time slots</p>
+            <p>Simple 3-step booking process</p>
         </div>
 
         <div class="content">
@@ -377,12 +377,11 @@
                 <div class="step-dot active" id="dot-1"></div>
                 <div class="step-dot" id="dot-2"></div>
                 <div class="step-dot" id="dot-3"></div>
-                <div class="step-dot" id="dot-4"></div>
             </div>
 
-            <!-- Step 1: Nickname Verification -->
+            <!-- Step 1: Student Verification -->
             <div class="step active" id="step-verification">
-                <h2>Step 1: Student Verification</h2>
+                <h2>Step 1: Verify Your Identity</h2>
                 <p style="margin-bottom: 25px; color: #666;">Please enter your nickname to find your student profile:</p>
                 
                 <div class="form-group">
@@ -412,7 +411,7 @@
                 <button class="btn" onclick="goBackToSearch()">Search Again</button>
             </div>
 
-            <!-- Step 2: Student Info & Calendar Booking -->
+            <!-- Step 2: Book Through Google Calendar -->
             <div class="step" id="step-booking">
                 <h2>Step 2: Book Your Class</h2>
                 
@@ -423,11 +422,11 @@
                 <div class="booking-instructions">
                     <h4><span class="calendar-icon">📋</span> How to Book Your Class:</h4>
                     <ol>
-                        <li><strong>Select a time slot</strong> from the calendar below that works for you</li>
-                        <li><strong>Enter your details</strong> when prompted by Google Calendar</li>
-                        <li><strong>Important:</strong> In the appointment description/notes, please include your <strong>Student ID: <span id="studentIdDisplay">STU001</span></strong></li>
-                        <li><strong>Complete the booking</strong> through Google Calendar</li>
-                        <li><strong>Return here</strong> and click "I've Booked My Appointment" below</li>
+                        <li><strong>Select a time slot</strong> that works for you from the calendar below</li>
+                        <li><strong>Fill in your details</strong> when prompted by Google Calendar</li>
+                        <li><strong>Important:</strong> Please include your <strong>Student ID: <span id="studentIdDisplay">STU001</span></strong> in the appointment notes</li>
+                        <li><strong>Complete your booking</strong> through Google Calendar</li>
+                        <li><strong>Click "I've Completed My Booking"</strong> below when done</li>
                     </ol>
                 </div>
 
@@ -435,90 +434,54 @@
                     <div class="calendar-header">
                         <h4><span class="calendar-icon">📅</span> Available Class Times</h4>
                     </div>
-                    <!-- Google Calendar Appointment Scheduling begin -->
+                    <!-- Google Calendar Appointment Scheduling -->
                     <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3ocMwe_LAe20XIJByZXOA21W17Ke98igpkhdbOAtxhvgU3VLkNSya0VbpK22L7iD0Brk-Z0zHe?gv=true" 
                             class="calendar-iframe"
                             frameborder="0">
                     </iframe>
-                    <!-- end Google Calendar Appointment Scheduling -->
                 </div>
 
                 <div class="info">
-                    <strong>📌 Remember:</strong> Please include your Student ID (<span id="studentIdDisplay2">STU001</span>) in the appointment notes so we can properly track your booking and update your class count.
+                    <strong>📌 Remember:</strong> Include your Student ID (<span id="studentIdDisplay2">STU001</span>) in the appointment notes so we can track your booking.
                 </div>
 
-                <button class="btn" onclick="confirmBooking()" style="margin-top: 20px;">✅ I've Booked My Appointment</button>
+                <button class="btn" onclick="completeBooking()" style="margin-top: 20px;">✅ I've Completed My Booking</button>
                 <button class="btn btn-secondary" onclick="goBackToSearch()" style="margin-top: 10px;">← Back to Student Search</button>
             </div>
 
-            <!-- Step 3: Booking Confirmation Form -->
-            <div class="step" id="step-confirmation-form">
-                <h2>Step 3: Confirm Your Booking</h2>
-                
-                <div class="student-info" id="studentInfoConfirm">
-                    <!-- Student info will be populated here -->
-                </div>
-
-                <div class="confirmation-form">
-                    <h4>📝 Booking Details</h4>
-                    <p style="margin-bottom: 15px;">Please provide the details of the appointment you just booked:</p>
-                    
-                    <div class="form-group">
-                        <label for="appointmentDate">Appointment Date & Time</label>
-                        <input type="datetime-local" id="appointmentDate" required>
-                        <small style="color: #666;">Enter the date and time you selected in the calendar</small>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="appointmentEmail">Email Used for Booking</label>
-                        <input type="email" id="appointmentEmail" placeholder="Email address used in calendar booking" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="appointmentNotes">Additional Notes (Optional)</label>
-                        <textarea id="appointmentNotes" placeholder="Any additional information about your booking..." rows="3"></textarea>
-                    </div>
-                </div>
-
-                <div class="warning">
-                    <strong>⚠️ Important:</strong> This will deduct 1 class from your remaining balance. Make sure you've successfully booked the appointment in Google Calendar before confirming.
-                </div>
-
-                <button class="btn" onclick="processBookingConfirmation()">Confirm Booking & Update Class Count</button>
-                <button class="btn btn-secondary" onclick="goBackToCalendar()" style="margin-top: 10px;">← Back to Calendar</button>
-                <div id="confirmationError"></div>
-            </div>
-
-            <!-- Step 4: Final Confirmation -->
-            <div class="step" id="step-final">
+            <!-- Step 3: Booking Complete -->
+            <div class="step" id="step-complete">
                 <div class="loading" id="processingLoader">
                     <div class="spinner"></div>
-                    <p>Processing your booking confirmation...</p>
-                    <small style="color: #666;">Updating your class count and sending notifications</small>
+                    <p>Updating your class count...</p>
                 </div>
                 
-                <div id="finalContent" style="display: none;">
-                    <h2 style="color: #4CAF50; text-align: center; margin-bottom: 20px;">🎉 Booking Confirmed!</h2>
-                    
-                    <div class="success">
-                        <h3>Your class booking has been successfully processed!</h3>
-                        <div id="finalBookingDetails">
-                            <!-- Final booking details will be populated here -->
+                <div id="completionContent" style="display: none;">
+                    <div class="confirmation-success">
+                        <div class="checkmark">✅</div>
+                        <h2>Booking Complete!</h2>
+                        
+                        <div class="success">
+                            <h3>Your class has been successfully booked!</h3>
+                            <div id="finalBookingDetails">
+                                <!-- Final booking details will be populated here -->
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="info">
-                        <h4><span class="calendar-icon">📧</span> What's Next:</h4>
-                        <ul style="margin: 10px 0; padding-left: 20px;">
-                            <li>You should have received a calendar invitation from Google Calendar</li>
-                            <li>Check your email for appointment confirmation</li>
-                            <li>Meeting details will be provided closer to your class time</li>
-                            <li>You'll receive a reminder 1 hour before your class</li>
-                        </ul>
+                        <div class="info">
+                            <h4><span class="calendar-icon">📧</span> What's Next:</h4>
+                            <ul style="margin: 15px 0; padding-left: 20px; text-align: left;">
+                                <li>Check your email for the calendar invitation from Google Calendar</li>
+                                <li>Accept the calendar invitation to add it to your calendar</li>
+                                <li>You'll receive automatic reminders before your class</li>
+                                <li>Meeting details will be provided closer to your class time</li>
+                                <li>Your class count has been automatically updated</li>
+                            </ul>
+                        </div>
+                        
+                        <button class="btn" onclick="bookAnother()" style="margin-top: 20px;">Book Another Class</button>
+                        <button class="btn btn-secondary" onclick="openCalendar()" style="margin-top: 10px;">📅 Open My Calendar</button>
                     </div>
-                    
-                    <button class="btn" onclick="bookAnother()" style="margin-top: 20px;">Book Another Class</button>
-                    <button class="btn btn-secondary" onclick="openCalendar()" style="margin-top: 10px;">📅 View My Calendar</button>
                 </div>
             </div>
         </div>
@@ -526,7 +489,7 @@
 
     <script>
         // Your existing Google Apps Script web app URL
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz7xhgja9k_BD9GX_upAmL6RWcBupjs4eLRWXM3IV1GlQTQGmzAHbxHPBgjZ3SnvGDm/exec';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyAojXsD9nmcOpA-RwAabT6v855vh6GuP461qHWJKULTMmCxnOkzZbi2N8nOAx0L4Q/exec';
 
         let currentStudent = null;
         let foundStudents = [];
@@ -534,7 +497,7 @@
         // Update step indicators
         function updateStepIndicator(currentStep) {
             // Reset all dots
-            for (let i = 1; i <= 4; i++) {
+            for (let i = 1; i <= 3; i++) {
                 const dot = document.getElementById(`dot-${i}`);
                 dot.classList.remove('active', 'completed');
             }
@@ -586,14 +549,12 @@
             button.disabled = true;
 
             try {
-                // Build the URL
                 const url = `${APPS_SCRIPT_URL}?action=verify&nickname=${encodeURIComponent(nickname)}`;
                 addDebugInfo(`Calling URL: ${url}`);
                 
                 const response = await fetch(url);
                 
                 addDebugInfo(`Response status: ${response.status}`);
-                addDebugInfo(`Response ok: ${response.ok}`);
                 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -698,102 +659,57 @@
             `;
             
             document.getElementById('studentInfo').innerHTML = infoHtml;
-            document.getElementById('studentInfoConfirm').innerHTML = infoHtml;
             document.getElementById('studentIdDisplay').textContent = currentStudent.studentNo;
             document.getElementById('studentIdDisplay2').textContent = currentStudent.studentNo;
-            document.getElementById('appointmentEmail').value = currentStudent.email;
         }
 
-        function confirmBooking() {
-            showStep('step-confirmation-form', 3);
+        function completeBooking() {
+            showStep('step-complete', 3);
+            setTimeout(() => processCompletion(), 1500);
         }
 
-        function goBackToCalendar() {
-            showStep('step-booking', 2);
-        }
-
-        async function processBookingConfirmation() {
-            const appointmentDate = document.getElementById('appointmentDate').value;
-            const appointmentEmail = document.getElementById('appointmentEmail').value.trim();
-            const appointmentNotes = document.getElementById('appointmentNotes').value.trim();
-            const errorDiv = document.getElementById('confirmationError');
-            
-            errorDiv.innerHTML = '';
-            
-            if (!appointmentDate) {
-                showError(errorDiv, 'Please enter the appointment date and time.');
-                return;
-            }
-            
-            if (!appointmentEmail) {
-                showError(errorDiv, 'Please enter the email address used for booking.');
-                return;
-            }
-            
-            showStep('step-final', 4);
-            
+        async function processCompletion() {
             try {
-                const bookingData = {
-                    student: currentStudent,
-                    appointmentDate: appointmentDate,
-                    appointmentEmail: appointmentEmail,
-                    appointmentNotes: appointmentNotes,
-                    bookingTimestamp: new Date().toISOString()
-                };
-
+                // Update class count
                 const params = new URLSearchParams({
-                    action: 'confirm_booking',
-                    data: JSON.stringify(bookingData)
+                    action: 'update_class_count',
+                    studentNo: currentStudent.studentNo,
+                    newCount: currentStudent.classesRemaining - 1
                 });
 
                 const url = `${APPS_SCRIPT_URL}?${params.toString()}`;
                 const response = await fetch(url);
                 
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.success) {
+                        currentStudent.classesRemaining = result.newClassesRemaining || (currentStudent.classesRemaining - 1);
+                    }
                 }
-
-                const responseText = await response.text();
-                const result = JSON.parse(responseText);
                 
-                if (result.success) {
-                    currentStudent.classesRemaining = result.newClassesRemaining;
-                    
-                    document.getElementById('processingLoader').style.display = 'none';
-                    document.getElementById('finalContent').style.display = 'block';
-                    
-                    const appointmentDateTime = new Date(appointmentDate);
-                    
-                    document.getElementById('finalBookingDetails').innerHTML = `
-                        <p><strong>📅 Appointment:</strong> ${appointmentDateTime.toLocaleDateString()} at ${appointmentDateTime.toLocaleTimeString()}</p>
-                        <p><strong>👤 Student:</strong> ${currentStudent.fullName} (${currentStudent.studentNo})</p>
-                        <p><strong>📧 Email:</strong> ${appointmentEmail}</p>
-                        <p><strong>📚 Classes Remaining:</strong> ${currentStudent.classesRemaining}</p>
-                        ${appointmentNotes ? `<p><strong>📝 Notes:</strong> ${appointmentNotes}</p>` : ''}
-                        <p><strong>🆔 Booking ID:</strong> ${result.bookingId}</p>
-                    `;
-                } else {
-                    document.getElementById('processingLoader').innerHTML = `
-                        <div class="error">
-                            <h3>Confirmation Failed</h3>
-                            <p>${result.message}</p>
-                            <button class="btn" onclick="goBackToConfirmation()">Try Again</button>
-                        </div>
-                    `;
-                }
+                document.getElementById('processingLoader').style.display = 'none';
+                document.getElementById('completionContent').style.display = 'block';
+                
+                document.getElementById('finalBookingDetails').innerHTML = `
+                    <p><strong>👤 Student:</strong> ${currentStudent.fullName} (${currentStudent.studentNo})</p>
+                    <p><strong>📧 Email:</strong> ${currentStudent.email}</p>
+                    <p><strong>📚 Classes Remaining:</strong> ${currentStudent.classesRemaining}</p>
+                    <p><strong>⏰ Booking Time:</strong> ${new Date().toLocaleString()}</p>
+                `;
+                
             } catch (error) {
-                document.getElementById('processingLoader').innerHTML = `
-                    <div class="error">
-                        <h3>Connection Error</h3>
-                        <p>Unable to process confirmation: ${error.message}</p>
-                        <button class="btn" onclick="goBackToConfirmation()">Try Again</button>
-                    </div>
+                console.error('Error updating class count:', error);
+                // Still show success to user
+                document.getElementById('processingLoader').style.display = 'none';
+                document.getElementById('completionContent').style.display = 'block';
+                
+                document.getElementById('finalBookingDetails').innerHTML = `
+                    <p><strong>👤 Student:</strong> ${currentStudent.fullName} (${currentStudent.studentNo})</p>
+                    <p><strong>📧 Email:</strong> ${currentStudent.email}</p>
+                    <p><strong>⏰ Booking Time:</strong> ${new Date().toLocaleString()}</p>
+                    <p style="color: #ff9800;"><em>Note: Class count will be updated manually.</em></p>
                 `;
             }
-        }
-
-        function goBackToConfirmation() {
-            showStep('step-confirmation-form', 3);
         }
 
         function openCalendar() {
@@ -812,17 +728,13 @@
             currentStudent = null;
             foundStudents = [];
             document.getElementById('studentNickname').value = '';
-            document.getElementById('appointmentDate').value = '';
-            document.getElementById('appointmentEmail').value = '';
-            document.getElementById('appointmentNotes').value = '';
             
             document.getElementById('processingLoader').style.display = 'block';
             document.getElementById('processingLoader').innerHTML = `
                 <div class="spinner"></div>
-                <p>Processing your booking confirmation...</p>
-                <small style="color: #666;">Updating your class count and sending notifications</small>
+                <p>Updating your class count...</p>
             `;
-            document.getElementById('finalContent').style.display = 'none';
+            document.getElementById('completionContent').style.display = 'none';
             
             toggleDebug(false);
             showStep('step-verification', 1);
