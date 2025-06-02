@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Booking Scheduler</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            max-width: 600px;
+            width: 100%;
+            min-height: 500px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input[type="text"], input[type="email"], select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, input[type="email"]:focus, select:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .error {
+            color: #f44336;
+            margin-top: 10px;
+            padding: 10px;
+            background: #ffebee;
+            border-radius: 5px;
+            border-left: 4px solid #f44336;
+        }
+
+        .success {
+            color: #4CAF50;
+            margin-top: 10px;
+            padding: 10px;
+            background: #e8f5e8;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .student-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .student-info h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .student-info p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .classes-remaining {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .booking-options {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .booking-option {
+            border: 2px solid #e1e1e1;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .booking-option:hover {
+            border-color: #4CAF50;
+            background: #f8f9fa;
+        }
+
+        .booking-option.selected {
+            border-color: #4CAF50;
+            background: #e8f5e8;
+        }
+
+        .booking-option h4 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .booking-option p {
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .platform-badge {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .zoom-badge { background: #2D8CFF; }
+        .meet-badge { background: #34A853; }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Code & Conquer with Shiela</div>
+                <nav>
+                    <ul>
+                        <li><a href="/codeandconquer/index.html">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#courses">Courses</a></li>
+                        <li><a href="/codeandconquer/booking.html">Book A Class</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Class Booking</h1>
+            <p>Schedule your next learning session</p>
+        </div>
+
+        <div class="content">
+            <!-- Step 1: Nickname Verification -->
+            <div class="step active" id="step-verification">
+                <h2>Student Verification</h2>
+                <p style="margin-bottom: 25px; color: #666;">Please enter your nickname to find your student profile:</p>
+                
+                <div class="form-group">
+                    <label for="studentNickname">Nickname</label>
+                    <input type="text" id="studentNickname" placeholder="Enter your nickname">
+                </div>
+                
+                <button class="btn" onclick="verifyStudent()">Find My Profile</button>
+                <div id="verificationError"></div>
+            </div>
+
+            <!-- Step 1.5: Multiple Students Selection -->
+            <div class="step" id="step-selection">
+                <h2>Select Your Profile</h2>
+                <p style="margin-bottom: 25px; color: #666;">We found multiple students with that nickname. Please select your profile:</p>
+                
+                <div id="studentOptions" class="booking-options">
+                    <!-- Student options will be populated here -->
+                </div>
+                
+                <button class="btn" onclick="goBackToSearch()">Search Again</button>
+            </div>
+
+            <!-- Step 2: Student Info & Booking Options -->
+            <div class="step" id="step-booking">
+                <div class="student-info" id="studentInfo">
+                    <!-- Student info will be populated here -->
+                </div>
+
+                <h3 style="margin-bottom: 20px;">Select a Time Slot</h3>
+                
+                <div class="booking-options" id="bookingOptions">
+                    <div class="booking-option" onclick="selectSlot(this, '2025-06-05T10:00:00', 'zoom')">
+                        <h4>Thursday, June 5th - 10:00 AM</h4>
+                        <p>Duration: 60 minutes</p>
+                        <p>Topic: Mathematics Review</p>
+                        <span class="platform-badge zoom-badge">Zoom</span>
+                    </div>
+                    
+                    <div class="booking-option" onclick="selectSlot(this, '2025-06-05T14:00:00', 'meet')">
+                        <h4>Thursday, June 5th - 2:00 PM</h4>
+                        <p>Duration: 60 minutes</p>
+                        <p>Topic: Science Lab Session</p>
+                        <span class="platform-badge meet-badge">Google Meet</span>
+                    </div>
+                    
+                    <div class="booking-option" onclick="selectSlot(this, '2025-06-06T09:00:00', 'zoom')">
+                        <h4>Friday, June 6th - 9:00 AM</h4>
+                        <p>Duration: 60 minutes</p>
+                        <p>Topic: English Literature</p>
+                        <span class="platform-badge zoom-badge">Zoom</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="studentEmail">Confirm Your Email</label>
+                    <input type="email" id="studentEmail" placeholder="your.email@example.com">
+                </div>
+
+                <button class="btn" id="bookBtn" onclick="bookClass()" disabled>Book Selected Class</button>
+                <div id="bookingError"></div>
+            </div>
+
+            <!-- Step 3: Booking Confirmation -->
+            <div class="step" id="step-confirmation">
+                <div class="loading" id="bookingLoader">
+                    <div class="spinner"></div>
+                    <p>Processing your booking...</p>
+                </div>
+                
+                <div id="confirmationContent" style="display: none;">
+                    <h2 style="color: #4CAF50; text-align: center; margin-bottom: 20px;">✅ Booking Confirmed!</h2>
+                    
+                    <div class="success">
+                        <h3>Your class has been successfully booked!</h3>
+                        <div id="bookingDetails">
+                            <!-- Booking details will be populated here -->
+                        </div>
+                        <p style="margin-top: 15px;"><strong>Check your email for meeting details and calendar invite.</strong></p>
+                    </div>
+                    
+                    <button class="btn" onclick="bookAnother()" style="margin-top: 20px;">Book Another Class</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock data - In real implementation, this would come from Google Sheets
+        const studentDatabase = [
+            {
+                firstName: 'Alice',
+                lastName: 'Johnson',
+                fullName: 'Alice Johnson',
+                email: 'alice.johnson@email.com',
+                classesRemaining: 5,
+                package: 'Premium Package'
+            },
+            {
+                firstName: 'Bob',
+                lastName: 'Smith',
+                fullName: 'Bob Smith',
+                email: 'bob.smith@email.com',
+                classesRemaining: 2,
+                package: 'Standard Package'
+            },
+            {
+                firstName: 'Carol',
+                lastName: 'Davis',
+                fullName: 'Carol Davis',
+                email: 'carol.davis@email.com',
+                classesRemaining: 0,
+                package: 'Basic Package'
+            },
+            {
+                firstName: 'Alice',
+                lastName: 'Brown',
+                fullName: 'Alice Brown',
+                email: 'alice.brown@email.com',
+                classesRemaining: 3,
+                package: 'Standard Package'
+            },
+            {
+                firstName: 'David',
+                lastName: 'Wilson',
+                fullName: 'David Wilson',
+                email: 'david.wilson@email.com',
+                classesRemaining: 1,
+                package: 'Basic Package'
+            }
+        ];
+
+        // Google Apps Script Web App URL - Replace with your deployed URL
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyXndiPXA3u9XVCIcB4j8FLg3u0e62zvTYuQo75hnHtUu2w4NNuTfKiXkjy46cIlpGe/exec';
+
+        let selectedSlot = null;
+        let currentStudent = null;
+        let foundStudents = [];
+
+        async function verifyStudent() {
+            const nickname = document.getElementById('studentNickname').value.trim();
+            const errorDiv = document.getElementById('verificationError');
+            
+            // Clear previous errors
+            errorDiv.innerHTML = '';
+            foundStudents = [];
+            
+            if (!nickname) {
+                showError(errorDiv, 'Please enter your nickname.');
+                return;
+            }
+
+            // Show loading state
+            const button = document.querySelector('#step-verification .btn');
+            const originalText = button.textContent;
+            button.textContent = 'Searching...';
+            button.disabled = true;
+
+            try {
+                // Call Google Apps Script
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'verify',
+                        nickname: nickname
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    foundStudents = result.students;
+                    
+                    if (foundStudents.length === 0) {
+                        showError(errorDiv, 'No student found with that nickname. Please check spelling and try again.');
+                    } else if (foundStudents.length === 1) {
+                        // Single match found
+                        selectStudent(foundStudents[0]);
+                    } else {
+                        // Multiple matches - show selection
+                        showStudentSelection();
+                    }
+                } else {
+                    showError(errorDiv, result.message || 'Error searching for student.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError(errorDiv, 'Unable to connect to student database. Please try again.');
+            } finally {
+                // Reset button
+                button.textContent = originalText;
+                button.disabled = false;
+            }
+        }
+
+        function showStudentSelection() {
+            const optionsDiv = document.getElementById('studentOptions');
+            optionsDiv.innerHTML = '';
+            
+            foundStudents.forEach((student, index) => {
+                const option = document.createElement('div');
+                option.className = 'booking-option';
+                option.onclick = () => selectStudentFromList(student);
+                
+                option.innerHTML = `
+                    <h4>${student.fullName} (${student.nickname})</h4>
+                    <p><strong>Student #:</strong> ${student.studentNo}</p>
+                    <p><strong>Email:</strong> ${student.email}</p>
+                    <p><strong>Subscription:</strong> ${student.subscription}</p>
+                    <p class="classes-remaining">Classes Remaining: ${student.classesRemaining}</p>
+                `;
+                
+                optionsDiv.appendChild(option);
+            });
+            
+            showStep('step-selection');
+        }
+
+        function selectStudentFromList(student) {
+            selectStudent(student);
+        }
+
+        function selectStudent(student) {
+            if (student.classesRemaining <= 0) {
+                const errorDiv = document.getElementById('verificationError');
+                showError(errorDiv, 'No classes remaining. Please contact support to purchase more classes.');
+                showStep('step-verification');
+                return;
+            }
+            
+            currentStudent = student;
+            showStudentInfo();
+            showStep('step-booking');
+        }
+
+        function goBackToSearch() {
+            document.getElementById('studentNickname').value = '';
+            foundStudents = [];
+            showStep('step-verification');
+        }
+
+        function showStudentInfo() {
+            const infoDiv = document.getElementById('studentInfo');
+            infoDiv.innerHTML = `
+                <h3>Welcome, ${currentStudent.nickname}! (${currentStudent.fullName})</h3>
+                <p><strong>Student #:</strong> ${currentStudent.studentNo}</p>
+                <p><strong>Subscription:</strong> ${currentStudent.subscription}</p>
+                <p><strong>Email:</strong> ${currentStudent.email}</p>
+                <p class="classes-remaining">Classes Remaining: ${currentStudent.classesRemaining}</p>
+            `;
+            
+            // Pre-fill email
+            document.getElementById('studentEmail').value = currentStudent.email;
+        }
+
+        function selectSlot(element, datetime, platform) {
+            // Remove previous selection
+            document.querySelectorAll('.booking-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Select current option
+            element.classList.add('selected');
+            selectedSlot = { datetime, platform, element };
+            
+            // Enable booking button
+            document.getElementById('bookBtn').disabled = false;
+        }
+
+        function bookClass() {
+            const email = document.getElementById('studentEmail').value.trim();
+            const errorDiv = document.getElementById('bookingError');
+            
+            errorDiv.innerHTML = '';
+            
+            if (!email) {
+                showError(errorDiv, 'Please enter your email address.');
+                return;
+            }
+            
+            if (!selectedSlot) {
+                showError(errorDiv, 'Please select a time slot.');
+                return;
+            }
+            
+            // Show confirmation step with loading
+            showStep('step-confirmation');
+            
+            // Simulate booking process
+            setTimeout(() => {
+                processBooking();
+            }, 2000);
+        }
+
+        async function processBooking() {
+            try {
+                // Call Google Apps Script to update the sheet
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'book',
+                        student: currentStudent,
+                        slot: selectedSlot,
+                        email: document.getElementById('studentEmail').value
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Update local student data
+                    currentStudent.classesRemaining = result.newClassesRemaining;
+                    
+                    // Show confirmation
+                    document.getElementById('bookingLoader').style.display = 'none';
+                    document.getElementById('confirmationContent').style.display = 'block';
+                    
+                    // Populate booking details
+                    const details = document.getElementById('bookingDetails');
+                    const date = new Date(selectedSlot.datetime);
+                    const platform = selectedSlot.platform === 'zoom' ? 'Zoom' : 'Google Meet';
+                    
+                    details.innerHTML = `
+                        <p><strong>Date & Time:</strong> ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}</p>
+                        <p><strong>Platform:</strong> ${platform}</p>
+                        <p><strong>Student:</strong> ${currentStudent.fullName}</p>
+                        <p><strong>Email:</strong> ${document.getElementById('studentEmail').value}</p>
+                        <p><strong>Classes Remaining:</strong> ${currentStudent.classesRemaining}</p>
+                    `;
+                } else {
+                    // Show error
+                    document.getElementById('bookingLoader').innerHTML = `
+                        <div class="error">
+                            <h3>Booking Failed</h3>
+                            <p>${result.message}</p>
+                            <button class="btn" onclick="goBackToBooking()">Try Again</button>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Booking error:', error);
+                document.getElementById('bookingLoader').innerHTML = `
+                    <div class="error">
+                        <h3>Connection Error</h3>
+                        <p>Unable to process booking. Please try again.</p>
+                        <button class="btn" onclick="goBackToBooking()">Try Again</button>
+                    </div>
+                `;
+            }
+        }
+
+        function goBackToBooking() {
+            showStep('step-booking');
+        }
+
+        function bookAnother() {
+            // Reset form
+            selectedSlot = null;
+            currentStudent = null;
+            foundStudents = [];
+            document.getElementById('studentNickname').value = '';
+            document.getElementById('studentEmail').value = '';
+            document.getElementById('bookBtn').disabled = true;
+            
+            // Clear selections
+            document.querySelectorAll('.booking-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Reset confirmation content
+            document.getElementById('bookingLoader').style.display = 'block';
+            document.getElementById('bookingLoader').innerHTML = `
+                <div class="spinner"></div>
+                <p>Processing your booking...</p>
+            `;
+            document.getElementById('confirmationContent').style.display = 'none';
+            
+            // Show first step
+            showStep('step-verification');
+        }
+
+        function showStep(stepId) {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById(stepId).classList.add('active');
+        }
+
+        function showError(container, message) {
+            container.innerHTML = `<div class="error">${message}</div>`;
+        }
+
+        // Allow Enter key to verify student
+        document.getElementById('studentNickname').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                verifyStudent();
+            }
+        });
+    </script>
+</body>
+</html>
