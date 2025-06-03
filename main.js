@@ -177,9 +177,9 @@
                 // IMPORTANT: Replace this URL with your actual Google Apps Script Web App URL
                 const scriptUrl = 'https://script.google.com/macros/s/AKfycbwIxKJp98dK7LkYq9nZx1pXgpq1HAPXmMRKUaWn21S1lQn6MuGGcxxtIhYeO95dVy-W/exec';
                 
-                if (scriptUrl === 'https://script.google.com/macros/s/AKfycbwIxKJp98dK7LkYq9nZx1pXgpq1HAPXmMRKUaWn21S1lQn6MuGGcxxtIhYeO95dVy-W/exec') {
-                    throw new Error('Please update the Google Apps Script URL in the code');
-                }
+                // if (scriptUrl === 'https://script.google.com/macros/s/AKfycbwIxKJp98dK7LkYq9nZx1pXgpq1HAPXmMRKUaWn21S1lQn6MuGGcxxtIhYeO95dVy-W/exec') {
+                //     throw new Error('Please update the Google Apps Script URL in the code');
+                // }
                 
                 console.log('Sending to URL:', scriptUrl);
                 
