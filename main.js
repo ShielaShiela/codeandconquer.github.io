@@ -183,7 +183,7 @@
             console.log('Data object being sent:', data);
             
             try {
-                // Your Google Apps Script URL
+               
                 const scriptUrl = 'https://script.google.com/macros/s/AKfycbwjlFJ8c6wjmIvSeXkqMLcExobNWjFr0h4in6hU-aiOvK7pAFkrSO4J9vaywsMiwfYe/exec';
                 
                 console.log('Sending JSON to:', scriptUrl);
