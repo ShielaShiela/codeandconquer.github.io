@@ -317,12 +317,13 @@
     <!-- Contact -->
     <!-- Enhanced Contact Section with Integrated Booking -->
 <section id="contact" class="section section-alt">
-    <div class="container" >
-        <h2 class="section-title">Book Your Free Trial Class</h2>
-        <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem; color: #666;">
-            Ready to start your programming journey? Fill out the form below and choose your preferred trial class time!
-        </p>
-        <!-- background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color I want -->
+    <div class="container">
+        <div class="booking-header">
+            <h2 class="section-title">Book Your Free Trial Class</h2>
+            <p class="booking-subtitle">
+                Ready to start your programming journey? Fill out the form below and choose your preferred trial class time!
+            </p>
+        </div>
         
         <div class="booking-container">
             <!-- Student Information Form -->
@@ -339,19 +340,19 @@
 
                 <form id="trialBookingForm">
                     <div class="form-group">
-                        <label for="nickName">Nick Name / Preferred Name *</label>
+                        <label for="nickName">Nickname *</label>
                         <input type="text" id="nickName" name="nickName" required 
                                placeholder="What should we call you?">
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="lastName">Last Name *</label>
-                            <input type="text" id="lastName" name="lastName" required>
+                            <label for="firstName">FirstName *</label>
+                            <input type="text" id="firstName" name="firstName" required>
                         </div>
                         <div class="form-group">
-                            <label for="firstName">First Name *</label>
-                            <input type="text" id="firstName" name="firstName" required>
+                            <label for="lastName">LastName *</label>
+                            <input type="text" id="lastName" name="lastName" required>
                         </div>
                     </div>
 
@@ -431,7 +432,7 @@
                 <!-- Replace with your actual Google Calendar booking link -->
                 <div class="calendar-container">
                     <!-- Google Calendar Appointment Scheduling begin -->
-                    <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2swVcckuAPgEXWjbB7ChbOskEezm06K5QCc50nSB1XHu1UXi60dtprriVLuPX0RhVTXSnZaYQ0?gv=true"
+                    <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2swVcckuAPgEXWjbB7ChbOskEezm06K5QCc50nSB1XHu1UXi60dtprriVLuPX0RhVTXSnZaYQ0?gv=true" 
                         class="calendar-embed"
                         title="Schedule Trial Class">
                     </iframe>
@@ -466,6 +467,7 @@
         </div>
     </div>
 </section>
+
 
 
     <!-- Footer -->
