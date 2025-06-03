@@ -316,61 +316,140 @@
 
     <!-- Contact -->
     <section id="contact" class="section section-alt">
-        <div class="container">
-            <h2 class="section-title">Contact & Booking</h2>
-            <div class="contact-content">
-                <div class="contact-form">
-                    <h3>Book Your Free Trial</h3>
-                    <form>
+    <div class="container">
+        <h2 class="section-title">Book Your Free Trial Class</h2>
+        <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem; color: #666;">
+            Ready to start your programming journey? Fill out the form below and choose your preferred trial class time!
+        </p>
+        
+        <div class="booking-container">
+            <!-- Student Information Form -->
+            <div class="booking-form-section">
+                <h3 style="margin-bottom: 1.5rem; color: #333;">📝 Student Information</h3>
+                
+                <div class="success-message" id="successMessage">
+                    ✅ Your trial class request has been submitted successfully! We'll contact you within 24 hours.
+                </div>
+
+                <div class="error-message" id="errorMessage">
+                    ❌ There was an error submitting your form. Please try again or contact us directly.
+                </div>
+
+                <form id="trialBookingForm">
+                    <div class="form-group">
+                        <label for="preferredName">Preferred Name/Nickname *</label>
+                        <input type="text" id="preferredName" name="preferredName" required 
+                               placeholder="What should we call you?">
+                    </div>
+
+                    <div class="form-row">
                         <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" name="name" required>
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email</label>
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
                             <input type="email" id="email" name="email" required>
                         </div>
                         <div class="form-group">
-                            <label for="age">Age Group</label>
-                            <select id="age" name="age" required>
-                                <option value="">Select Age Group</option>
-                                <option value="kids">Kids (7-12)</option>
-                                <option value="teens">Teens/Students (13-22)</option>
-                                <option value="adults">Adults/Professionals (23+)</option>
-                            </select>
+                            <label for="country">Country *</label>
+                            <input type="text" id="country" name="country" required 
+                                   placeholder="Type your country..." 
+                                   autocomplete="country">
+                            <div id="countryDropdown" class="country-dropdown"></div>
                         </div>
-                        <div class="form-group">
-                            <label for="experience">Programming Experience</label>
-                            <select id="experience" name="experience" required>
-                                <option value="">Select Experience Level</option>
-                                <option value="beginner">Complete Beginner</option>
-                                <option value="some">Some Experience</option>
-                                <option value="intermediate">Intermediate</option>
-                                <option value="advanced">Advanced</option>
-                            </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Course You Want to Learn *</label>
+                        <div class="course-grid">
+                            <div class="course-option" data-course="scratch">
+                                <div class="course-icon">🧒</div>
+                                <div>Scratch for Kids</div>
+                            </div>
+                            <div class="course-option" data-course="python">
+                                <div class="course-icon">🐍</div>
+                                <div>Python Programming</div>
+                            </div>
+                            <div class="course-option" data-course="cpp">
+                                <div class="course-icon">⚡</div>
+                                <div>C/C++ Programming</div>
+                            </div>
+                            <div class="course-option" data-course="web">
+                                <div class="course-icon">🌐</div>
+                                <div>Web Development</div>
+                            </div>
+                            <div class="course-option" data-course="data">
+                                <div class="course-icon">📊</div>
+                                <div>Data Science</div>
+                            </div>
+                            <div class="course-option" data-course="sql">
+                                <div class="course-icon">🗄️</div>
+                                <div>SQL & Databases</div>
+                            </div>
+                            <div class="course-option" data-course="office">
+                                <div class="course-icon">💼</div>
+                                <div>Microsoft Office</div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="schedule">Preferred Schedule</label>
-                            <textarea id="schedule" name="schedule" rows="3" placeholder="Let me know your preferred days/times and any specific requirements"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">Book Free Trial</button>
-                    </form>
+                        <input type="hidden" id="selectedCourse" name="course" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="otherDetails">Goals & Additional Details</label>
+                        <textarea id="otherDetails" name="otherDetails" rows="4" 
+                                  placeholder="Tell us about your learning goals, preferred schedule, or any questions you have..."></textarea>
+                    </div>
+
+                    <div class="loading" id="loadingIndicator">
+                        <div class="spinner"></div>
+                        <p>Submitting your request...</p>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="submitBtn" style="width: 100%; margin-bottom: 1rem;">
+                        Submit Trial Request
+                    </button>
+                </form>
+            </div>
+
+            <!-- Calendar Booking Section -->
+            <div class="calendar-section">
+                <h3 style="margin-bottom: 1rem; color: #333;">📅 Schedule Your Trial</h3>
+                <p style="margin-bottom: 1.5rem; color: #666;">
+                    After submitting your information above, use the calendar below to book your preferred trial class time.
+                </p>
+                
+                <!-- Replace with your actual Google Calendar booking link -->
+                <div class="calendar-container">
+                    <iframe 
+                        src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1Q5aBCdJXQ0g6Zz5wS8HX9M7N2?gv=true" 
+                        class="calendar-embed"
+                        title="Schedule Trial Class">
+                    </iframe>
                 </div>
                 
-                <div class="contact-methods">
-                    <h3>Get in Touch</h3>
+                <!-- Alternative contact methods -->
+                <div class="contact-methods" style="margin-top: 2rem;">
+                    <h4 style="margin-bottom: 1rem; color: #333;">Or Contact Us Directly:</h4>
                     <div class="contact-method">
                         <div class="contact-method-icon">📧</div>
                         <div>
                             <strong>Email</strong><br>
-                            shielacabahug96@gmail.com
+                            <a href="mailto:shielacabahug96@gmail.com">shielacabahug96@gmail.com</a>
                         </div>
                     </div>
                     <div class="contact-method">
                         <div class="contact-method-icon">💬</div>
                         <div>
                             <strong>WhatsApp</strong><br>
-                            +639302694206
+                            <a href="https://wa.me/639302694206" target="_blank">+639302694206</a>
                         </div>
                     </div>
                     <div class="contact-method">
@@ -380,18 +459,11 @@
                             English, Filipino, Cebuano, Chinese
                         </div>
                     </div>
-                    <div class="contact-method">
-                        <div class="contact-method-icon">📍</div>
-                        <div>
-                            <strong>Office Location</strong><br>
-                            Online<br>
-                            <small>Level 40, PBCom Tower, 6795 Ayala Avenue Corner V.A.,, Rufino Street, Makati City,, Makati, 1226, Philippines</small>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Footer -->
     <footer>
@@ -476,5 +548,6 @@
             observer.observe(section);
         });
     </script>
+    <script src="main.js"></script>
 </body>
 </html>
