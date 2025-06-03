@@ -168,36 +168,36 @@
             if (loadingIndicator) loadingIndicator.style.display = 'block';
             if (submitBtn) submitBtn.disabled = true;
             
-            // Create data object manually (more reliable than FormData)
-            const data = {
-                timestamp: new Date().toISOString(),
-                nickName: nickName,
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                country: country,
-                course: selectedCourse,
-                otherDetails: document.getElementById('otherDetails').value.trim() || ''
-            };
+            // Create FormData object (avoids CORS preflight completely)
+            const formDataToSend = new FormData();
+            formDataToSend.append('timestamp', new Date().toISOString());
+            formDataToSend.append('nickName', nickName);
+            formDataToSend.append('firstName', firstName);
+            formDataToSend.append('lastName', lastName);
+            formDataToSend.append('email', email);
+            formDataToSend.append('country', country);
+            formDataToSend.append('course', selectedCourse);
+            formDataToSend.append('otherDetails', document.getElementById('otherDetails').value.trim() || '');
             
-            console.log('Data object being sent:', data);
+            console.log('FormData being sent:');
+            for (let [key, value] of formDataToSend.entries()) {
+                console.log(`${key}: ${value}`);
+            }
             
             try {
-               
+                // Your Google Apps Script URL
                 const scriptUrl = 'https://script.google.com/macros/s/AKfycbwjlFJ8c6wjmIvSeXkqMLcExobNWjFr0h4in6hU-aiOvK7pAFkrSO4J9vaywsMiwfYe/exec';
                 
-                console.log('Sending JSON to:', scriptUrl);
+                console.log('Sending FormData to:', scriptUrl);
                 
+                // Send FormData WITHOUT any headers (this avoids CORS preflight)
                 const response = await fetch(scriptUrl, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
+                    body: formDataToSend
+                    // NO headers property at all - this is crucial!
                 });
                 
                 console.log('Response status:', response.status);
-                console.log('Response headers:', [...response.headers.entries()]);
                 
                 if (!response.ok) {
                     throw new Error(`Server responded with status: ${response.status}`);
@@ -234,10 +234,8 @@
                     }
                     
                 } else {
-                    throw new Error(responseData.error || 'Server returned an error');
+                    throw new Error(responseData.message || responseData.error || 'Server returned an error');
                 }
-                
-                
                 
             } catch (error) {
                 console.error('Submission error:', error);
