@@ -142,6 +142,15 @@
             const country = document.getElementById('country').value.trim();
             const selectedCourse = document.getElementById('selectedCourse').value;
             
+            console.log('Form values:', {
+                nickName,
+                firstName, 
+                lastName,
+                email,
+                country,
+                selectedCourse
+            });
+            
             if (!nickName || !firstName || !lastName || !email || !country) {
                 alert('Please fill in all required fields.');
                 return;
@@ -159,36 +168,36 @@
             if (loadingIndicator) loadingIndicator.style.display = 'block';
             if (submitBtn) submitBtn.disabled = true;
             
-            // Collect form data
-            const formData = new FormData(this);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value.trim();
-            });
+            // Create data object manually (more reliable than FormData)
+            const data = {
+                timestamp: new Date().toISOString(),
+                nickName: nickName,
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                country: country,
+                course: selectedCourse,
+                otherDetails: document.getElementById('otherDetails').value.trim() || ''
+            };
             
-            // Add timestamp
-            data.timestamp = new Date().toISOString();
-            
-            console.log('Form data being sent:', data);
+            console.log('Data object being sent:', data);
             
             try {
-                // IMPORTANT: Your Google Apps Script URL
-                const scriptUrl = 'https://script.google.com/macros/s/AKfycbwbZpePWqbP828BRUX97KeqX6YCG46Xn5MOslKkGyEYHB3vpkzcStIvkej7viURgmtu/exec';
+                // Your Google Apps Script URL
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbwIxKJp98dK7LkYq9nZx1pXgpq1HAPXmMRKUaWn21S1lQn6MuGGcxxtIhYeO95dVy-W/exec';
                 
-                console.log('Sending to URL:', scriptUrl);
-                
-                // Use FormData to avoid CORS preflight issues
-                const formDataToSend = new FormData();
-                Object.keys(data).forEach(key => {
-                    formDataToSend.append(key, data[key]);
-                });
+                console.log('Sending JSON to:', scriptUrl);
                 
                 const response = await fetch(scriptUrl, {
                     method: 'POST',
-                    body: formDataToSend
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
                 });
                 
                 console.log('Response status:', response.status);
+                console.log('Response headers:', [...response.headers.entries()]);
                 
                 if (!response.ok) {
                     throw new Error(`Server responded with status: ${response.status}`);
