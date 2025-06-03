@@ -1,5 +1,3 @@
-
-// Booking form functionality - avoid conflicts with existing code
 (function() {
     'use strict';
     
@@ -174,21 +172,20 @@
             console.log('Form data being sent:', data);
             
             try {
-                // IMPORTANT: Replace this URL with your actual Google Apps Script Web App URL
+                // IMPORTANT: Your Google Apps Script URL
                 const scriptUrl = 'https://script.google.com/macros/s/AKfycbwIxKJp98dK7LkYq9nZx1pXgpq1HAPXmMRKUaWn21S1lQn6MuGGcxxtIhYeO95dVy-W/exec';
-                
-                // if (scriptUrl === 'https://script.google.com/macros/s/AKfycbwIxKJp98dK7LkYq9nZx1pXgpq1HAPXmMRKUaWn21S1lQn6MuGGcxxtIhYeO95dVy-W/exec') {
-                //     throw new Error('Please update the Google Apps Script URL in the code');
-                // }
                 
                 console.log('Sending to URL:', scriptUrl);
                 
+                // Use FormData to avoid CORS preflight issues
+                const formDataToSend = new FormData();
+                Object.keys(data).forEach(key => {
+                    formDataToSend.append(key, data[key]);
+                });
+                
                 const response = await fetch(scriptUrl, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
+                    body: formDataToSend
                 });
                 
                 console.log('Response status:', response.status);
@@ -207,7 +204,6 @@
                     
                     if (successMessage) {
                         successMessage.style.display = 'block';
-                        // Auto-hide after 10 seconds
                         setTimeout(() => {
                             successMessage.style.display = 'none';
                         }, 10000);
@@ -231,6 +227,8 @@
                 } else {
                     throw new Error(responseData.error || 'Server returned an error');
                 }
+                
+                
                 
             } catch (error) {
                 console.error('Submission error:', error);
