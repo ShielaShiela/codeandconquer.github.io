@@ -184,7 +184,7 @@
             
             try {
                 // Your Google Apps Script URL
-                const scriptUrl = 'https://script.google.com/macros/s/AKfycbwIxKJp98dK7LkYq9nZx1pXgpq1HAPXmMRKUaWn21S1lQn6MuGGcxxtIhYeO95dVy-W/exec';
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbwjlFJ8c6wjmIvSeXkqMLcExobNWjFr0h4in6hU-aiOvK7pAFkrSO4J9vaywsMiwfYe/exec';
                 
                 console.log('Sending JSON to:', scriptUrl);
                 
