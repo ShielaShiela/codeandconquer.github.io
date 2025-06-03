@@ -186,7 +186,7 @@
             
             try {
                 // Your Google Apps Script URL
-                const scriptUrl = 'https://script.google.com/macros/s/AKfycbwjlFJ8c6wjmIvSeXkqMLcExobNWjFr0h4in6hU-aiOvK7pAFkrSO4J9vaywsMiwfYe/exec';
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbzKxWsHObN2UIXkbY4zhuTr5Bh3ptRTekq12SeZKKUCJX9u1owSkswogGR-1Qbv3hRy/exec';
                 
                 console.log('Sending FormData to:', scriptUrl);
                 
