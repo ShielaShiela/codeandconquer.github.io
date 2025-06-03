@@ -173,7 +173,7 @@
             
             try {
                 // IMPORTANT: Your Google Apps Script URL
-                const scriptUrl = 'https://script.google.com/macros/s/AKfycbwIxKJp98dK7LkYq9nZx1pXgpq1HAPXmMRKUaWn21S1lQn6MuGGcxxtIhYeO95dVy-W/exec';
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbxKErjRx10sKqIKyVEV8JOUAtJ0QY4EwQ0gOq-xAf5mSvNUv_CcqDVy4gYBngBfmfjt/exec';
                 
                 console.log('Sending to URL:', scriptUrl);
                 
