@@ -340,33 +340,32 @@
 
                 <form id="trialBookingForm">
                     <div class="form-group">
-                        <label for="nickName">Nickname *</label>
+                        <label for="nickName">Nickname or Preferred Name *</label>
                         <input type="text" id="nickName" name="nickName" required 
-                               placeholder="What should we call you?" value="Neneng">
+                               placeholder="What should we call you?">
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="firstName">FirstName *</label>
-                            <input type="text" id="firstName" name="firstName" value="Neneng" required>
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required>
                         </div>
                         <div class="form-group">
-                            <label for="lastName">LastName *</label>
-                            <input type="text" id="lastName" name="lastName" value="Cabahug" required>
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" value="shielacabahug96@gmail.com" required>
+                            <input type="email" id="email" name="email"required>
                         </div>
                         <div class="form-group">
                             <label for="country">Country *</label>
                             <input type="text" id="country" name="country" required 
                                    placeholder="Type your country..." 
-                                   autocomplete="country"
-                                   value = "Philippines">
+                                   autocomplete="country">
                             <div id="countryDropdown" class="country-dropdown"></div>
                         </div>
                     </div>
@@ -410,6 +409,15 @@
                         <label for="otherDetails">Goals & Additional Details</label>
                         <textarea id="otherDetails" name="otherDetails" rows="4" 
                                   placeholder="Tell us about your learning goals, preferred schedule, or any questions you have..."></textarea>
+                    </div>
+
+                    <!-- Privacy Notice -->
+                    <div class="privacy-notice" style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-size: 0.9rem; color: #666; border-left: 4px solid #4285f4;">
+                        <h4 style="margin: 0 0 0.5rem 0; color: #333; font-size: 1rem;">🔒 Your Privacy Matters</h4>
+                        <p style="margin: 0; line-height: 1.4;">
+                            We use your information solely to schedule your trial class and provide programming education services. 
+                            Your data is stored securely, never shared with third parties, and you can request updates or deletion at any time.
+                        </p>
                     </div>
 
                     <div class="loading" id="loadingIndicator">
