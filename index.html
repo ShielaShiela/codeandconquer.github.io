@@ -255,159 +255,336 @@
         </div>
     </section>
 
-    <!-- Pricing -->
-    <section id="pricing" class="section section-alt">
-        <div class="container">
-            <h2 class="section-title">One-on-One Online Tutorial Packages</h2>
-            
-            <div class="pricing-table-container">
-                <table class="pricing-table">
-                    <thead>
-                        <tr>
-                            <th>Package</th>
-                            <th>Classes</th>
-                            <th>Price per Class</th>
-                            <th>Total Price</th>
-                            <th>Validity Period</th>
-                            <th>Best For</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="package-name">
-                                    <span class="package-icon">⭐</span>
-                                    <strong>Classes Package A</strong>
-                                    <span class="popular-badge">Most Popular</span>
-                                </div>
-                            </td>
-                            <td><strong>20</strong></td>
-                            <td class="price-cell">
-                                <span class="price">$20</span>
-                                <span class="savings">33% savings</span>
-                            </td>
-                            <td class="total-price">$400</td>
-                            <td>Valid for 5 months</td>
-                            <td>
-                                <span>Learn all basic to advance concepts of programming</span>
-                                <span>More hands-on practices</span>
-                                <a href="#reserveclass" class="btn btn-primary">Reserve Now</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="package-name">
-                                    <span class="package-icon">📅</span>
-                                    <strong>Monthly Subscription 1</strong>
-                                </div>
-                            </td>
-                            <td><strong>4</strong></td>
-                            <td class="price-cell">
-                                <span class="price">$24</span>
-                            </td>
-                            <td class="total-price">$90</td>
-                            <td>Once a week class</td>
-                            <td>
-                                <span>Perfect for steady progress</span>
-                                <a href="#reserveclass" class="btn btn-primary">Reserve Now</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="package-name">
-                                    <span class="package-icon">📅</span>
-                                    <strong>Monthly Subscription 2</strong>
-                                </div>
-                            </td>
-                            <td><strong>8</strong></td>
-                            <td class="price-cell">
-                                <span class="price">$23</span>
-                            </td>
-                            <td class="total-price">$184</td>
-                             <td>Twice a week class</td>
-                            <td>
-                                <span>Ideal for intensive skill development</span>
-                                <a href="#reserveclass" class="btn btn-primary">Reserve Now</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="package-name">
-                                    <span class="package-icon">⭐</span>
-                                    <strong>Classes Package B</strong>
-                                </div>
-                            </td>
-                            <td><strong>10</strong></td>
-                            <td class="price-cell">
-                                <span class="price">$22</span>
-                            </td>
-                            <td class="total-price">$220</td>
-                            <td>Valid for 3 months </td>
-                            <td>
-                                <span>Getting started to learn all basics</span>
-                                <a href="#reserveclass" class="btn btn-primary">Reserve Now</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="package-name">
-                                    <span class="package-icon">📚</span>
-                                    <strong>5 Classes Package</strong>
-                                </div>
-                            </td>
-                            <td><strong>5</strong></td>
-                            <td class="price-cell">
-                                <span class="price">$26</span>
-                            </td>
-                            <td class="total-price">$130</td>
-                            <td>Valid for 1 month</td>
-                             <td>
-                                <span>Ideal for short-term goals or project completion</span>
-                                <a href="#reserveclass" class="btn btn-primary">Reserve Now</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="package-name">
-                                    <span class="package-icon">🎯</span>
-                                    <strong>Single Class</strong>
-                                </div>
-                            </td>
-                            <td><strong>1</strong></td>
-                            <td class="price-cell">
-                                <span class="price">$30</span>
-                            </td>
-                            <td class="total-price">$30</td>
-                            <td>No commitment required</td>
-                            <td>
-                                <span>Book individual class as needed</span>
-                                <a href="#reserveclass" class="btn btn-primary">Reserve Now</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+    <!-- Pricing Section -->
+    <div class="pricing-section">
+        <h2 class="section-title">One-on-One Online Tutorial Packages</h2>
+        
+        <div class="pricing-table-container">
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>Package</th>
+                        <th>Classes</th>
+                        <th>Price per Class</th>
+                        <th>Total Price</th>
+                        <th>Validity Period</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="package-name">
+                                <span class="package-icon">⭐</span>
+                                <strong>Classes Package A</strong>
+                                <span class="popular-badge">Most Popular</span>
+                            </div>
+                        </td>
+                        <td><strong>20</strong></td>
+                        <td class="price-cell">
+                            <span class="price">$20</span>
+                            <span class="savings">33% savings</span>
+                        </td>
+                        <td class="total-price">$400</td>
+                        <td>Valid for 5 months</td>
+                        <td>
+                            Learn all basic to advance concepts of programming and more hands-on practices<br>
+                            <button class="btn btn-primary reserve-btn" 
+                                    data-package="Classes Package A" 
+                                    data-classes="20" 
+                                    data-price="$400"
+                                    data-duration="5 months">
+                                Reserve Now
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="package-name">
+                                <span class="package-icon">📅</span>
+                                <strong>Monthly Subscription A</strong>
+                            </div>
+                        </td>
+                        <td><strong>8</strong></td>
+                        <td class="price-cell">
+                            <span class="price">$20</span>
+                        </td>
+                        <td class="total-price">$160</td>
+                        <td>Twice a week class</td>
+                        <td>
+                            Ideal for intensive skill development<br>
+                            <button class="btn btn-primary reserve-btn" 
+                                    data-package="Monthly Subscription A" 
+                                    data-classes="8" 
+                                    data-price="$180"
+                                    data-duration="1 month">
+                                Reserve Now
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="package-name">
+                                <span class="package-icon">📅</span>
+                                <strong>Monthly Subscription B</strong>
+                            </div>
+                        </td>
+                        <td><strong>4</strong></td>
+                        <td class="price-cell">
+                            <span class="price">$22.5</span>
+                        </td>
+                        <td class="total-price">$90</td>
+                        <td>Once a week class</td>
+                        <td>
+                            Perfect for steady progress<br>
+                            <button class="btn btn-primary reserve-btn" 
+                                    data-package="Monthly Subscription B" 
+                                    data-classes="4" 
+                                    data-price="$90"
+                                    data-duration="1 month">
+                                Reserve Now
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="package-name">
+                                <span class="package-icon">⭐</span>
+                                <strong>Classes Package B</strong>
+                            </div>
+                        </td>
+                        <td><strong>10</strong></td>
+                        <td class="price-cell">
+                            <span class="price">$23.5</span>
+                        </td>
+                        <td class="total-price">$235</td>
+                        <td>Valid for 3 months</td>
+                        <td>
+                            Getting started to learn all basics<br>
+                            <button class="btn btn-primary reserve-btn" 
+                                    data-package="Classes Package B" 
+                                    data-classes="10" 
+                                    data-price="$235"
+                                    data-duration="3 months">
+                                Reserve Now
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="package-name">
+                                <span class="package-icon">📚</span>
+                                <strong>Class Package C</strong>
+                            </div>
+                        </td>
+                        <td><strong>5</strong></td>
+                        <td class="price-cell">
+                            <span class="price">$26</span>
+                        </td>
+                        <td class="total-price">$130</td>
+                        <td>Valid for 1 month</td>
+                        <td>
+                            Ideal for short-term goals or project completion<br>
+                            <button class="btn btn-primary reserve-btn" 
+                                    data-package="Class Package C" 
+                                    data-classes="5" 
+                                    data-price="$130"
+                                    data-duration="1 month">
+                                Reserve Now
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="package-name">
+                                <span class="package-icon">🎯</span>
+                                <strong>Single Class</strong>
+                            </div>
+                        </td>
+                        <td><strong>1</strong></td>
+                        <td class="price-cell">
+                            <span class="price">$30</span>
+                        </td>
+                        <td class="total-price">$30</td>
+                        <td>No commitment required</td>
+                        <td>
+                            Book individual class as needed<br>
+                            <button class="btn btn-primary reserve-btn" 
+                                    data-package="Single Class" 
+                                    data-classes="1" 
+                                    data-price="$30"
+                                    data-duration="No expiry">
+                                Reserve Now
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Reservation Modal -->
+    <div id="reservationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Reserve Your Package</h3>
+                <button class="close-btn" id="closeModal">&times;</button>
             </div>
 
-            <div class="pricing-notes">
-                <div class="note-item">
-                    <span class="note-icon">⏱️</span>
-                    <strong>The class is 1-on-1 online class on Zoom or Google Meet. Class runs for 50 minutes.</strong>
-                </div>
-                <div class="note-item">
-                    <span class="note-icon">💡</span>
-                    <strong>Flexible scheduling for all purchased classes before validity expiration through the booking platform.</strong>
-                </div>
-                <div class="note-item">
-                    <span class="note-icon">📞</span>
-                    <strong>Payment details are shown after package reservation.</strong>
-                </div>
-                 <div class="note-item">
-                    <span class="note-icon">📞</span>
-                    <strong>Request a refund if dissatisfied with the class.</strong>
-                </div>
+            <div class="success-message" id="successMessage">
+                ✅ Your reservation request has been submitted successfully! We'll send payment details to your email within 24 hours.
             </div>
+
+            <div class="package-info" id="packageInfo">
+                <!-- Package details will be inserted here by JavaScript -->
+            </div>
+
+            <form id="reservationForm">
+                <div class="form-group">
+                    <label for="nickname">Nickname *</label>
+                    <input type="text" id="nickname" name="nickname" required 
+                           placeholder="What should we call you?">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required 
+                           placeholder="your.email@example.com">
+                </div>
+
+                <div class="info-section">
+                    <h4>📧 Payment Information</h4>
+                    <p><strong>Payment details will be sent to your email address</strong> within 24 hours of submitting this reservation.</p>
+                    <p>The email will include:</p>
+                    <p>• Payment methods (PayPal, bank transfer, etc.)</p>
+                    <p>• Invoice with package details</p>
+                    <p>• Instructions for completing your registration</p>
+                    
+                    <div class="contact-info">
+                        <h5>🚀 Need immediate assistance?</h5>
+                        <div class="contact-links">
+                            <a href="https://wa.me/639302694206" target="_blank">
+                                💬 WhatsApp
+                            </a>
+                            <a href="https://line.me/your-line-id" target="_blank">
+                                📱 Line
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn btn-submit" id="submitBtn">Submit Reservation</button>
+                </div>
+            </form>
         </div>
-    </section>
+    </div>
+
+    <script>
+        // Modal functionality
+        const modal = document.getElementById('reservationModal');
+        const closeBtn = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const reserveBtns = document.querySelectorAll('.reserve-btn');
+        const form = document.getElementById('reservationForm');
+        const successMessage = document.getElementById('successMessage');
+        const packageInfo = document.getElementById('packageInfo');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Open modal when Reserve Now button is clicked
+        reserveBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const packageName = this.dataset.package;
+                const classes = this.dataset.classes;
+                const price = this.dataset.price;
+                const duration = this.dataset.duration;
+
+                // Update package info in modal
+                packageInfo.innerHTML = `
+                    <h4>${packageName}</h4>
+                    <p><strong>${classes} classes</strong> • <strong>${price}</strong> • Valid for <strong>${duration}</strong></p>
+                `;
+
+                // Reset form and show modal
+                form.reset();
+                successMessage.classList.remove('show');
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close modal functions
+        function closeModal() {
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        closeBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('show')) {
+                closeModal();
+            }
+        });
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Disable submit button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            // Simulate form submission delay
+            setTimeout(() => {
+                // In a real implementation, you would send the data to your server here
+                console.log('Form submitted:', {
+                    nickname: document.getElementById('nickname').value,
+                    email: document.getElementById('email').value,
+                    package: packageInfo.querySelector('h4').textContent
+                });
+
+                // Show success message
+                successMessage.classList.add('show');
+                form.style.display = 'none';
+
+                // Reset button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Reservation';
+
+                // Auto-close modal after 3 seconds
+                setTimeout(() => {
+                    closeModal();
+                    form.style.display = 'block';
+                }, 3000);
+            }, 1500);
+        });
+
+        // Form validation
+        const nickname = document.getElementById('nickname');
+        const email = document.getElementById('email');
+
+        function validateForm() {
+            const isValid = nickname.value.trim() && email.value.trim() && email.validity.valid;
+            submitBtn.disabled = !isValid;
+        }
+
+        nickname.addEventListener('input', validateForm);
+        email.addEventListener('input', validateForm);
+
+        // Initial validation
+        validateForm();
+    </script>
 
     <!-- Testimonials -->
     <section class="section">
