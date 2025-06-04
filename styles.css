@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -55,13 +56,86 @@ nav a:hover {
     opacity: 0.8;
 }
 
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 0.5rem;
+    background: none;
+    border: none;
+    z-index: 1001;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 3px 0;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Mobile Navigation */
+.nav-mobile {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    z-index: 999;
+    padding-top: 80px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.nav-mobile.active {
+    transform: translateX(0);
+}
+
+.nav-mobile ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.nav-mobile li {
+    font-size: 1.2rem;
+}
+
+.nav-mobile a {
+    display: block;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.nav-mobile a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
 /* Hero Section */
 .hero {
     background: linear-gradient(135deg, #2980b9, #3498db);
     /* Replace the URL below with your actual image path */
     background-image: url('photos/newbackground.png');
     background-size: cover;
-    background-position: fill;
+    background-position: center;
     background-repeat: no-repeat;
     color: white;
     padding: 120px 0 60px;
@@ -344,45 +418,122 @@ nav a:hover {
     margin: 0 auto 1rem;
 }
 
-/* Pricing */
-.pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-.pricing-card {
+/* Pricing Table */
+.pricing-table-container {
     background: white;
-    padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    text-align: center;
-    position: relative;
+    overflow: hidden;
+    margin-bottom: 2rem;
 }
 
-.pricing-card.featured {
-    border: 3px solid #2563eb;
-    transform: scale(1.05);
+.pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
 }
 
-.pricing-card.featured::before {
-    content: "Most Popular";
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
+.pricing-table th {
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    color: white;
+    padding: 1.2rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pricing-table td {
+    padding: 1.2rem 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: middle;
+}
+
+.pricing-table tr:hover {
+    background: #f8fafc;
+}
+
+.featured-row {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(30, 64, 175, 0.05));
+    border-left: 4px solid #2563eb;
+}
+
+.featured-row:hover {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(30, 64, 175, 0.08));
+}
+
+.package-name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.package-icon {
+    font-size: 1.2rem;
+}
+
+.popular-badge {
     background: #2563eb;
     color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.875rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.price-cell {
+    text-align: center;
 }
 
 .price {
-    font-size: 2.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
     color: #2563eb;
-    margin: 1rem 0;
+    display: block;
+}
+
+.savings {
+    background: #059669;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 0.3rem;
+}
+
+.total-price {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+    text-align: center;
+}
+
+.pricing-notes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.note-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: white;
+    padding: 1.2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.note-icon {
+    font-size: 1.5rem;
+    color: #2563eb;
 }
 
 /* Testimonials */
@@ -410,120 +561,7 @@ nav a:hover {
     color: #2563eb;
 }
 
-/* Contact */
-.contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-}
-
-.contact-form {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: #374151;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 0.75rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #2563eb;
-}
-
-.contact-info h3 {
-    color: #2563eb;
-    margin-bottom: 1rem;
-}
-
-.contact-methods {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-
-.contact-method {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background: #f8fafc;
-    border-radius: 8px;
-}
-
-.contact-method-icon {
-    font-size: 1.5rem;
-    margin-right: 1rem;
-    color: #2563eb;
-}
-
-/* Footer */
-footer {
-    background: #1e293b;
-    color: white;
-    padding: 3rem 0 1rem;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.footer-section h3 {
-    margin-bottom: 1rem;
-    color: #2563eb;
-}
-
-.footer-section ul {
-    list-style: none;
-}
-
-.footer-section ul li {
-    margin-bottom: 0.5rem;
-}
-
-.footer-section ul li a {
-    color: #cbd5e1;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.footer-section ul li a:hover {
-    color: white;
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid #374151;
-    color: #9ca3af;
-}
-
+/* Contact & Booking */
 .booking-header {
     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     padding: 3rem 2rem;
@@ -607,6 +645,7 @@ footer {
 }
 
 .form-group input,
+.form-group select,
 .form-group textarea {
     width: 100%;
     padding: 0.75rem;
@@ -617,6 +656,7 @@ footer {
 }
 
 .form-group input:focus,
+.form-group select:focus,
 .form-group textarea:focus {
     outline: none;
     border-color: #4285f4;
@@ -651,11 +691,6 @@ footer {
     background: #4285f4;
     color: white;
     transform: translateY(-2px);
-}
-
-.course-icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
 }
 
 .country-dropdown {
@@ -772,101 +807,58 @@ footer {
     text-decoration: underline;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-    .booking-header {
-        padding: 2rem 1.5rem;
-        margin-bottom: 2rem;
-        border-radius: 15px;
-    }
-    
-    .booking-header .section-title {
-        font-size: 2rem;
-    }
-    
-    .booking-subtitle {
-        font-size: 1.1rem;
-    }
-    
-    .booking-container {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-    
-    .course-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .calendar-embed {
-        height: 400px;
-    }
+.privacy-notice {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    color: #666;
+    border-left: 4px solid #4285f4;
 }
 
-@media (max-width: 480px) {
-    .booking-header {
-        padding: 1.5rem 1rem;
-        border-radius: 12px;
-    }
-    
-    .booking-header .section-title {
-        font-size: 1.8rem;
-    }
-    
-    .booking-subtitle {
-        font-size: 1rem;
-    }
-    
-    .booking-form-section,
-    .calendar-section {
-        padding: 1.5rem;
-    }
-    
-    .course-grid {
-        grid-template-columns: 1fr;
-    }
+/* Footer */
+footer {
+    background: #1e293b;
+    color: white;
+    padding: 3rem 0 1rem;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .hero-content {
-        text-align: center;
-    }
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
 
-    .hero-text h1 {
-        font-size: 2.5rem;
-    }
+.footer-section h3 {
+    margin-bottom: 1rem;
+    color: #2563eb;
+}
 
-    .hero-text p {
-        font-size: 1.1rem;
-    }
+.footer-section ul {
+    list-style: none;
+}
 
-    .hero {
-        min-height: 60vh;
-        padding: 100px 0 40px;
-    }
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
 
-    .about-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
+.footer-section ul li a {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: color 0.3s;
+}
 
-    .contact-content {
-        grid-template-columns: 1fr;
-    }
+.footer-section ul li a:hover {
+    color: white;
+}
 
-    nav ul {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .header-content {
-        flex-direction: column;
-        gap: 1rem;
-    }
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #374151;
+    color: #9ca3af;
 }
 
 /* Smooth Scrolling */
@@ -888,4 +880,162 @@ html {
 
 .animate-fade-in {
     animation: fadeInUp 0.8s ease-out;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .nav-mobile {
+        display: block;
+    }
+
+    .hero {
+        background-attachment: scroll;
+        min-height: 80vh;
+        padding: 100px 0 40px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-text p {
+        font-size: 1.1rem;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .about-image img {
+        width: 250px;
+        height: 250px;
+    }
+
+    .booking-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .course-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .calendar-embed {
+        height: 400px;
+    }
+
+    .booking-header {
+        padding: 2rem 1.5rem;
+        margin-bottom: 2rem;
+        border-radius: 15px;
+    }
+
+    .booking-header .section-title {
+        font-size: 2rem;
+    }
+
+    .booking-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .header-content {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    /* Mobile Pricing Table */
+    .pricing-table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .pricing-table {
+        min-width: 600px;
+        font-size: 0.85rem;
+    }
+
+    .pricing-table th,
+    .pricing-table td {
+        padding: 0.8rem 0.6rem;
+    }
+
+    .price {
+        font-size: 1.4rem;
+    }
+
+    .pricing-notes {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .note-item {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+
+    .hero-text p {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .about-image img {
+        width: 200px;
+        height: 200px;
+    }
+
+    .course-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-header {
+        padding: 1.5rem 1rem;
+        border-radius: 12px;
+    }
+
+    .booking-header .section-title {
+        font-size: 1.8rem;
+    }
+
+    .booking-subtitle {
+        font-size: 1rem;
+    }
+
+    .booking-form-section,
+    .calendar-section {
+        padding: 1.5rem;
+    }
+}
+
+/* Larger screens - better background handling */
+@media (min-width: 1200px) {
+    .hero {
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center top;
+    }
 }

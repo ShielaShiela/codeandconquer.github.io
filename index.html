@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code & Conquer with Shiela - Learn Programming at Any Age</title>
-    <link rel="stylesheet" href="styles.css">
+    <style rel="stylesheet" href="styles.css"></style>
 </head>
 <body>
     <!-- Header -->
@@ -12,6 +12,8 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">Code & Conquer with Shiela</div>
+                
+                <!-- Desktop Navigation -->
                 <nav>
                     <ul>
                         <li><a href="#home">Home</a></li>
@@ -22,9 +24,28 @@
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </nav>
+                
+                <!-- Hamburger Menu Button -->
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </header>
+
+    <!-- Mobile Navigation -->
+    <nav class="nav-mobile" id="nav-mobile">
+        <ul>
+            <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
+            <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
+            <li><a href="#courses" onclick="closeMobileMenu()">Courses</a></li>
+            <li><a href="/codeandconquer/booking.html" onclick="closeMobileMenu()">Book A Class</a></li>
+            <li><a href="#pricing" onclick="closeMobileMenu()">Pricing</a></li>
+            <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
+        </ul>
+    </nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
@@ -238,68 +259,129 @@
     <section id="pricing" class="section section-alt">
         <div class="container">
             <h2 class="section-title">One-on-One Online Tutorial Packages</h2>
-            <div class="pricing-grid">
-
-                 <div class="pricing-card featured">
-                    <h3>⭐ 20 Classes Package</h3>
-                    <div class="price">$20<span style="font-size: 1rem;">/class ($400)</span></div>
-                    <ul style="text-align: left; list-style: none; padding: 0;">
-                        <li>✓ All classes must be scheduled within 6 months of purchase date</li>
-                        <li>✓ 33% savings compared to single session rate</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-primary">Subscribe Now</a>
-                </div>
-                <div class="pricing-card featured">
-                    <h3>📅 Weekly - 4 Classes/Month</h3>
-                    <div class="price">$24<span style="font-size: 1rem;">/class ($96)</span></div>
-                    <ul style="text-align: left; list-style: none; padding: 0;">
-                        <li>✓ One class per week - perfect for steady progress</li>
-                        <li>✓ Flexible scheduling</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-primary">Subscribe Now</a>
-                </div>
-                <div class="pricing-card">
-                    <h3>📅 Weekly - 8 Classes/Month</h3>
-                    <div class="price">$23<span style="font-size: 1rem;">/class ($184)</span></div>
-                    <ul style="text-align: left; list-style: none; padding: 0;">
-                        <li>✓ Two sessions per week for accelerated progress</li>
-                        <li>✓ Flexible scheduling</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-primary">Subscribe Now</a>
-                </div>
-                <div class="pricing-card">
-                    <h3>⭐ 10 Classes Package</h3>
-                    <div class="price">$22<span style="font-size: 1rem;">/class ($220)</span></div>
-                    <ul style="text-align: left; list-style: none; padding: 0;">
-                        <li>✓ All sessions must be scheduled within 3 months of purchase date</li>
-                        <li>✓ Ultimate flexibility - schedule all sessions within 3-month window</li>
-                        <li>✓ No weekly commitment required</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-primary">Subscribe Now</a>
-                </div>
-                <div class="pricing-card">
-                    <h3>5 Classes</h3>
-                    <div class="price">$26<span style="font-size: 1rem;">/class ($125)</span></div>
-                    <ul style="text-align: left; list-style: none; padding: 0;">
-                        <li>✓ All sessions must be scheduled within 1 month of purchase date</li>
-                        <li>✓ Ideal for short-term goals or project completion</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-primary">Subscribe Now</a>
-                </div>
-               <div class="pricing-card">
-                    <h3>Single Class</h3>
-                    <div class="price">$30<span style="font-size: 1rem;"></span></div>
-                    <ul style="text-align: left; list-style: none; padding: 0;">
-                        <li>✓ Perfect for specific problem-solving or code review</li>
-                        <li>✓ No commitment required</li>
-                        <li>✓ Book individual sessions as needed</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-primary">Book Now</a>
-                </div>
-                
+            
+            <div class="pricing-table-container">
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>Package</th>
+                            <th>Classes</th>
+                            <th>Price per Class</th>
+                            <th>Total Price</th>
+                            <th>Validity Period</th>
+                            <th>Best For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="featured-row">
+                            <td>
+                                <div class="package-name">
+                                    <span class="package-icon">⭐</span>
+                                    <strong>20 Classes Package</strong>
+                                    <span class="popular-badge">Most Popular</span>
+                                </div>
+                            </td>
+                            <td><strong>20</strong></td>
+                            <td class="price-cell">
+                                <span class="price">$20</span>
+                                <span class="savings">33% savings</span>
+                            </td>
+                            <td class="total-price">$400</td>
+                            <td>6 months</td>
+                            <td>Long-term learning journey</td>
+                        </tr>
+                        <tr class="featured-row">
+                            <td>
+                                <div class="package-name">
+                                    <span class="package-icon">📅</span>
+                                    <strong>4 Classes</strong>
+                                </div>
+                            </td>
+                            <td><strong>4/month</strong></td>
+                            <td class="price-cell">
+                                <span class="price">$24</span>
+                            </td>
+                            <td class="total-price">$96</td>
+                            <td>Monthly subscription</td>
+                            <td>Steady weekly progress</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="package-name">
+                                    <span class="package-icon">📅</span>
+                                    <strong>8 Classes</strong>
+                                </div>
+                            </td>
+                            <td><strong>8/month</strong></td>
+                            <td class="price-cell">
+                                <span class="price">$23</span>
+                            </td>
+                            <td class="total-price">$184</td>
+                            <td>Monthly subscription</td>
+                            <td>Accelerated learning</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="package-name">
+                                    <span class="package-icon">⭐</span>
+                                    <strong>10 Classes Package</strong>
+                                </div>
+                            </td>
+                            <td><strong>10</strong></td>
+                            <td class="price-cell">
+                                <span class="price">$22</span>
+                            </td>
+                            <td class="total-price">$220</td>
+                            <td>3 months</td>
+                            <td>Medium-term goals</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="package-name">
+                                    <span class="package-icon">📚</span>
+                                    <strong>5 Classes Package</strong>
+                                </div>
+                            </td>
+                            <td><strong>5</strong></td>
+                            <td class="price-cell">
+                                <span class="price">$26</span>
+                            </td>
+                            <td class="total-price">$130</td>
+                            <td>1 month</td>
+                            <td>Short-term projects</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="package-name">
+                                    <span class="package-icon">🎯</span>
+                                    <strong>Single Class</strong>
+                                </div>
+                            </td>
+                            <td><strong>1</strong></td>
+                            <td class="price-cell">
+                                <span class="price">$30</span>
+                            </td>
+                            <td class="total-price">$30</td>
+                            <td>No expiry</td>
+                            <td>Problem-solving & code review</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div style="text-align: center; margin-top: 2rem; padding: 1rem; background: white; border-radius: 8px;">
-                <strong>Each session runs for 50 minutes.</strong>
+
+            <div class="pricing-notes">
+                <div class="note-item">
+                    <span class="note-icon">⏱️</span>
+                    <strong>Each session runs for 50 minutes</strong>
+                </div>
+                <div class="note-item">
+                    <span class="note-icon">💡</span>
+                    <strong>All packages include personalized curriculum and 1-on-1 instruction</strong>
+                </div>
+                <div class="note-item">
+                    <span class="note-icon">📞</span>
+                    <strong>Contact us to book your preferred package or ask questions</strong>
+                </div>
             </div>
         </div>
     </section>
@@ -423,7 +505,7 @@
                     </div>
 
                     <!-- Privacy Notice -->
-                    <div class="privacy-notice" style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-size: 0.9rem; color: #666; border-left: 4px solid #4285f4;">
+                    <div class="privacy-notice">
                         <h4 style="margin: 0 0 0.5rem 0; color: #333; font-size: 1rem;">🔒 Your Privacy Matters</h4>
                         <p style="margin: 0; line-height: 1.4;">
                             We use your information solely to schedule your trial class and provide programming education services. 
@@ -488,9 +570,6 @@
     </div>
 </section>
 
-
-
-
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -533,8 +612,64 @@
             </div>
         </div>
     </footer>
-
+    <script src="main.js"></script>
     <script>
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMobile = document.getElementById('nav-mobile');
+
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navMobile.classList.toggle('active');
+            document.body.style.overflow = navMobile.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        // Close mobile menu function
+        function closeMobileMenu() {
+            hamburger.classList.remove('active');
+            navMobile.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close mobile menu when clicking outside
+        navMobile.addEventListener('click', function(e) {
+            if (e.target === navMobile) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close mobile menu on window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
+            }
+        });
+
+        // Handle background image optimization
+        function optimizeBackgroundImage() {
+            const hero = document.querySelector('.hero');
+            const isLargeScreen = window.innerWidth > 1200;
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                hero.style.backgroundAttachment = 'scroll';
+                hero.style.backgroundSize = 'cover';
+                hero.style.backgroundPosition = 'center';
+            } else if (isLargeScreen) {
+                hero.style.backgroundAttachment = 'fixed';
+                hero.style.backgroundSize = 'cover';
+                hero.style.backgroundPosition = 'center top';
+            } else {
+                hero.style.backgroundAttachment = 'scroll';
+                hero.style.backgroundSize = 'cover';
+                hero.style.backgroundPosition = 'center';
+            }
+        }
+
+        // Call on load and resize
+        window.addEventListener('load', optimizeBackgroundImage);
+        window.addEventListener('resize', optimizeBackgroundImage);
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -548,8 +683,6 @@
                 }
             });
         });
-
-       
 
         // Add animation on scroll (simple version)
         const observerOptions = {
@@ -569,7 +702,23 @@
         document.querySelectorAll('.section').forEach(section => {
             observer.observe(section);
         });
+
+        // Course selection functionality
+        document.querySelectorAll('.course-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options
+                document.querySelectorAll('.course-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Update hidden input value
+                document.getElementById('selectedCourse').value = this.dataset.course;
+            });
+        });
+
     </script>
-    <script src="main.js"></script>
 </body>
 </html>
