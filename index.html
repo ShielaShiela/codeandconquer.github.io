@@ -443,7 +443,7 @@
     </div>
 </section>
 
-<!-- STEP 2: Add this modal BEFORE your closing </body> tag -->
+<!-- Enhanced Reservation Modal -->
 <div id="reservationModal" class="reservation-modal">
     <div class="reservation-modal-content">
         <div class="reservation-modal-header">
@@ -452,7 +452,11 @@
         </div>
 
         <div class="reservation-success-message" id="reservationSuccessMessage">
-            ✅ Your reservation request has been submitted successfully! We'll send payment details to your email within 24 hours.
+            ✅ Your reservation has been submitted successfully! We'll send payment details to your email within 24 hours.
+        </div>
+
+        <div class="reservation-error-message" id="reservationErrorMessage">
+            ❌ There was an error submitting your reservation. Please try again or contact us directly.
         </div>
 
         <div class="reservation-package-info" id="reservationPackageInfo">
@@ -486,11 +490,16 @@
                         <a href="https://wa.me/639302694206" target="_blank">
                             💬 WhatsApp
                         </a>
-                        <a href="https://line.me/your-line-id" target="_blank">
-                            📱 Line
+                        <a href="mailto:shielacabahug96@gmail.com" target="_blank">
+                            📧 Email
                         </a>
                     </div>
                 </div>
+            </div>
+
+            <div class="reservation-loading" id="reservationLoading">
+                <div class="spinner"></div>
+                <p>Submitting your reservation...</p>
             </div>
 
             <div class="reservation-modal-actions">
@@ -837,113 +846,245 @@
     </script>
 
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Modal functionality
-    const modal = document.getElementById('reservationModal');
-    const closeBtn = document.getElementById('closeReservationModal');
-    const cancelBtn = document.getElementById('cancelReservationBtn');
-    const reserveBtns = document.querySelectorAll('.reserve-btn');
-    const form = document.getElementById('reservationForm');
-    const successMessage = document.getElementById('reservationSuccessMessage');
-    const packageInfo = document.getElementById('reservationPackageInfo');
-    const submitBtn = document.getElementById('submitReservationBtn');
+        // Configuration - Replace with your actual Google Apps Script URL
+        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby7dBFcZRBeLXtt3EUz2qyDWYXzFJ_JhWiwUKuLCUu13lcCB2rL4O6e0AcLtmah2iB4/exec';
 
-    // Open modal when Reserve Now button is clicked
-    reserveBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const packageName = this.dataset.package;
-            const classes = this.dataset.classes;
-            const price = this.dataset.price;
-            const duration = this.dataset.duration;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Modal functionality
+            const modal = document.getElementById('reservationModal');
+            const closeBtn = document.getElementById('closeReservationModal');
+            const cancelBtn = document.getElementById('cancelReservationBtn');
+            const reserveBtns = document.querySelectorAll('.reserve-btn');
+            const form = document.getElementById('reservationForm');
+            const successMessage = document.getElementById('reservationSuccessMessage');
+            const errorMessage = document.getElementById('reservationErrorMessage');
+            const packageInfo = document.getElementById('reservationPackageInfo');
+            const submitBtn = document.getElementById('submitReservationBtn');
+            const loadingDiv = document.getElementById('reservationLoading');
 
-            // Update package info in modal
-            packageInfo.innerHTML = `
-                <h4>${packageName}</h4>
-                <p><strong>${classes} classes</strong> • <strong>${price}</strong> • Valid for <strong>${duration}</strong></p>
-            `;
+            let currentPackageData = {};
 
-            // Reset form and show modal
-            form.reset();
-            successMessage.classList.remove('show');
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        });
-    });
+            // Open modal when Reserve Now button is clicked
+            reserveBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const packageName = this.dataset.package;
+                    const classes = this.dataset.classes;
+                    const price = this.dataset.price;
+                    const duration = this.dataset.duration;
 
-    // Close modal functions
-    function closeModal() {
-        modal.classList.remove('show');
-        document.body.style.overflow = 'auto';
-    }
+                    // Store package data
+                    currentPackageData = {
+                        packageName,
+                        classes,
+                        price,
+                        duration
+                    };
 
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+                    // Update package info in modal
+                    packageInfo.innerHTML = `
+                        <h4>${packageName}</h4>
+                        <p><strong>${classes} classes</strong> • <strong>${price}</strong> • Valid for <strong>${duration}</strong></p>
+                    `;
 
-    // Close modal when clicking outside
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            closeModal();
-        }
-    });
-
-    // Close modal with Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.classList.contains('show')) {
-            closeModal();
-        }
-    });
-
-    // Form submission
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Disable submit button and show loading state
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Submitting...';
-
-        // Simulate form submission delay
-        setTimeout(() => {
-            // In a real implementation, you would send the data to your server here
-            console.log('Form submitted:', {
-                nickname: document.getElementById('reservationNickname').value,
-                email: document.getElementById('reservationEmail').value,
-                package: packageInfo.querySelector('h4').textContent
+                    // Reset form and show modal
+                    form.reset();
+                    successMessage.classList.remove('show');
+                    errorMessage.classList.remove('show');
+                    modal.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                });
             });
 
-            // Show success message
-            successMessage.classList.add('show');
-            form.style.display = 'none';
+            // Close modal functions
+            function closeModal() {
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
 
-            // Reset button
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Submit Reservation';
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+            if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
 
-            // Auto-close modal after 3 seconds
-            setTimeout(() => {
-                closeModal();
-                form.style.display = 'block';
-            }, 3000);
-        }, 1500);
-    });
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
 
-    // Form validation
-    const nickname = document.getElementById('reservationNickname');
-    const email = document.getElementById('reservationEmail');
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('show')) {
+                    closeModal();
+                }
+            });
 
-    function validateForm() {
-        const isValid = nickname.value.trim() && email.value.trim() && email.validity.valid;
-        submitBtn.disabled = !isValid;
-    }
+            // Enhanced form submission with Google Sheets integration
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                loadingDiv.style.display = 'block';
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
 
-    if (nickname && email) {
-        nickname.addEventListener('input', validateForm);
-        email.addEventListener('input', validateForm);
-        
-        // Initial validation
-        validateForm();
-    }
-});
-</script>
+                // Collect form data
+                const formData = {
+                    nickname: document.getElementById('reservationNickname').value,
+                    email: document.getElementById('reservationEmail').value,
+                    phone: document.getElementById('reservationPhone').value || 'Not provided',
+                    country: document.getElementById('reservationCountry').value,
+                    packageName: currentPackageData.packageName,
+                    classes: currentPackageData.classes,
+                    price: currentPackageData.price,
+                    duration: currentPackageData.duration,
+                    timestamp: new Date().toISOString(),
+                    paymentStatus: 'Pending',
+                    paymentMethod: '',
+                    type: 'reservation'
+                };
+
+                try {
+                    // Send to Google Sheets
+                    const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    // Since we're using no-cors, we can't read the response
+                    // So we'll assume success and show the success message
+                    setTimeout(() => {
+                        loadingDiv.style.display = 'none';
+                        successMessage.classList.add('show');
+                        form.style.display = 'none';
+
+                        // Reset button
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Submit Reservation';
+
+                        // Auto-close modal after 4 seconds
+                        setTimeout(() => {
+                            closeModal();
+                            form.style.display = 'block';
+                        }, 4000);
+                    }, 2000);
+
+                } catch (error) {
+                    console.error('Error submitting reservation:', error);
+                    
+                    loadingDiv.style.display = 'none';
+                    errorMessage.classList.add('show');
+                    
+                    // Reset button
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Reservation';
+                }
+            });
+
+            // Form validation
+            const nickname = document.getElementById('reservationNickname');
+            const email = document.getElementById('reservationEmail');
+
+            function validateForm() {
+                const isValid = nickname.value.trim() && 
+                                email.value.trim() && 
+                                email.validity.valid;
+                submitBtn.disabled = !isValid;
+            }
+
+            if (nickname && email) {
+                nickname.addEventListener('input', validateForm);
+                email.addEventListener('input', validateForm);
+                
+                // Initial validation
+                validateForm();
+            }
+        });
+
+        // Enhanced Trial Booking Form Submission
+        const trialForm = document.getElementById('trialBookingForm');
+        if (trialForm) {
+            trialForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const loadingIndicator = document.getElementById('loadingIndicator');
+                const submitTrialBtn = document.getElementById('submitBtn');
+                const successMsg = document.getElementById('successMessage');
+                const errorMsg = document.getElementById('errorMessage');
+
+                // Show loading state
+                loadingIndicator.style.display = 'block';
+                submitTrialBtn.disabled = true;
+                submitTrialBtn.textContent = 'Submitting...';
+
+                // Collect trial form data
+                const trialData = {
+                    nickname: document.getElementById('nickName').value,
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    country: document.getElementById('country').value,
+                    course: document.getElementById('selectedCourse').value,
+                    goals: document.getElementById('otherDetails').value || 'Not provided',
+                    timestamp: new Date().toISOString(),
+                    type: 'trial'
+                };
+
+                try {
+                    // Send to Google Sheets
+                    const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(trialData)
+                    });
+
+                    // Simulate successful submission
+                    setTimeout(() => {
+                        loadingIndicator.style.display = 'none';
+                        successMsg.style.display = 'block';
+                        trialForm.reset();
+                        
+                        // Clear course selection
+                        document.querySelectorAll('.course-option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                        
+                        // Reset button
+                        submitTrialBtn.disabled = false;
+                        submitTrialBtn.textContent = 'Submit Trial Request';
+
+                        // Hide success message after 5 seconds
+                        setTimeout(() => {
+                            successMsg.style.display = 'none';
+                        }, 5000);
+                    }, 2000);
+
+                } catch (error) {
+                    console.error('Error submitting trial form:', error);
+                    
+                    loadingIndicator.style.display = 'none';
+                    errorMsg.style.display = 'block';
+                    
+                    // Reset button
+                    submitTrialBtn.disabled = false;
+                    submitTrialBtn.textContent = 'Submit Trial Request';
+
+                    // Hide error message after 5 seconds
+                    setTimeout(() => {
+                        errorMsg.style.display = 'none';
+                    }, 5000);
+                }
+            });
+        }
+    </script>
+
+    
 </body>
 </html>
