@@ -848,10 +848,11 @@
     <script>
         // Configuration - Replace with your actual Google Apps Script URL
         const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby7dBFcZRBeLXtt3EUz2qyDWYXzFJ_JhWiwUKuLCUu13lcCB2rL4O6e0AcLtmah2iB4/exec';
-
- 
+        
         document.addEventListener('DOMContentLoaded', function() {
-            // Modal functionality
+            console.log('🟢 Package Reservation System Loading...');
+            
+            // Get modal elements
             const modal = document.getElementById('reservationModal');
             const closeBtn = document.getElementById('closeReservationModal');
             const cancelBtn = document.getElementById('cancelReservationBtn');
@@ -863,16 +864,24 @@
             const submitBtn = document.getElementById('submitReservationBtn');
             const loadingDiv = document.getElementById('reservationLoading');
 
+            // Package data storage
             let currentPackageData = {};
 
+            console.log('Found', reserveBtns.length, 'reserve buttons');
+
             // Open modal when Reserve Now button is clicked
-            reserveBtns.forEach(btn => {
+            reserveBtns.forEach((btn, index) => {
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
+                    console.log('🟡 Reserve button clicked:', index);
+                    
+                    // Get package data from button attributes
                     const packageName = this.dataset.package;
                     const classes = this.dataset.classes;
                     const price = this.dataset.price;
                     const duration = this.dataset.duration;
+
+                    console.log('📦 Package Data:', { packageName, classes, price, duration });
 
                     // Store package data
                     currentPackageData = {
@@ -894,11 +903,14 @@
                     errorMessage.classList.remove('show');
                     modal.classList.add('show');
                     document.body.style.overflow = 'hidden';
+                    
+                    console.log('🟢 Modal opened');
                 });
             });
 
             // Close modal functions
             function closeModal() {
+                console.log('🔴 Closing modal');
                 modal.classList.remove('show');
                 document.body.style.overflow = 'auto';
             }
@@ -920,71 +932,97 @@
                 }
             });
 
-            // Enhanced form submission with Google Sheets integration
+            // ✅ CLEAN FORM SUBMISSION - Only nickname and email
             form.addEventListener('submit', async function(e) {
                 e.preventDefault();
+                console.log('🟡 Form submission started');
                 
                 // Show loading state
                 loadingDiv.style.display = 'block';
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Submitting...';
 
-                // Collect form data
-                const formData = {
-                    nickname: document.getElementById('reservationNickname').value,
-                    email: document.getElementById('reservationEmail').value,
-                    packageName: currentPackageData.packageName,
-                    classes: currentPackageData.classes,
-                    price: currentPackageData.price,
-                    duration: currentPackageData.duration,
-                    timestamp: new Date().toISOString(),
-                    paymentStatus: 'Pending',
-                    paymentMethod: '',
-                    type: 'reservation'
-                };
+                // ✅ Collect ONLY the data we need
+                const nickname = document.getElementById('reservationNickname').value.trim();
+                const email = document.getElementById('reservationEmail').value.trim();
+
+                console.log('📝 Form Data:', {
+                    nickname,
+                    email,
+                    package: currentPackageData
+                });
+
+                // Validate
+                if (!nickname || !email) {
+                    console.log('❌ Validation failed');
+                    alert('Please fill in both nickname and email');
+                    loadingDiv.style.display = 'none';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Reservation';
+                    return;
+                }
 
                 try {
-                    // Send to Google Sheets
+                    // ✅ Prepare FormData - Simple and clean
+                    const formDataToSend = new FormData();
+                    formDataToSend.append('nickname', nickname);
+                    formDataToSend.append('email', email);
+                    formDataToSend.append('packageName', currentPackageData.packageName);
+                    formDataToSend.append('classes', currentPackageData.classes);
+                    formDataToSend.append('price', currentPackageData.price);
+                    formDataToSend.append('duration', currentPackageData.duration);
+
+                    console.log('🚀 Sending to Google Apps Script...');
+                    console.log('Data being sent:');
+                    for (let [key, value] of formDataToSend.entries()) {
+                        console.log(`  ${key}: ${value}`);
+                    }
+
+                    // ✅ Send to Google Apps Script
                     const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
                         method: 'POST',
-                        mode: 'no-cors',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(formData)
+                        body: formDataToSend
                     });
 
-                    // Since we're using no-cors, we can't read the response
-                    // So we'll assume success and show the success message
-                    setTimeout(() => {
+                    console.log('📡 Response status:', response.status);
+
+                    if (!response.ok) {
+                        throw new Error(`Server responded with status: ${response.status}`);
+                    }
+
+                    const responseData = await response.json();
+                    console.log('📬 Response data:', responseData);
+
+                    if (responseData.success) {
+                        console.log('🟢 SUCCESS!');
+                        // Show success message
                         loadingDiv.style.display = 'none';
                         successMessage.classList.add('show');
                         form.style.display = 'none';
-
-                        // Reset button
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = 'Submit Reservation';
 
                         // Auto-close modal after 4 seconds
                         setTimeout(() => {
                             closeModal();
                             form.style.display = 'block';
                         }, 4000);
-                    }, 2000);
+                    } else {
+                        throw new Error(responseData.message || 'Server returned an error');
+                    }
 
                 } catch (error) {
-                    console.error('Error submitting reservation:', error);
+                    console.error('❌ Error submitting reservation:', error);
                     
                     loadingDiv.style.display = 'none';
+                    errorMessage.innerHTML = `❌ <strong>Error:</strong> ${error.message}<br><small>Check browser console for details.</small>`;
                     errorMessage.classList.add('show');
-                    
+                } finally {
                     // Reset button
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Submit Reservation';
                 }
             });
 
-            // Form validation
+            // ✅ Simple form validation
             const nickname = document.getElementById('reservationNickname');
             const email = document.getElementById('reservationEmail');
 
@@ -998,10 +1036,10 @@
             if (nickname && email) {
                 nickname.addEventListener('input', validateForm);
                 email.addEventListener('input', validateForm);
-                
-                // Initial validation
-                validateForm();
+                validateForm(); // Initial validation
             }
+
+            console.log('🟢 Package Reservation System Ready!');
         });
     </script>
 
