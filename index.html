@@ -424,6 +424,10 @@
 
         <div class="pricing-notes">
             <div class="note-item">
+                <span class="note-icon">📞</span>
+                <strong>Payment details are shown after package reservation.</strong>
+            </div>
+            <div class="note-item">
                 <span class="note-icon">⏱️</span>
                 <strong>The class is 1-on-1 online class on Zoom or Google Meet. Class runs for 50 minutes.</strong>
             </div>
@@ -431,19 +435,12 @@
                 <span class="note-icon">💡</span>
                 <strong>Flexible scheduling for all purchased classes before validity expiration through the booking platform.</strong>
             </div>
-            <div class="note-item">
-                <span class="note-icon">📞</span>
-                <strong>Payment details are shown after package reservation.</strong>
-            </div>
-             <div class="note-item">
-                <span class="note-icon">📞</span>
-                <strong>Request a refund if dissatisfied with the class.</strong>
-            </div>
+            
         </div>
     </div>
 </section>
 
-<!-- Enhanced Reservation Modal -->
+<!-- Enhanced Reservation Modal with Nickname Validation -->
 <div id="reservationModal" class="reservation-modal">
     <div class="reservation-modal-content">
         <div class="reservation-modal-header">
@@ -463,26 +460,54 @@
             <!-- Package details will be inserted here by JavaScript -->
         </div>
 
+        <!-- New Student Notice -->
+        <div class="new-student-notice">
+            <h4>📝 For Existing Students Only</h4>
+            <p>Package reservations are available only for students who have completed a trial class.</p>
+            <p><strong>New to Code & Conquer?</strong> Please <a href="#contact" onclick="document.getElementById('reservationModal').classList.remove('show'); document.body.style.overflow = 'auto';">book a free trial class first</a> to get started!</p>
+        </div>
+
         <form id="reservationForm">
             <div class="reservation-form-group">
-                <label for="reservationNickname">Nickname *</label>
+                <label for="reservationNickname">Nickname (from your trial class) *</label>
                 <input type="text" id="reservationNickname" name="nickname" required 
-                       placeholder="What should we call you?">
+                       placeholder="Enter the nickname you used during trial class">
+                <small class="field-help">This should match the nickname from your trial class booking</small>
+                <!-- Validation messages will be inserted here by JavaScript -->
             </div>
 
             <div class="reservation-form-group">
                 <label for="reservationEmail">Email Address *</label>
                 <input type="email" id="reservationEmail" name="email" required 
                        placeholder="your.email@example.com">
+                <small class="field-help">We'll send payment details to this email</small>
             </div>
 
             <div class="reservation-info-section">
-                <h4>📧 Payment Information</h4>
-                <p><strong>Payment details will be sent to your email address</strong> within 24 hours of submitting this reservation.</p>
-                <p>The email will include:</p>
-                <p>• Payment methods (PayPal, bank transfer, etc.)</p>
-                <p>• Invoice with package details</p>
-                <p>• Instructions for completing your registration</p>
+                <h4>💳 What Happens Next?</h4>
+                <div class="info-steps">
+                    <div class="info-step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <strong>Verification</strong>
+                            <p>We'll verify your nickname against our trial class records</p>
+                        </div>
+                    </div>
+                    <div class="info-step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <strong>Payment Details</strong>
+                            <p>Payment instructions will be sent to your email within 24 hours</p>
+                        </div>
+                    </div>
+                    <div class="info-step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <strong>Class Scheduling</strong>
+                            <p>After payment, you'll receive a booking link to schedule your classes</p>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="reservation-contact-info">
                     <h5>🚀 Need immediate assistance?</h5>
@@ -504,7 +529,9 @@
 
             <div class="reservation-modal-actions">
                 <button type="button" class="btn btn-secondary" id="cancelReservationBtn">Cancel</button>
-                <button type="submit" class="btn btn-primary" id="submitReservationBtn">Submit Reservation</button>
+                <button type="submit" class="btn btn-primary" id="submitReservationBtn" disabled>
+                    Please verify nickname first
+                </button>
             </div>
         </form>
     </div>
@@ -846,201 +873,497 @@
     </script>
 
     <script>
-        // Configuration - Replace with your actual Google Apps Script URL
-        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby4vfRygWPO7ic6y4rS7OOpxXd3Dl2yZCU2fT-zNztRBDv5SwqYBLuouIOeufTCJ47N/exec';
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🟢 Package Reservation System Loading...');
+        // Enhanced Package Reservation System with Nickname Validation
+// Add this to your HTML page or update the existing reservation script
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🟢 Enhanced Package Reservation System Loading...');
+    
+    // Configuration - Replace with your actual Google Apps Script URL
+    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxdOXx0Z5JQZv-1QqtpIpuvxhVs-XIAt66wFzIhw1txhsc_sIQsfUSIRMyGa9pW_y8K/exec';
+    
+    // Get modal elements
+    const modal = document.getElementById('reservationModal');
+    const closeBtn = document.getElementById('closeReservationModal');
+    const cancelBtn = document.getElementById('cancelReservationBtn');
+    const reserveBtns = document.querySelectorAll('.reserve-btn');
+    const form = document.getElementById('reservationForm');
+    const successMessage = document.getElementById('reservationSuccessMessage');
+    const errorMessage = document.getElementById('reservationErrorMessage');
+    const packageInfo = document.getElementById('reservationPackageInfo');
+    const submitBtn = document.getElementById('submitReservationBtn');
+    const loadingDiv = document.getElementById('reservationLoading');
+
+    // Package data storage
+    let currentPackageData = {};
+    let isNicknameValid = false;
+    let studentInfo = null;
+
+    console.log('Found', reserveBtns.length, 'reserve buttons');
+
+    // Open modal when Reserve Now button is clicked
+    reserveBtns.forEach((btn, index) => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('🟡 Reserve button clicked:', index);
             
-            // Get modal elements
-            const modal = document.getElementById('reservationModal');
-            const closeBtn = document.getElementById('closeReservationModal');
-            const cancelBtn = document.getElementById('cancelReservationBtn');
-            const reserveBtns = document.querySelectorAll('.reserve-btn');
-            const form = document.getElementById('reservationForm');
-            const successMessage = document.getElementById('reservationSuccessMessage');
-            const errorMessage = document.getElementById('reservationErrorMessage');
-            const packageInfo = document.getElementById('reservationPackageInfo');
-            const submitBtn = document.getElementById('submitReservationBtn');
-            const loadingDiv = document.getElementById('reservationLoading');
+            // Get package data from button attributes
+            const packageName = this.dataset.package;
+            const classes = this.dataset.classes;
+            const price = this.dataset.price;
+            const duration = this.dataset.duration;
 
-            // Package data storage
-            let currentPackageData = {};
+            console.log('📦 Package Data:', { packageName, classes, price, duration });
 
-            console.log('Found', reserveBtns.length, 'reserve buttons');
+            // Store package data
+            currentPackageData = {
+                packageName,
+                classes,
+                price,
+                duration
+            };
 
-            // Open modal when Reserve Now button is clicked
-            reserveBtns.forEach((btn, index) => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('🟡 Reserve button clicked:', index);
-                    
-                    // Get package data from button attributes
-                    const packageName = this.dataset.package;
-                    const classes = this.dataset.classes;
-                    const price = this.dataset.price;
-                    const duration = this.dataset.duration;
+            // Update package info in modal
+            packageInfo.innerHTML = `
+                <h4>${packageName}</h4>
+                <p><strong>${classes} classes</strong> • <strong>${price}</strong> • Valid for <strong>${duration}</strong></p>
+            `;
 
-                    console.log('📦 Package Data:', { packageName, classes, price, duration });
-
-                    // Store package data
-                    currentPackageData = {
-                        packageName,
-                        classes,
-                        price,
-                        duration
-                    };
-
-                    // Update package info in modal
-                    packageInfo.innerHTML = `
-                        <h4>${packageName}</h4>
-                        <p><strong>${classes} classes</strong> • <strong>${price}</strong> • Valid for <strong>${duration}</strong></p>
-                    `;
-
-                    // Reset form and show modal
-                    form.reset();
-                    successMessage.classList.remove('show');
-                    errorMessage.classList.remove('show');
-                    modal.classList.add('show');
-                    document.body.style.overflow = 'hidden';
-                    
-                    console.log('🟢 Modal opened');
-                });
-            });
-
-            // Close modal functions
-            function closeModal() {
-                console.log('🔴 Closing modal');
-                modal.classList.remove('show');
-                document.body.style.overflow = 'auto';
-            }
-
-            if (closeBtn) closeBtn.addEventListener('click', closeModal);
-            if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
-
-            // Close modal when clicking outside
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    closeModal();
-                }
-            });
-
-            // Close modal with Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && modal.classList.contains('show')) {
-                    closeModal();
-                }
-            });
-
-            // ✅ CLEAN FORM SUBMISSION - Only nickname and email
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                console.log('🟡 Form submission started');
-                
-                // Show loading state
-                loadingDiv.style.display = 'block';
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Submitting...';
-
-                // ✅ Collect ONLY the data we need
-                const nickname = document.getElementById('reservationNickname').value.trim();
-                const email = document.getElementById('reservationEmail').value.trim();
-
-                console.log('📝 Form Data:', {
-                    nickname,
-                    email,
-                    package: currentPackageData
-                });
-
-                // Validate
-                if (!nickname || !email) {
-                    console.log('❌ Validation failed');
-                    alert('Please fill in both nickname and email');
-                    loadingDiv.style.display = 'none';
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Submit Reservation';
-                    return;
-                }
-
-                try {
-                    // ✅ Prepare FormData - Simple and clean
-                    const formDataToSend = new FormData();
-                    formDataToSend.append('nickname', nickname);
-                    formDataToSend.append('email', email);
-                    formDataToSend.append('packageName', currentPackageData.packageName);
-                    formDataToSend.append('classes', currentPackageData.classes);
-                    formDataToSend.append('price', currentPackageData.price);
-                    formDataToSend.append('duration', currentPackageData.duration);
-
-                    console.log('🚀 Sending to Google Apps Script...');
-                    console.log('Data being sent:');
-                    for (let [key, value] of formDataToSend.entries()) {
-                        console.log(`  ${key}: ${value}`);
-                    }
-
-                    // ✅ Send to Google Apps Script
-                    const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
-                        method: 'POST',
-                        body: formDataToSend
-                    });
-
-                    console.log('📡 Response status:', response.status);
-
-                    if (!response.ok) {
-                        throw new Error(`Server responded with status: ${response.status}`);
-                    }
-
-                    const responseData = await response.json();
-                    console.log('📬 Response data:', responseData);
-
-                    if (responseData.success) {
-                        console.log('🟢 SUCCESS!');
-                        // Show success message
-                        loadingDiv.style.display = 'none';
-                        successMessage.classList.add('show');
-                        form.style.display = 'none';
-
-                        // Auto-close modal after 4 seconds
-                        setTimeout(() => {
-                            closeModal();
-                            form.style.display = 'block';
-                        }, 4000);
-                    } else {
-                        throw new Error(responseData.message || 'Server returned an error');
-                    }
-
-                } catch (error) {
-                    console.error('❌ Error submitting reservation:', error);
-                    
-                    loadingDiv.style.display = 'none';
-                    errorMessage.innerHTML = `❌ <strong>Error:</strong> ${error.message}<br><small>Check browser console for details.</small>`;
-                    errorMessage.classList.add('show');
-                } finally {
-                    // Reset button
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Submit Reservation';
-                }
-            });
-
-            // ✅ Simple form validation
-            const nickname = document.getElementById('reservationNickname');
-            const email = document.getElementById('reservationEmail');
-
-            function validateForm() {
-                const isValid = nickname.value.trim() && 
-                                email.value.trim() && 
-                                email.validity.valid;
-                submitBtn.disabled = !isValid;
-            }
-
-            if (nickname && email) {
-                nickname.addEventListener('input', validateForm);
-                email.addEventListener('input', validateForm);
-                validateForm(); // Initial validation
-            }
-
-            console.log('🟢 Package Reservation System Ready!');
+            // Reset form and validation state
+            form.reset();
+            isNicknameValid = false;
+            studentInfo = null;
+            successMessage.classList.remove('show');
+            errorMessage.classList.remove('show');
+            hideValidationMessages();
+            updateSubmitButtonState();
+            
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            
+            console.log('🟢 Modal opened');
         });
+    });
+
+    // Close modal functions
+    function closeModal() {
+        console.log('🔴 Closing modal');
+        modal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+
+    // Close modal when clicking outside
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('show')) {
+            closeModal();
+        }
+    });
+
+    // ✅ NICKNAME VALIDATION FUNCTIONALITY
+    const nicknameInput = document.getElementById('reservationNickname');
+    const emailInput = document.getElementById('reservationEmail');
+    
+    // Create validation message elements if they don't exist
+    function createValidationMessages() {
+        // Create nickname validation message
+        let nicknameValidation = document.getElementById('nicknameValidation');
+        if (!nicknameValidation) {
+            nicknameValidation = document.createElement('div');
+            nicknameValidation.id = 'nicknameValidation';
+            nicknameValidation.className = 'validation-message';
+            nicknameInput.parentNode.appendChild(nicknameValidation);
+        }
+
+        // Create student info display
+        let studentInfoDisplay = document.getElementById('studentInfoDisplay');
+        if (!studentInfoDisplay) {
+            studentInfoDisplay = document.createElement('div');
+            studentInfoDisplay.id = 'studentInfoDisplay';
+            studentInfoDisplay.className = 'student-info-display';
+            nicknameInput.parentNode.appendChild(studentInfoDisplay);
+        }
+    }
+
+    function hideValidationMessages() {
+        const nicknameValidation = document.getElementById('nicknameValidation');
+        const studentInfoDisplay = document.getElementById('studentInfoDisplay');
+        
+        if (nicknameValidation) {
+            nicknameValidation.style.display = 'none';
+            nicknameValidation.className = 'validation-message';
+        }
+        if (studentInfoDisplay) {
+            studentInfoDisplay.style.display = 'none';
+        }
+    }
+
+    function showValidationError(message) {
+        let nicknameValidation = document.getElementById('nicknameValidation');
+        if (!nicknameValidation) {
+            createValidationMessages();
+            nicknameValidation = document.getElementById('nicknameValidation');
+        }
+        
+        nicknameValidation.innerHTML = `❌ ${message}`;
+        nicknameValidation.className = 'validation-message error';
+        nicknameValidation.style.display = 'block';
+        
+        hideStudentInfo();
+    }
+
+    function showValidationSuccess() {
+        let nicknameValidation = document.getElementById('nicknameValidation');
+        if (!nicknameValidation) {
+            createValidationMessages();
+            nicknameValidation = document.getElementById('nicknameValidation');
+        }
+        
+        nicknameValidation.innerHTML = `✅ Student found! Welcome back, ${studentInfo.firstName}!`;
+        nicknameValidation.className = 'validation-message success';
+        nicknameValidation.style.display = 'block';
+        
+        showStudentInfo();
+    }
+
+    function showStudentInfo() {
+        if (!studentInfo) return;
+        
+        let studentInfoDisplay = document.getElementById('studentInfoDisplay');
+        if (!studentInfoDisplay) {
+            createValidationMessages();
+            studentInfoDisplay = document.getElementById('studentInfoDisplay');
+        }
+        
+        studentInfoDisplay.innerHTML = `
+            <div class="student-info-card">
+                <h4>📚 Your Information</h4>
+                <p><strong>Name:</strong> ${studentInfo.firstName} ${studentInfo.lastName}</p>
+                <p><strong>Email:</strong> ${studentInfo.email}</p>
+                <p><small>This information was retrieved from your trial class booking.</small></p>
+            </div>
+        `;
+        studentInfoDisplay.style.display = 'block';
+        
+        // Auto-populate email field
+        if (emailInput && studentInfo.email) {
+            emailInput.value = studentInfo.email;
+            emailInput.readOnly = true;
+        }
+    }
+
+    function hideStudentInfo() {
+        const studentInfoDisplay = document.getElementById('studentInfoDisplay');
+        if (studentInfoDisplay) {
+            studentInfoDisplay.style.display = 'none';
+        }
+        
+        // Make email field editable again
+        if (emailInput) {
+            emailInput.readOnly = false;
+        }
+    }
+
+    function updateSubmitButtonState() {
+        if (submitBtn) {
+            submitBtn.disabled = !isNicknameValid;
+            if (!isNicknameValid) {
+                submitBtn.textContent = 'Please verify nickname first';
+                submitBtn.style.opacity = '0.5';
+            } else {
+                submitBtn.textContent = 'Submit Reservation';
+                submitBtn.style.opacity = '1';
+            }
+        }
+    }
+
+    // Validate nickname when user finishes typing
+    if (nicknameInput) {
+        let validationTimeout;
+        
+        nicknameInput.addEventListener('input', function() {
+            // Reset validation state
+            isNicknameValid = false;
+            studentInfo = null;
+            hideValidationMessages();
+            updateSubmitButtonState();
+            
+            // Clear previous timeout
+            if (validationTimeout) {
+                clearTimeout(validationTimeout);
+            }
+            
+            // Set new timeout for validation (500ms after user stops typing)
+            const nickname = this.value.trim();
+            if (nickname) {
+                validationTimeout = setTimeout(() => {
+                    validateNickname(nickname);
+                }, 500);
+            }
+        });
+
+        // Also validate on blur (when user clicks away)
+        nicknameInput.addEventListener('blur', function() {
+            const nickname = this.value.trim();
+            if (nickname && !isNicknameValid) {
+                validateNickname(nickname);
+            }
+        });
+    }
+
+    // Validate nickname function
+    async function validateNickname(nickname) {
+        console.log('🔍 Validating nickname:', nickname);
+        
+        try {
+            // Show loading state
+            let nicknameValidation = document.getElementById('nicknameValidation');
+            if (!nicknameValidation) {
+                createValidationMessages();
+                nicknameValidation = document.getElementById('nicknameValidation');
+            }
+            
+            nicknameValidation.innerHTML = '🔍 Checking nickname...';
+            nicknameValidation.className = 'validation-message loading';
+            nicknameValidation.style.display = 'block';
+            
+            // Send validation request
+            const formData = new FormData();
+            formData.append('action', 'validateNickname');
+            formData.append('nickname', nickname);
+            
+            const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                method: 'POST',
+                body: formData
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Server responded with status: ${response.status}`);
+            }
+            
+            const responseData = await response.json();
+            console.log('📬 Validation response:', responseData);
+            
+            if (responseData.success) {
+                if (responseData.exists) {
+                    // Nickname found
+                    isNicknameValid = true;
+                    studentInfo = responseData.studentInfo;
+                    showValidationSuccess();
+                    console.log('✅ Nickname valid:', studentInfo);
+                } else {
+                    // Nickname not found
+                    isNicknameValid = false;
+                    studentInfo = null;
+                    showValidationError('Nickname not found. Please book a trial class first for new students.');
+                    console.log('❌ Nickname not found');
+                }
+            } else {
+                throw new Error(responseData.message || 'Validation failed');
+            }
+            
+        } catch (error) {
+            console.error('❌ Error validating nickname:', error);
+            isNicknameValid = false;
+            studentInfo = null;
+            showValidationError('Error checking nickname. Please try again.');
+        }
+        
+        updateSubmitButtonState();
+    }
+
+    // ✅ ENHANCED FORM SUBMISSION
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        console.log('🟡 Form submission started');
+        
+        // Final validation check
+        if (!isNicknameValid) {
+            alert('Please verify your nickname first. Make sure you have booked a trial class.');
+            return;
+        }
+        
+        // Show loading state
+        loadingDiv.style.display = 'block';
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+
+        // Collect form data
+        const nickname = document.getElementById('reservationNickname').value.trim();
+        const email = document.getElementById('reservationEmail').value.trim();
+
+        console.log('📝 Form Data:', {
+            nickname,
+            email,
+            package: currentPackageData,
+            studentInfo: studentInfo
+        });
+
+        // Validate
+        if (!nickname || !email) {
+            console.log('❌ Validation failed');
+            alert('Please fill in both nickname and email');
+            loadingDiv.style.display = 'none';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Reservation';
+            return;
+        }
+
+        try {
+            // Prepare FormData for package reservation
+            const formDataToSend = new FormData();
+            formDataToSend.append('nickname', nickname);
+            formDataToSend.append('email', email);
+            formDataToSend.append('packageName', currentPackageData.packageName);
+            formDataToSend.append('classes', currentPackageData.classes);
+            formDataToSend.append('price', currentPackageData.price);
+            formDataToSend.append('duration', currentPackageData.duration);
+
+            console.log('🚀 Sending package reservation...');
+            console.log('Data being sent:');
+            for (let [key, value] of formDataToSend.entries()) {
+                console.log(`  ${key}: ${value}`);
+            }
+
+            // Send to Google Apps Script
+            const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                method: 'POST',
+                body: formDataToSend
+            });
+
+            console.log('📡 Response status:', response.status);
+
+            if (!response.ok) {
+                throw new Error(`Server responded with status: ${response.status}`);
+            }
+
+            const responseData = await response.json();
+            console.log('📬 Response data:', responseData);
+
+            if (responseData.success) {
+                console.log('🟢 SUCCESS!');
+                // Show success message
+                loadingDiv.style.display = 'none';
+                successMessage.innerHTML = `
+                    ✅ Your package reservation has been submitted successfully!<br>
+                    <strong>Reservation ID:</strong> ${responseData.reservationId}<br>
+                    <small>Payment details will be sent to your email within 24 hours.</small>
+                `;
+                successMessage.classList.add('show');
+                form.style.display = 'none';
+
+                // Auto-close modal after 5 seconds
+                setTimeout(() => {
+                    closeModal();
+                    form.style.display = 'block';
+                }, 5000);
+            } else {
+                throw new Error(responseData.message || 'Server returned an error');
+            }
+
+        } catch (error) {
+            console.error('❌ Error submitting reservation:', error);
+            
+            loadingDiv.style.display = 'none';
+            errorMessage.innerHTML = `❌ <strong>Error:</strong> ${error.message}<br><small>Check browser console for details.</small>`;
+            errorMessage.classList.add('show');
+        } finally {
+            // Reset button
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Reservation';
+        }
+    });
+
+    // Initialize validation messages structure
+    createValidationMessages();
+    
+    // Initial button state
+    updateSubmitButtonState();
+
+    console.log('🟢 Enhanced Package Reservation System Ready!');
+});
+
+// Add required CSS styles (add this to your CSS file or in a <style> tag)
+const reservationStyles = `
+<style>
+.validation-message {
+    margin-top: 8px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: none;
+}
+
+.validation-message.error {
+    background-color: #fee;
+    border: 1px solid #fcc;
+    color: #c33;
+}
+
+.validation-message.success {
+    background-color: #efe;
+    border: 1px solid #cfc;
+    color: #3c3;
+}
+
+.validation-message.loading {
+    background-color: #fef;
+    border: 1px solid #ccf;
+    color: #66c;
+}
+
+.student-info-display {
+    margin-top: 12px;
+    display: none;
+}
+
+.student-info-card {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.student-info-card h4 {
+    margin: 0 0 12px 0;
+    color: #495057;
+    font-size: 16px;
+}
+
+.student-info-card p {
+    margin: 6px 0;
+    color: #6c757d;
+}
+
+.student-info-card small {
+    color: #8a8a8a;
+    font-style: italic;
+}
+
+/* Update submit button disabled state */
+#submitReservationBtn:disabled {
+    background-color: #6c757d !important;
+    cursor: not-allowed;
+}
+</style>
+`;
+
+// Inject styles if they don't exist
+if (!document.getElementById('reservationStyles')) {
+    const styleElement = document.createElement('div');
+    styleElement.id = 'reservationStyles';
+    styleElement.innerHTML = reservationStyles;
+    document.head.appendChild(styleElement);
+}
     </script>
 
     
