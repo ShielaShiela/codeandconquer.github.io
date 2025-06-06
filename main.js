@@ -1,6 +1,13 @@
 (function() {
     'use strict';
     
+    // Configuration
+    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzKxWsHObN2UIXkbY4zhuTr5Bh3ptRTekq12SeZKKUCJX9u1owSkswogGR-1Qbv3hRy/exec';
+    const ZOOM_SCHEDULER_URL = 'https://scheduler.zoom.us/shiela-cabahug/codeandconquerclass'; // Replace with your actual Zoom scheduler link
+    
+    // Store submitted form data
+    let submittedTrialData = null;
+    
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initBookingForm);
@@ -9,6 +16,8 @@
     }
     
     function initBookingForm() {
+        console.log('🟢 Enhanced Trial Booking System Loading...');
+        
         // Check if elements exist before initializing
         const countryInput = document.getElementById('country');
         const countryDropdown = document.getElementById('countryDropdown');
@@ -19,7 +28,92 @@
             return;
         }
         
+        // Initialize step system
+        initializeTrialSteps();
+        
         // Country autocomplete functionality
+        initCountryAutocomplete(countryInput, countryDropdown);
+        
+        // Course selection functionality
+        initCourseSelection();
+        
+        // Form submission
+        initFormSubmission(bookingForm);
+        
+        // Initialize global functions for step navigation
+        initGlobalFunctions();
+        
+        console.log('🟢 Enhanced Trial Booking System Ready!');
+        console.log('⚠️ Remember to replace ZOOM_SCHEDULER_URL with your actual Zoom scheduler link');
+    }
+    
+    // Initialize step system
+    function initializeTrialSteps() {
+        // Hide all steps first
+        document.querySelectorAll('.trial-step').forEach(step => {
+            step.classList.remove('active');
+        });
+        
+        // Show only Step 1
+        const step1 = document.getElementById('trial-step-info');
+        if (step1) {
+            step1.classList.add('active');
+        }
+        
+        // Set step indicator to Step 1
+        updateTrialStepIndicator(1);
+        
+        console.log('📍 Initialized to Step 1');
+    }
+    
+    // Update step indicators for trial booking
+    function updateTrialStepIndicator(currentStep) {
+        // Reset all dots
+        for (let i = 1; i <= 2; i++) {
+            const dot = document.getElementById(`trial-dot-${i}`);
+            if (dot) {
+                dot.classList.remove('active', 'completed');
+            }
+        }
+        
+        // Mark completed steps
+        for (let i = 1; i < currentStep; i++) {
+            const dot = document.getElementById(`trial-dot-${i}`);
+            if (dot) {
+                dot.classList.add('completed');
+            }
+        }
+        
+        // Mark current step
+        const currentDot = document.getElementById(`trial-dot-${currentStep}`);
+        if (currentDot) {
+            currentDot.classList.add('active');
+        }
+    }
+
+    // Show specific trial step
+    function showTrialStep(stepId, stepNumber) {
+        console.log(`🔄 Switching to step: ${stepId} (${stepNumber})`);
+        
+        // Hide all steps
+        document.querySelectorAll('.trial-step').forEach(step => {
+            step.classList.remove('active');
+        });
+        
+        // Show target step
+        const targetStep = document.getElementById(stepId);
+        if (targetStep) {
+            targetStep.classList.add('active');
+            console.log(`✅ Step ${stepId} is now active`);
+        } else {
+            console.error(`❌ Step ${stepId} not found`);
+        }
+        
+        updateTrialStepIndicator(stepNumber);
+    }
+    
+    // Country autocomplete functionality
+    function initCountryAutocomplete(countryInput, countryDropdown) {
         const countries = [
             'Afghanistan', 'Albania', 'Algeria', 'Argentina', 'Armenia', 'Australia',
             'Austria', 'Azerbaijan', 'Bahrain', 'Bangladesh', 'Belarus', 'Belgium',
@@ -109,8 +203,10 @@
                 hideCountryDropdown();
             }
         });
-
-        // Course selection functionality
+    }
+    
+    // Course selection functionality
+    function initCourseSelection() {
         document.querySelectorAll('.course-option').forEach(option => {
             option.addEventListener('click', function() {
                 // Remove selected class from all options
@@ -126,13 +222,15 @@
                 }
             });
         });
-
-        // Form submission
+    }
+    
+    // Form submission with step progression
+    function initFormSubmission(bookingForm) {
         bookingForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             e.stopPropagation();
             
-            console.log('Form submission started');
+            console.log('🟡 Trial form submission started');
             
             // Validate required fields
             const nickName = document.getElementById('nickName').value.trim();
@@ -141,23 +239,25 @@
             const email = document.getElementById('email').value.trim();
             const country = document.getElementById('country').value.trim();
             const selectedCourse = document.getElementById('selectedCourse').value;
+            const otherDetails = document.getElementById('otherDetails').value.trim() || '';
             
-            console.log('Form values:', {
+            console.log('📝 Form Data:', {
                 nickName,
                 firstName, 
                 lastName,
                 email,
                 country,
-                selectedCourse
+                selectedCourse,
+                otherDetails
             });
             
             if (!nickName || !firstName || !lastName || !email || !country) {
-                alert('Please fill in all required fields.');
+                showTrialError('Please fill in all required fields.');
                 return;
             }
             
             if (!selectedCourse) {
-                alert('Please select a course you want to learn.');
+                showTrialError('Please select a course you want to learn.');
                 return;
             }
             
@@ -166,7 +266,10 @@
             const submitBtn = document.getElementById('submitBtn');
             
             if (loadingIndicator) loadingIndicator.style.display = 'block';
-            if (submitBtn) submitBtn.disabled = true;
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+            }
             
             // Create FormData object (avoids CORS preflight completely)
             const formDataToSend = new FormData();
@@ -177,93 +280,202 @@
             formDataToSend.append('email', email);
             formDataToSend.append('country', country);
             formDataToSend.append('course', selectedCourse);
-            formDataToSend.append('otherDetails', document.getElementById('otherDetails').value.trim() || '');
+            formDataToSend.append('otherDetails', otherDetails);
+            formDataToSend.append('action', 'trial_booking'); // Add action for backend
             
+            console.log('🚀 Sending trial booking...');
             console.log('FormData being sent:');
             for (let [key, value] of formDataToSend.entries()) {
                 console.log(`${key}: ${value}`);
             }
             
             try {
-                // Your Google Apps Script URL
-                const scriptUrl = 'https://script.google.com/macros/s/AKfycbzKxWsHObN2UIXkbY4zhuTr5Bh3ptRTekq12SeZKKUCJX9u1owSkswogGR-1Qbv3hRy/exec';
-                
-                console.log('Sending FormData to:', scriptUrl);
+                console.log('Sending FormData to:', GOOGLE_APPS_SCRIPT_URL);
                 
                 // Send FormData WITHOUT any headers (this avoids CORS preflight)
-                const response = await fetch(scriptUrl, {
+                const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
                     method: 'POST',
                     body: formDataToSend
                     // NO headers property at all - this is crucial!
                 });
                 
-                console.log('Response status:', response.status);
+                console.log('📡 Response status:', response.status);
                 
                 if (!response.ok) {
                     throw new Error(`Server responded with status: ${response.status}`);
                 }
                 
                 const responseData = await response.json();
-                console.log('Response data:', responseData);
+                console.log('📬 Response data:', responseData);
                 
                 if (responseData.success) {
-                    // Show success message
+                    console.log('🟢 SUCCESS!');
+                    
+                    // Store submitted data for Step 2
+                    submittedTrialData = {
+                        nickName,
+                        firstName,
+                        lastName,
+                        email,
+                        country,
+                        course: selectedCourse,
+                        otherDetails
+                    };
+                    
+                    // Hide loading
+                    if (loadingIndicator) loadingIndicator.style.display = 'none';
+                    
+                    // Show success message briefly
                     const successMessage = document.getElementById('successMessage');
                     const errorMessage = document.getElementById('errorMessage');
                     
                     if (successMessage) {
-                        successMessage.style.display = 'block';
-                        setTimeout(() => {
-                            successMessage.style.display = 'none';
-                        }, 10000);
+                        successMessage.innerHTML = `✅ Information submitted successfully! Now let's schedule your trial class.`;
+                        successMessage.classList.add('show');
                     }
-                    if (errorMessage) errorMessage.style.display = 'none';
+                    if (errorMessage) errorMessage.classList.remove('show');
                     
-                    // Clear form
-                    this.reset();
-                    document.querySelectorAll('.course-option').forEach(opt => opt.classList.remove('selected'));
-                    const selectedCourseInput = document.getElementById('selectedCourse');
-                    if (selectedCourseInput) selectedCourseInput.value = '';
-                    
-                    // Scroll to calendar section after success
-                    const calendarSection = document.querySelector('.calendar-section');
-                    if (calendarSection) {
-                        setTimeout(() => {
-                            calendarSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }, 500);
-                    }
+                    // Move to booking step after short delay
+                    setTimeout(() => {
+                        if (successMessage) successMessage.classList.remove('show');
+                        showBookingStep();
+                    }, 2000);
                     
                 } else {
                     throw new Error(responseData.message || responseData.error || 'Server returned an error');
                 }
                 
             } catch (error) {
-                console.error('Submission error:', error);
-                
-                const errorMessage = document.getElementById('errorMessage');
-                const successMessage = document.getElementById('successMessage');
-                
-                if (errorMessage) {
-                    errorMessage.innerHTML = `
-                        ❌ <strong>Error:</strong> ${error.message}<br>
-                        <small>Please check your internet connection and try again. If the problem persists, contact us directly at shielacabahug96@gmail.com</small>
-                    `;
-                    errorMessage.style.display = 'block';
-                    
-                    // Auto-hide after 15 seconds
-                    setTimeout(() => {
-                        errorMessage.style.display = 'none';
-                    }, 15000);
-                }
-                if (successMessage) successMessage.style.display = 'none';
+                console.error('❌ Error submitting trial form:', error);
+                showTrialError(`Error: ${error.message}`);
                 
             } finally {
-                // Hide loading
-                if (loadingIndicator) loadingIndicator.style.display = 'none';
-                if (submitBtn) submitBtn.disabled = false;
+                // Reset button
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit & Continue to Booking';
+                }
             }
         });
-        
-        console.log('Booking form initialized successfully');
     }
+    
+    // Show booking step with student info
+    function showBookingStep() {
+        console.log('🎯 Moving to booking step');
+        
+        if (submittedTrialData) {
+            // Populate student info
+            const studentInfo = document.getElementById('trialStudentInfo');
+            if (studentInfo) {
+                studentInfo.innerHTML = `
+                    <h3>Welcome, ${submittedTrialData.nickName}! (${submittedTrialData.firstName} ${submittedTrialData.lastName})</h3>
+                    <p><strong>Email:</strong> ${submittedTrialData.email}</p>
+                    <p><strong>Selected Course:</strong> ${getCourseDisplayName(submittedTrialData.course)}</p>
+                    <p><strong>Country:</strong> ${submittedTrialData.country}</p>
+                `;
+            }
+
+            // Set up Zoom scheduler link
+            const zoomLink = document.getElementById('zoomSchedulerLink');
+            if (zoomLink && ZOOM_SCHEDULER_URL !== 'YOUR_ZOOM_SCHEDULER_LINK_HERE') {
+                zoomLink.href = ZOOM_SCHEDULER_URL;
+            } else if (zoomLink) {
+                // Fallback if no Zoom link is provided
+                zoomLink.href = `mailto:shielacabahug96@gmail.com?subject=Trial Class Booking&body=Hi, I would like to schedule a trial class. My name is ${submittedTrialData.firstName} ${submittedTrialData.lastName}`;
+                zoomLink.innerHTML = '📧 Email to Schedule';
+            }
+        }
+        
+        showTrialStep('trial-step-booking', 2);
+    }
+    
+    // Get display name for course
+    function getCourseDisplayName(courseId) {
+        const courseNames = {
+            'scratch': 'Scratch for Kids',
+            'python': 'Python Programming', 
+            'cpp': 'C/C++ Programming',
+            'web': 'Web Development',
+            'data': 'Data Science',
+            'sql': 'SQL & Databases',
+            'office': 'Microsoft Office'
+        };
+        return courseNames[courseId] || courseId;
+    }
+    
+    // Show trial error
+    function showTrialError(message) {
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        
+        if (loadingIndicator) loadingIndicator.style.display = 'none';
+        if (errorMessage) {
+            errorMessage.innerHTML = `❌ ${message}`;
+            errorMessage.classList.add('show');
+            
+            // Auto-hide after 10 seconds
+            setTimeout(() => {
+                errorMessage.classList.remove('show');
+            }, 10000);
+        }
+        if (successMessage) successMessage.classList.remove('show');
+    }
+    
+    // Initialize global functions for step navigation
+    function initGlobalFunctions() {
+        // Global functions for button clicks
+        window.goBackToTrialForm = function() {
+            console.log('🔙 Going back to trial form');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (successMessage) successMessage.classList.remove('show');
+            if (errorMessage) errorMessage.classList.remove('show');
+            showTrialStep('trial-step-info', 1);
+        };
+
+        window.completeTrialBooking = function() {
+            console.log('✅ Completing trial booking');
+            if (submittedTrialData) {
+                // Populate final details
+                const finalDetails = document.getElementById('finalTrialDetails');
+                if (finalDetails) {
+                    finalDetails.innerHTML = `
+                        <p><strong>👤 Student:</strong> ${submittedTrialData.firstName} ${submittedTrialData.lastName}</p>
+                        <p><strong>📧 Email:</strong> ${submittedTrialData.email}</p>
+                        <p><strong>📚 Course:</strong> ${getCourseDisplayName(submittedTrialData.course)}</p>
+                        <p><strong>⏰ Submission Time:</strong> ${new Date().toLocaleString()}</p>
+                    `;
+                }
+            }
+            showTrialStep('trial-step-complete', 2);
+        };
+
+        window.scheduleAnotherTrial = function() {
+            console.log('🔄 Scheduling another trial');
+            const bookingForm = document.getElementById('trialBookingForm');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Reset form and data
+            if (bookingForm) bookingForm.reset();
+            submittedTrialData = null;
+            
+            // Clear course selection
+            document.querySelectorAll('.course-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            const selectedCourseInput = document.getElementById('selectedCourse');
+            if (selectedCourseInput) selectedCourseInput.value = '';
+            
+            // Clear messages
+            if (successMessage) successMessage.classList.remove('show');
+            if (errorMessage) errorMessage.classList.remove('show');
+            
+            // Go back to first step
+            showTrialStep('trial-step-info', 1);
+        };
+    }
+    
 })();

@@ -1513,3 +1513,201 @@ form {
         flex-direction: column;
     }
 }
+
+
+.step-indicator {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    gap: 10px;
+}
+
+.step-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #e1e1e1;
+    transition: all 0.3s;
+}
+
+.step-dot.active {
+    background: #4CAF50;
+    transform: scale(1.2);
+}
+
+.step-dot.completed {
+    background: #4CAF50;
+}
+
+.trial-booking-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.trial-step {
+    display: none !important;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.trial-step.active {
+    display: block !important;
+}
+
+/* Ensure step 2 and 3 are hidden by default */
+#trial-step-booking,
+#trial-step-complete {
+    display: none !important;
+}
+
+#trial-step-booking.active,
+#trial-step-complete.active {
+    display: block !important;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.student-info {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    border-left: 4px solid #4CAF50;
+}
+
+.student-info h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.student-info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.booking-instructions {
+    background: #e3f2fd;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border-left: 4px solid #2196F3;
+}
+
+.booking-instructions h4 {
+    color: #1976D2;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.booking-instructions ol {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.booking-instructions li {
+    margin: 8px 0;
+    color: #333;
+}
+
+.scheduler-container {
+    border: 2px solid #e1e1e1;
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 20px 0;
+    background: white;
+}
+
+.scheduler-header {
+    background: #f8f9fa;
+    padding: 20px;
+    border-bottom: 1px solid #e1e1e1;
+    text-align: center;
+}
+
+.scheduler-header h4 {
+    color: #333;
+    margin: 0 0 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.scheduler-header p {
+    color: #666;
+    margin: 0;
+}
+
+.scheduler-button-container {
+    padding: 30px;
+    text-align: center;
+}
+
+.scheduler-btn {
+    font-size: 1.1em;
+    padding: 15px 30px;
+    min-width: 250px;
+}
+
+.scheduler-iframe {
+    width: 100%;
+    height: 600px;
+    border: none;
+}
+
+.trial-actions {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.trial-actions .btn {
+    margin: 5px;
+    min-width: 200px;
+}
+
+.confirmation-success {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.confirmation-success h2 {
+    color: #4CAF50;
+    margin-bottom: 20px;
+    font-size: 2.2em;
+}
+
+.confirmation-success .checkmark {
+    font-size: 4em;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+.calendar-icon {
+    font-size: 1.2em;
+}
+
+@media (max-width: 768px) {
+    .trial-booking-container {
+        margin: 0;
+        padding: 0 10px;
+    }
+    
+    .scheduler-btn {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .trial-actions .btn {
+        min-width: auto;
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    .scheduler-iframe {
+        height: 500px;
+    }
+}
