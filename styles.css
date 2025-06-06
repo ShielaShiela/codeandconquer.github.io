@@ -1515,6 +1515,7 @@ form {
 }
 
 
+/* Additional CSS for the step-by-step trial booking */
 .step-indicator {
     display: flex;
     justify-content: center;
@@ -1642,6 +1643,16 @@ form {
     margin: 0;
 }
 
+.calendly-container {
+    padding: 0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.calendly-inline-widget {
+    border-radius: 8px !important;
+}
+
 .scheduler-button-container {
     padding: 30px;
     text-align: center;
@@ -1705,6 +1716,11 @@ form {
         min-width: auto;
         width: 100%;
         margin: 5px 0;
+    }
+    
+    .calendly-inline-widget {
+        height: 600px !important;
+        min-width: 280px !important;
     }
     
     .scheduler-iframe {
