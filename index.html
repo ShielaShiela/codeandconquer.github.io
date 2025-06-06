@@ -413,36 +413,30 @@
                 <div class="booking-instructions">
                     <h4><span class="calendar-icon">📋</span> How to Schedule Your Trial:</h4>
                     <ol>
-                        <li><strong>Click the "Book Trial Class" button</strong> below to open the Zoom scheduler</li>
-                        <li><strong>Select a time slot</strong> that works for you</li>
-                        <li><strong>Fill in your details</strong> when prompted</li>
+                        <li><strong>Select a time slot</strong> from the calendar below that works for you</li>
+                        <li><strong>Fill in your details</strong> when prompted by Calendly</li>
                         <li><strong>Important:</strong> Use the same email address you provided in the form above</li>
-                        <li><strong>Complete your booking</strong> through Zoom's scheduler</li>
-                        <li><strong>You'll receive a confirmation email</strong> with the meeting details</li>
+                        <li><strong>Complete your booking</strong> through Calendly</li>
+                        <li><strong>You'll receive a confirmation email</strong> with the Zoom meeting details</li>
+                        <li><strong>The meeting link will be automatically included</strong> in your calendar invitation</li>
                     </ol>
                 </div>
 
-                <!-- Zoom Scheduler Container -->
+                <!-- Calendly Scheduler Container -->
                 <div class="scheduler-container">
                     <div class="scheduler-header">
-                        <h4><span class="calendar-icon">🎥</span> Schedule Your Trial Class</h4>
-                        <p>Click the button below to open the Zoom scheduler in a new window:</p>
+                        <h4><span class="calendar-icon">📅</span> Schedule Your Trial Class</h4>
+                        <p>Select an available time slot below to book your free trial class:</p>
                     </div>
                     
-                    <div class="scheduler-button-container">
-                        <a href="#" id="zoomSchedulerLink" target="_blank" class="btn btn-primary scheduler-btn">
-                            📅 Book Trial Class on Zoom
-                        </a>
-                        
-                        <!-- If you want to embed the Zoom scheduler instead of opening in new window, 
-                             replace the above button with an iframe like this: -->
-                        <!--
-                        <iframe id="zoomSchedulerFrame" 
-                                class="scheduler-iframe"
-                                title="Schedule Trial Class"
-                                style="display: none;">
-                        </iframe>
-                        -->
+                    <div class="calendly-container">
+                        <!-- Calendly inline widget begin -->
+                        <div class="calendly-inline-widget" 
+                             data-url="https://calendly.com/shielacabahug96/30min" 
+                             style="min-width:320px;height:700px;border-radius:8px;overflow:hidden;">
+                        </div>
+                        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+                        <!-- Calendly inline widget end -->
                     </div>
                 </div>
                 
@@ -474,7 +468,7 @@
 
                 <div class="trial-actions">
                     <button class="btn btn-secondary" onclick="goBackToTrialForm()" style="margin-top: 20px;">← Back to Form</button>
-                    <button class="btn" onclick="completeTrialBooking()" style="margin-top: 10px;">✅ I've Scheduled My Trial</button>
+                    <button class="btn" onclick="completeTrialBooking()" style="margin-top: 10px;">✅ I've Scheduled My Trial on Calendly</button>
                 </div>
             </div>
 
@@ -494,8 +488,9 @@
                     <div class="info">
                         <h4><span class="calendar-icon">📧</span> What's Next:</h4>
                         <ul style="margin: 15px 0; padding-left: 20px; text-align: left;">
-                            <li>Check your email for the Zoom meeting details</li>
+                            <li>Check your email for the Calendly confirmation and meeting details</li>
                             <li>You'll receive automatic reminders before your trial class</li>
+                            <li>The Zoom meeting link will be included in your calendar invitation</li>
                             <li>We'll contact you within 24 hours to confirm your booking</li>
                             <li>Make sure you have Zoom installed on your device</li>
                             <li>Prepare any questions you'd like to ask during the trial</li>
@@ -509,6 +504,314 @@
         </div>
     </div>
 </section>
+
+
+<script>
+// Enhanced Trial Booking System with Step-by-Step Process
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🟢 Enhanced Trial Booking System Loading...');
+    
+    // Configuration - Replace with your actual URLs
+    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMsNeXMTLYv0Lq5Mk_ltj1Pi1FJkK8HxTd0p_HL4stqX5GCugB1ixDCXVBoztsTO-j/exec';
+    const ZOOM_SCHEDULER_URL = 'YOUR_ZOOM_SCHEDULER_LINK_HERE'; // Replace with your actual Zoom scheduler link
+    
+    // Store submitted form data
+    let submittedTrialData = null;
+    
+    // Initialize - Ensure only Step 1 is visible
+    function initializeTrialSteps() {
+        // Hide all steps first
+        document.querySelectorAll('.trial-step').forEach(step => {
+            step.classList.remove('active');
+        });
+        
+        // Show only Step 1
+        const step1 = document.getElementById('trial-step-info');
+        if (step1) {
+            step1.classList.add('active');
+        }
+        
+        // Set step indicator to Step 1
+        updateTrialStepIndicator(1);
+        
+        console.log('📍 Initialized to Step 1');
+    }
+    
+    // Update step indicators for trial booking
+    function updateTrialStepIndicator(currentStep) {
+        // Reset all dots
+        for (let i = 1; i <= 2; i++) {
+            const dot = document.getElementById(`trial-dot-${i}`);
+            if (dot) {
+                dot.classList.remove('active', 'completed');
+            }
+        }
+        
+        // Mark completed steps
+        for (let i = 1; i < currentStep; i++) {
+            const dot = document.getElementById(`trial-dot-${i}`);
+            if (dot) {
+                dot.classList.add('completed');
+            }
+        }
+        
+        // Mark current step
+        const currentDot = document.getElementById(`trial-dot-${currentStep}`);
+        if (currentDot) {
+            currentDot.classList.add('active');
+        }
+    }
+
+    // Show specific trial step
+    function showTrialStep(stepId, stepNumber) {
+        console.log(`🔄 Switching to step: ${stepId} (${stepNumber})`);
+        
+        // Hide all steps
+        document.querySelectorAll('.trial-step').forEach(step => {
+            step.classList.remove('active');
+        });
+        
+        // Show target step
+        const targetStep = document.getElementById(stepId);
+        if (targetStep) {
+            targetStep.classList.add('active');
+            console.log(`✅ Step ${stepId} is now active`);
+        } else {
+            console.error(`❌ Step ${stepId} not found`);
+        }
+        
+        updateTrialStepIndicator(stepNumber);
+    }
+
+    // Course selection functionality
+    document.querySelectorAll('.course-option').forEach(option => {
+        option.addEventListener('click', function() {
+            // Remove selected class from all options
+            document.querySelectorAll('.course-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            this.classList.add('selected');
+            
+            // Update hidden input value
+            const selectedCourseInput = document.getElementById('selectedCourse');
+            if (selectedCourseInput) {
+                selectedCourseInput.value = this.dataset.course;
+            }
+        });
+    });
+
+    // Enhanced form submission
+    const form = document.getElementById('trialBookingForm');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    const loadingDiv = document.getElementById('loadingIndicator');
+    const submitBtn = document.getElementById('submitBtn');
+
+    if (form) {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            console.log('🟡 Trial form submission started');
+            
+            // Show loading state
+            if (loadingDiv) loadingDiv.style.display = 'block';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+            }
+
+            // Collect form data
+            const formData = new FormData(form);
+            const trialData = {
+                nickName: formData.get('nickName'),
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                country: formData.get('country'),
+                course: formData.get('course'),
+                otherDetails: formData.get('otherDetails') || ''
+            };
+
+            console.log('📝 Form Data:', trialData);
+
+            // Validate required fields
+            if (!trialData.nickName || !trialData.firstName || !trialData.lastName || 
+                !trialData.email || !trialData.country || !trialData.course) {
+                console.log('❌ Validation failed');
+                showTrialError('Please fill in all required fields and select a course.');
+                return;
+            }
+
+            try {
+                // Prepare FormData for submission
+                const formDataToSend = new FormData();
+                Object.keys(trialData).forEach(key => {
+                    formDataToSend.append(key, trialData[key]);
+                });
+                formDataToSend.append('action', 'trial_booking'); // Add action parameter
+
+                console.log('🚀 Sending trial booking...');
+
+                // Send to Google Apps Script
+                const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    body: formDataToSend
+                });
+
+                console.log('📡 Response status:', response.status);
+
+                if (!response.ok) {
+                    throw new Error(`Server responded with status: ${response.status}`);
+                }
+
+                const responseData = await response.json();
+                console.log('📬 Response data:', responseData);
+
+                if (responseData.success) {
+                    console.log('🟢 SUCCESS!');
+                    
+                    // Store submitted data
+                    submittedTrialData = trialData;
+                    
+                    // Hide loading
+                    if (loadingDiv) loadingDiv.style.display = 'none';
+                    
+                    // Show success message briefly
+                    if (successMessage) {
+                        successMessage.innerHTML = `✅ Information submitted successfully! Now let's schedule your trial class.`;
+                        successMessage.classList.add('show');
+                    }
+                    
+                    // Move to booking step after short delay
+                    setTimeout(() => {
+                        if (successMessage) successMessage.classList.remove('show');
+                        showBookingStep();
+                    }, 2000);
+
+                } else {
+                    throw new Error(responseData.message || 'Server returned an error');
+                }
+
+            } catch (error) {
+                console.error('❌ Error submitting trial form:', error);
+                showTrialError(`Error: ${error.message}`);
+            } finally {
+                // Reset button
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit & Continue to Booking';
+                }
+            }
+        });
+    }
+
+    // Show booking step with student info
+    function showBookingStep() {
+        console.log('🎯 Moving to booking step');
+        
+        if (submittedTrialData) {
+            // Populate student info
+            const studentInfo = document.getElementById('trialStudentInfo');
+            if (studentInfo) {
+                studentInfo.innerHTML = `
+                    <h3>Welcome, ${submittedTrialData.nickName}! (${submittedTrialData.firstName} ${submittedTrialData.lastName})</h3>
+                    <p><strong>Email:</strong> ${submittedTrialData.email}</p>
+                    <p><strong>Selected Course:</strong> ${getCourseDisplayName(submittedTrialData.course)}</p>
+                    <p><strong>Country:</strong> ${submittedTrialData.country}</p>
+                `;
+            }
+
+            // Set up Zoom scheduler link
+            const zoomLink = document.getElementById('zoomSchedulerLink');
+            if (zoomLink && ZOOM_SCHEDULER_URL !== 'YOUR_ZOOM_SCHEDULER_LINK_HERE') {
+                zoomLink.href = ZOOM_SCHEDULER_URL;
+            } else if (zoomLink) {
+                // Fallback if no Zoom link is provided
+                zoomLink.href = 'mailto:shielacabahug96@gmail.com?subject=Trial Class Booking&body=Hi, I would like to schedule a trial class. My name is ' + submittedTrialData.firstName + ' ' + submittedTrialData.lastName;
+                zoomLink.innerHTML = '📧 Email to Schedule';
+            }
+        }
+        
+        showTrialStep('trial-step-booking', 2);
+    }
+
+    // Get display name for course
+    function getCourseDisplayName(courseId) {
+        const courseNames = {
+            'scratch': 'Scratch for Kids',
+            'python': 'Python Programming', 
+            'cpp': 'C/C++ Programming',
+            'web': 'Web Development',
+            'data': 'Data Science',
+            'sql': 'SQL & Databases',
+            'office': 'Microsoft Office'
+        };
+        return courseNames[courseId] || courseId;
+    }
+
+    // Show trial error
+    function showTrialError(message) {
+        if (loadingDiv) loadingDiv.style.display = 'none';
+        if (errorMessage) {
+            errorMessage.innerHTML = `❌ ${message}`;
+            errorMessage.classList.add('show');
+        }
+    }
+
+    // Global functions for button clicks
+    window.goBackToTrialForm = function() {
+        console.log('🔙 Going back to trial form');
+        if (successMessage) successMessage.classList.remove('show');
+        if (errorMessage) errorMessage.classList.remove('show');
+        showTrialStep('trial-step-info', 1);
+    };
+
+    window.completeTrialBooking = function() {
+        console.log('✅ Completing trial booking');
+        if (submittedTrialData) {
+            // Populate final details
+            const finalDetails = document.getElementById('finalTrialDetails');
+            if (finalDetails) {
+                finalDetails.innerHTML = `
+                    <p><strong>👤 Student:</strong> ${submittedTrialData.firstName} ${submittedTrialData.lastName}</p>
+                    <p><strong>📧 Email:</strong> ${submittedTrialData.email}</p>
+                    <p><strong>📚 Course:</strong> ${getCourseDisplayName(submittedTrialData.course)}</p>
+                    <p><strong>⏰ Submission Time:</strong> ${new Date().toLocaleString()}</p>
+                `;
+            }
+        }
+        showTrialStep('trial-step-complete', 2);
+    };
+
+    window.scheduleAnotherTrial = function() {
+        console.log('🔄 Scheduling another trial');
+        // Reset form and data
+        if (form) form.reset();
+        submittedTrialData = null;
+        
+        // Clear course selection
+        document.querySelectorAll('.course-option').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+        const selectedCourseInput = document.getElementById('selectedCourse');
+        if (selectedCourseInput) selectedCourseInput.value = '';
+        
+        // Clear messages
+        if (successMessage) successMessage.classList.remove('show');
+        if (errorMessage) errorMessage.classList.remove('show');
+        
+        // Go back to first step
+        showTrialStep('trial-step-info', 1);
+    };
+
+    // Initialize the trial booking system
+    initializeTrialSteps();
+    
+    console.log('🟢 Enhanced Trial Booking System Ready!');
+    console.log('⚠️ Remember to replace ZOOM_SCHEDULER_URL with your actual Zoom scheduler link');
+});
+</script>
 
 
 
