@@ -3,7 +3,7 @@
     
     // Configuration
     const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzKxWsHObN2UIXkbY4zhuTr5Bh3ptRTekq12SeZKKUCJX9u1owSkswogGR-1Qbv3hRy/exec';
-    const ZOOM_SCHEDULER_URL = 'https://scheduler.zoom.us/shiela-cabahug/codeandconquerclass'; // Replace with your actual Zoom scheduler link
+    const ZOOM_SCHEDULER_URL = 'https://scheduler.zoom.us/shiela-cabahug/codenconquerclasses'; // Replace with your actual Zoom scheduler link
     
     // Store submitted form data
     let submittedTrialData = null;
