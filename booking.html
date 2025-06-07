@@ -434,11 +434,15 @@
                     <div class="calendar-header">
                         <h4><span class="calendar-icon">📅</span> Available Class Times</h4>
                     </div>
-                    <!-- Google Calendar Appointment Scheduling -->
+                    <!-- Google Calendar Appointment Scheduling
                     <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3ocMwe_LAe20XIJByZXOA21W17Ke98igpkhdbOAtxhvgU3VLkNSya0VbpK22L7iD0Brk-Z0zHe?gv=true" 
                             class="calendar-iframe"
                             frameborder="0">
-                    </iframe>
+                    </iframe> -->
+                    <!-- Calendly inline widget begin -->
+<div class="calendly-inline-widget" data-url="https://calendly.com/shielacabahug96/code-conquer-formal-class?primary_color=4caf50" style="min-width:320px;height:700px;"></div>
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<!-- Calendly inline widget end -->
                 </div>
 
                 <div class="info">
@@ -489,7 +493,7 @@
 
     <script>
         // Your existing Google Apps Script web app URL
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFf70JETqPwR_U5SF7imbQoSmdyeSh34hdXIqVSflLc7M1-T9iCs3V0TqZuBy8Wok/exec';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzIERAUCQ3je3A9irFArYPRIeFpdM1lK29Fwxg5s5Cu85xu2wypXnr23d8e_yUADB6T/exec';
 
         let currentStudent = null;
         let foundStudents = [];
@@ -525,7 +529,7 @@
             const debugContent = document.getElementById('debugContent');
             const time = new Date().toLocaleTimeString();
             debugContent.innerHTML += `[${time}] ${message}<br>`;
-            toggleDebug(false);
+            toggleDebug(true); // Show debug on errors
         }
 
         async function verifyStudent() {
@@ -670,46 +674,77 @@
 
         async function processCompletion() {
             try {
-                // Update class count
-                const params = new URLSearchParams({
-                    action: 'update_class_count',
-                    studentNo: currentStudent.studentNo,
-                    newCount: currentStudent.classesRemaining - 1
-                });
-
-                const url = `${APPS_SCRIPT_URL}?${params.toString()}`;
-                const response = await fetch(url);
+                addDebugInfo(`Starting class count update for student: ${currentStudent.studentNo}`);
+                addDebugInfo(`Current classes: ${currentStudent.classesRemaining}, New count will be: ${currentStudent.classesRemaining - 1}`);
                 
-                if (response.ok) {
-                    const result = await response.json();
-                    if (result.success) {
-                        currentStudent.classesRemaining = result.newClassesRemaining || (currentStudent.classesRemaining - 1);
-                    }
+                // Ensure we're sending the right data types
+                const studentNo = String(currentStudent.studentNo); // Ensure string
+                const newCount = parseInt(currentStudent.classesRemaining) - 1;
+                
+                addDebugInfo(`Sending studentNo: ${studentNo} (type: ${typeof studentNo})`);
+                addDebugInfo(`Sending newCount: ${newCount} (type: ${typeof newCount})`);
+                
+                // Use POST method for better reliability
+                const requestData = {
+                    action: 'update_class_count',
+                    studentNo: studentNo,
+                    newCount: newCount
+                };
+                
+                addDebugInfo(`Request data: ${JSON.stringify(requestData)}`);
+                
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData)
+                });
+                
+                addDebugInfo(`Update response status: ${response.status}`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
                 
-                document.getElementById('processingLoader').style.display = 'none';
-                document.getElementById('completionContent').style.display = 'block';
+                const responseText = await response.text();
+                addDebugInfo(`Update response text: ${responseText}`);
                 
-                document.getElementById('finalBookingDetails').innerHTML = `
-                    <p><strong>👤 Student:</strong> ${currentStudent.fullName} (${currentStudent.studentNo})</p>
-                    <p><strong>📧 Email:</strong> ${currentStudent.email}</p>
-                    <p><strong>📚 Classes Remaining:</strong> ${currentStudent.classesRemaining}</p>
-                    <p><strong>⏰ Booking Time:</strong> ${new Date().toLocaleString()}</p>
-                `;
+                let result;
+                try {
+                    result = JSON.parse(responseText);
+                } catch (parseError) {
+                    addDebugInfo(`Failed to parse JSON: ${parseError.message}`);
+                    throw new Error('Invalid response from server');
+                }
+                
+                addDebugInfo(`Update result: ${JSON.stringify(result)}`);
+                
+                if (result.success) {
+                    currentStudent.classesRemaining = result.newClassesRemaining || newCount;
+                    addDebugInfo(`Successfully updated. New class count: ${currentStudent.classesRemaining}`);
+                } else {
+                    addDebugInfo(`Update failed: ${result.message}`);
+                    // Still show success to user but log the error
+                    console.error('Class count update failed:', result.message);
+                }
                 
             } catch (error) {
+                addDebugInfo(`Error updating class count: ${error.message}`);
                 console.error('Error updating class count:', error);
                 // Still show success to user
-                document.getElementById('processingLoader').style.display = 'none';
-                document.getElementById('completionContent').style.display = 'block';
-                
-                document.getElementById('finalBookingDetails').innerHTML = `
-                    <p><strong>👤 Student:</strong> ${currentStudent.fullName} (${currentStudent.studentNo})</p>
-                    <p><strong>📧 Email:</strong> ${currentStudent.email}</p>
-                    <p><strong>⏰ Booking Time:</strong> ${new Date().toLocaleString()}</p>
-                    <p style="color: #ff9800;"><em>Note: Class count will be updated manually.</em></p>
-                `;
             }
+            
+            // Always show completion
+            document.getElementById('processingLoader').style.display = 'none';
+            document.getElementById('completionContent').style.display = 'block';
+            
+            document.getElementById('finalBookingDetails').innerHTML = `
+                <p><strong>👤 Student:</strong> ${currentStudent.fullName} (${currentStudent.studentNo})</p>
+                <p><strong>📧 Email:</strong> ${currentStudent.email}</p>
+                <p><strong>📚 Classes Remaining:</strong> ${currentStudent.classesRemaining}</p>
+                <p><strong>⏰ Booking Time:</strong> ${new Date().toLocaleString()}</p>
+            `;
         }
 
         function openCalendar() {
