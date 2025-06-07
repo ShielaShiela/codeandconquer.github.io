@@ -434,15 +434,11 @@
                     <div class="calendar-header">
                         <h4><span class="calendar-icon">📅</span> Available Class Times</h4>
                     </div>
-                    <!-- Google Calendar Appointment Scheduling
+                    <!-- Google Calendar Appointment Scheduling -->
                     <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3ocMwe_LAe20XIJByZXOA21W17Ke98igpkhdbOAtxhvgU3VLkNSya0VbpK22L7iD0Brk-Z0zHe?gv=true" 
                             class="calendar-iframe"
                             frameborder="0">
-                    </iframe> -->
-                    <!-- Calendly inline widget begin -->
-<div class="calendly-inline-widget" data-url="https://calendly.com/shielacabahug96/code-conquer-formal-class?primary_color=4caf50" style="min-width:320px;height:700px;"></div>
-<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-<!-- Calendly inline widget end -->
+                    </iframe>
                 </div>
 
                 <div class="info">
@@ -493,7 +489,7 @@
 
     <script>
         // Your existing Google Apps Script web app URL
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzIERAUCQ3je3A9irFArYPRIeFpdM1lK29Fwxg5s5Cu85xu2wypXnr23d8e_yUADB6T/exec';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFf70JETqPwR_U5SF7imbQoSmdyeSh34hdXIqVSflLc7M1-T9iCs3V0TqZuBy8Wok/exec';
 
         let currentStudent = null;
         let foundStudents = [];
@@ -742,7 +738,7 @@
             document.getElementById('finalBookingDetails').innerHTML = `
                 <p><strong>👤 Student:</strong> ${currentStudent.fullName} (${currentStudent.studentNo})</p>
                 <p><strong>📧 Email:</strong> ${currentStudent.email}</p>
-                <p><strong>📚 Classes Remaining:</strong> ${currentStudent.classesRemaining}</p>
+                                    <p><strong>📚 Classes Remaining:</strong> ${currentStudent.classesRemaining}</p>
                 <p><strong>⏰ Booking Time:</strong> ${new Date().toLocaleString()}</p>
             `;
         }
