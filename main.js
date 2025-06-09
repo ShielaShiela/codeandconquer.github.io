@@ -2,7 +2,7 @@
     'use strict';
     
     // Configuration
-    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTz9cB41_tTWqeuBMe4kSn18CUEa9Huk8w5UYeWT7xOJr03Jr6r5JTHwAVPX3G2YWj/exec';
+    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyApGZECFVFq0CKDcJjHwFfzV_rq7NihZvDSxdEq8UYRe774-njAvyQauHgLXqLgaKi/exec';
     const ZOOM_SCHEDULER_URL = 'https://scheduler.zoom.us/shiela-cabahug/codenconquerclasses'; // Replace with your actual Zoom scheduler link
     
     // Store submitted form data
