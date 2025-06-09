@@ -301,7 +301,9 @@
                     <p style="margin-bottom: 2rem; color: #666;">Please fill out your details below to get started:</p>
                     
                     <div class="success-message" id="successMessage">
-                        ✅ Your trial class request has been submitted successfully! We'll contact you within 24 hours.
+                        ✅ Your trial class request has been submitted successfully! 
+                        <br><strong>We'll contact you within 2-4 hours via email or WhatsApp.</strong>
+                        <br><small>💡 Please check your spam folder if you don't see our email.</small>
                     </div>
 
                     <div class="error-message" id="errorMessage">
@@ -326,11 +328,22 @@
                             </div>
                         </div>
 
+                        <!-- NEW: Age Field -->
                         <div class="form-row">
+                            <div class="form-group">
+                                <label for="age">Age *</label>
+                                <input type="number" id="age" name="age" required 
+                                       min="3" max="100" 
+                                       placeholder="Enter your age">
+                                <small class="field-help">This helps us customize the curriculum for your level</small>
+                            </div>
                             <div class="form-group">
                                 <label for="email">Email Address *</label>
                                 <input type="email" id="email" name="email" required>
                             </div>
+                        </div>
+
+                        <div class="form-row">
                             <div class="form-group">
                                 <label for="country">Country *</label>
                                 <input type="text" id="country" name="country" required 
@@ -412,14 +425,25 @@
 
                 <div class="booking-instructions">
                     <h4><span class="calendar-icon">📋</span> How to Schedule Your Trial:</h4>
+                    <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #28a745;">
+                        <p style="margin: 0; font-weight: bold; color: #2d5a3d;">
+                            ✅ Your information has been received! We'll contact you within 2-4 hours to confirm.
+                        </p>
+                    </div>
                     <ol>
-                        <li><strong>Select a time slot</strong> from the calendar below that works for you</li>
-                        <li><strong>Fill in your details</strong> when prompted by Calendly</li>
-                        <li><strong>Important:</strong> Use the same email address you provided in the form above</li>
-                        <li><strong>Complete your booking</strong> through Calendly</li>
-                        <li><strong>You'll receive a confirmation email</strong> with the Zoom meeting details</li>
-                        <li><strong>The meeting link will be automatically included</strong> in your calendar invitation</li>
+                        <li><strong>Option 1 - Book Now:</strong> Use the calendar below to schedule immediately</li>
+                        <li><strong>Option 2 - We'll Contact You:</strong> Wait for our confirmation email or WhatsApp message</li>
+                        <li><strong>Important:</strong> Check your spam folder for emails from us</li>
+                        <li><strong>Class Details:</strong> 25-minute trial session via Zoom</li>
+                        <li><strong>Questions?</strong> WhatsApp us at +639302694206</li>
                     </ol>
+                    
+                    <div style="background: #fff3cd; padding: 10px; border-radius: 6px; margin-top: 15px; border-left: 3px solid #ffc107;">
+                        <p style="margin: 0; font-size: 14px;">
+                            <strong>💡 Pro Tip:</strong> If you don't receive an email confirmation within 30 minutes, 
+                            please check your spam folder or contact us directly via WhatsApp.
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Calendly Scheduler Container -->
@@ -447,7 +471,7 @@
                         <div class="contact-method-icon">📧</div>
                         <div>
                             <strong>Email</strong><br>
-                            <a href="mailto:shielacabahug96@gmail.com">shielacabahug96@gmail.com</a>
+                            <a href="mailto:shiela@codeconquer.com">shiela@codeconquer.com</a>
                         </div>
                     </div>
                     <div class="contact-method">
@@ -488,12 +512,13 @@
                     <div class="info">
                         <h4><span class="calendar-icon">📧</span> What's Next:</h4>
                         <ul style="margin: 15px 0; padding-left: 20px; text-align: left;">
-                            <li>Check your email for the Calendly confirmation and meeting details</li>
-                            <li>You'll receive automatic reminders before your trial class</li>
-                            <li>The Zoom meeting link will be included in your calendar invitation</li>
-                            <li>We'll contact you within 24 hours to confirm your booking</li>
-                            <li>Make sure you have Zoom installed on your device</li>
-                            <li>Prepare any questions you'd like to ask during the trial</li>
+                            <li><strong>We'll contact you within 2-4 hours</strong> to confirm your trial class</li>
+                            <li><strong>Check your email</strong> (including spam folder) for confirmation details</li>
+                            <li><strong>WhatsApp confirmation</strong> will also be sent to ensure you don't miss it</li>
+                            <li><strong>Meeting link</strong> will be provided before your scheduled class</li>
+                            <li><strong>Install Zoom</strong> on your device before the class</li>
+                            <li><strong>Prepare questions</strong> about programming you'd like to ask</li>
+                            <li><strong>Have fun!</strong> Your programming journey is about to begin 🚀</li>
                         </ul>
                     </div>
                     
@@ -627,6 +652,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 nickName: formData.get('nickName'),
                 firstName: formData.get('firstName'),
                 lastName: formData.get('lastName'),
+                age: formData.get('age'), // NEW: Include age
                 email: formData.get('email'),
                 country: formData.get('country'),
                 course: formData.get('course'),
@@ -635,11 +661,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
             console.log('📝 Form Data:', trialData);
 
-            // Validate required fields
+            // Validate required fields (including age)
             if (!trialData.nickName || !trialData.firstName || !trialData.lastName || 
-                !trialData.email || !trialData.country || !trialData.course) {
+                !trialData.age || !trialData.email || !trialData.country || !trialData.course) {
                 console.log('❌ Validation failed');
                 showTrialError('Please fill in all required fields and select a course.');
+                return;
+            }
+
+            // Validate age range
+            const age = parseInt(trialData.age);
+            if (isNaN(age) || age < 3 || age > 100) {
+                console.log('❌ Age validation failed');
+                showTrialError('Please enter a valid age between 3 and 100.');
                 return;
             }
 
@@ -711,11 +745,12 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('🎯 Moving to booking step');
         
         if (submittedTrialData) {
-            // Populate student info
+            // Populate student info (including age)
             const studentInfo = document.getElementById('trialStudentInfo');
             if (studentInfo) {
                 studentInfo.innerHTML = `
                     <h3>Welcome, ${submittedTrialData.nickName}! (${submittedTrialData.firstName} ${submittedTrialData.lastName})</h3>
+                    <p><strong>Age:</strong> ${submittedTrialData.age} years old</p>
                     <p><strong>Email:</strong> ${submittedTrialData.email}</p>
                     <p><strong>Selected Course:</strong> ${getCourseDisplayName(submittedTrialData.course)}</p>
                     <p><strong>Country:</strong> ${submittedTrialData.country}</p>
@@ -728,7 +763,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 zoomLink.href = ZOOM_SCHEDULER_URL;
             } else if (zoomLink) {
                 // Fallback if no Zoom link is provided
-                zoomLink.href = 'mailto:shielacabahug96@gmail.com?subject=Trial Class Booking&body=Hi, I would like to schedule a trial class. My name is ' + submittedTrialData.firstName + ' ' + submittedTrialData.lastName;
+                zoomLink.href = 'mailto:shiela@codeconquer.com?subject=Trial Class Booking&body=Hi, I would like to schedule a trial class. My name is ' + submittedTrialData.firstName + ' ' + submittedTrialData.lastName;
                 zoomLink.innerHTML = '📧 Email to Schedule';
             }
         }
@@ -770,11 +805,12 @@ document.addEventListener('DOMContentLoaded', function() {
     window.completeTrialBooking = function() {
         console.log('✅ Completing trial booking');
         if (submittedTrialData) {
-            // Populate final details
+            // Populate final details (including age)
             const finalDetails = document.getElementById('finalTrialDetails');
             if (finalDetails) {
                 finalDetails.innerHTML = `
                     <p><strong>👤 Student:</strong> ${submittedTrialData.firstName} ${submittedTrialData.lastName}</p>
+                    <p><strong>🎂 Age:</strong> ${submittedTrialData.age} years old</p>
                     <p><strong>📧 Email:</strong> ${submittedTrialData.email}</p>
                     <p><strong>📚 Course:</strong> ${getCourseDisplayName(submittedTrialData.course)}</p>
                     <p><strong>⏰ Submission Time:</strong> ${new Date().toLocaleString()}</p>
@@ -1075,7 +1111,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <a href="https://wa.me/639302694206" target="_blank">
                             💬 WhatsApp
                         </a>
-                        <a href="mailto:shielacabahug96@gmail.com" target="_blank">
+                        <a href="mailto:shiela@codeconquer.com" target="_blank">
                             📧 Email
                         </a>
                     </div>
@@ -1128,8 +1164,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h3>Contact Info</h3>
                     <ul>
                         <li>📧 shiela@codeconquer.com</li>
-                        <li>💬 +1 (555) 123-4567</li>
-                        <li>🌍 English, Filipino, Bahasa</li>
+                        <li>💬 +639302694206</li>
+                        <li>🌍 English, Filipino, Chinese</li>
                         <li>📍 Online & In-Person Available</li>
                     </ul>
                 </div>
@@ -1729,6 +1765,15 @@ const reservationStyles = `
 #submitReservationBtn:disabled {
     background-color: #6c757d !important;
     cursor: not-allowed;
+}
+
+/* Style for the age field help text */
+.field-help {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
 }
 </style>
 `;
