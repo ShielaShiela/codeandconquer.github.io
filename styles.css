@@ -1,4 +1,4 @@
-
+/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -17,7 +17,54 @@ body {
     padding: 0 20px;
 }
 
-/* Header */
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.animate-fade-in {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* Header Styles */
 header {
     background: linear-gradient(135deg, #2563eb, #1e40af);
     color: white;
@@ -132,7 +179,6 @@ nav a:hover {
 /* Hero Section */
 .hero {
     background: linear-gradient(135deg, #2980b9, #3498db);
-    /* Replace the URL below with your actual image path */
     background-image: url('photos/newbackground.png');
     background-size: cover;
     background-position: center;
@@ -152,7 +198,6 @@ nav a:hover {
     left: 0;
     right: 0;
     bottom: 0;
-/*     background: rgba(41, 128, 185, 0.7); */
     z-index: 1;
 }
 
@@ -173,7 +218,6 @@ nav a:hover {
 .hero-text p {
     font-size: 1.3rem;
     margin-bottom: 3rem;
-/*     opacity: 0.95; */
     line-height: 1.6;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
@@ -182,39 +226,6 @@ nav a:hover {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-}
-
-.btn {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s;
-}
-
-.btn-primary {
-    background: #06b6d4;
-    color: white;
-}
-
-.btn-primary:hover {
-    background: #0891b2;
-    transform: translateY(-2px);
-}
-
-.btn-secondary {
-    background: transparent;
-    color: white;
-    border: 2px solid white;
-}
-
-.btn-secondary:hover {
-    background: white;
-    color: #2563eb;
 }
 
 .hero-image {
@@ -246,7 +257,54 @@ nav a:hover {
     backdrop-filter: blur(10px);
 }
 
-/* Highlights */
+/* Button Styles */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: #06b6d4;
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #0891b2;
+    transform: translateY(-2px);
+}
+
+.btn-primary:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.btn-secondary:hover {
+    background: white;
+    color: #2563eb;
+}
+
+.btn-small {
+    padding: 8px 16px !important;
+    font-size: 0.875rem !important;
+    border-radius: 6px !important;
+}
+
+/* Highlights Section */
 .highlights {
     background: white;
     padding: 40px 0;
@@ -291,7 +349,46 @@ nav a:hover {
     color: #1e293b;
 }
 
-/* About Me */
+/* How It Works - Enhanced Step Numbers */
+.steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.step {
+    text-align: center;
+    padding: 2rem;
+}
+
+.step-number {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+    transition: all 0.3s ease;
+}
+
+.step:hover .step-number {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(37, 99, 235, 0.4);
+}
+
+.step h3 {
+    color: #2563eb;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+/* About Me Section */
 .about-content {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -349,7 +446,7 @@ nav a:hover {
     font-weight: bold;
 }
 
-/* Courses */
+/* Courses Section */
 .courses-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -390,32 +487,6 @@ nav a:hover {
     border-radius: 20px;
     font-size: 0.875rem;
     margin: 0.25rem 0.25rem 0.25rem 0;
-}
-
-/* How It Works */
-.steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-.step {
-    text-align: center;
-    padding: 2rem;
-}
-
-.step-number {
-    width: 60px;
-    height: 60px;
-    background: #2563eb;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 0 auto 1rem;
 }
 
 /* Pricing Table */
@@ -561,7 +632,7 @@ nav a:hover {
     color: #2563eb;
 }
 
-/* Contact & Booking */
+/* Booking & Contact Sections */
 .booking-header {
     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     padding: 3rem 2rem;
@@ -612,13 +683,7 @@ nav a:hover {
     margin-top: 2rem;
 }
 
-.booking-form-section {
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
+.booking-form-section,
 .calendar-section {
     background: white;
     padding: 2rem;
@@ -626,7 +691,9 @@ nav a:hover {
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
-.form-group {
+/* Form Styles */
+.form-group,
+.reservation-form-group {
     margin-bottom: 1.5rem;
     position: relative;
 }
@@ -637,30 +704,48 @@ nav a:hover {
     gap: 1rem;
 }
 
-.form-group label {
+.form-group label,
+.reservation-form-group label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
     color: #555;
+    font-size: 14px;
 }
 
 .form-group input,
 .form-group select,
-.form-group textarea {
+.form-group textarea,
+.reservation-form-group input {
     width: 100%;
     padding: 0.75rem;
     border: 2px solid #e9ecef;
     border-radius: 8px;
     font-size: 1rem;
     transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
 .form-group input:focus,
 .form-group select:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.reservation-form-group input:focus {
     outline: none;
     border-color: #4285f4;
     box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+}
+
+.reservation-form-group input:read-only {
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
+
+.field-help {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #6c757d;
+    font-style: italic;
 }
 
 .course-grid {
@@ -717,6 +802,7 @@ nav a:hover {
     padding: 0.5rem 0.75rem;
     cursor: pointer;
     transition: background-color 0.2s;
+    font-size: 14px;
 }
 
 .country-option:hover,
@@ -724,6 +810,7 @@ nav a:hover {
     background-color: #f8f9fa;
 }
 
+/* Calendar */
 .calendar-container {
     border-radius: 10px;
     overflow: hidden;
@@ -736,47 +823,7 @@ nav a:hover {
     border: none;
 }
 
-.success-message,
-.error-message {
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    display: none;
-}
-
-.success-message {
-    background: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-.error-message {
-    background: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
-.loading {
-    display: none;
-    text-align: center;
-    padding: 1rem;
-}
-
-.spinner {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #4285f4;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    margin: 0 auto 1rem;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
+/* Contact Methods */
 .contact-methods {
     display: flex;
     flex-direction: column;
@@ -807,6 +854,58 @@ nav a:hover {
     text-decoration: underline;
 }
 
+/* Messages and Loading */
+.success-message,
+.error-message,
+.reservation-success-message,
+.reservation-error-message {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: none;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.success-message,
+.reservation-success-message {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.error-message,
+.reservation-error-message {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.success-message.show,
+.error-message.show,
+.reservation-success-message.show,
+.reservation-error-message.show {
+    display: block;
+}
+
+.loading,
+.reservation-loading {
+    display: none;
+    text-align: center;
+    padding: 1rem;
+    color: #666;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #4285f4;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
 .privacy-notice {
     background: #f8f9fa;
     padding: 1rem;
@@ -817,235 +916,7 @@ nav a:hover {
     border-left: 4px solid #4285f4;
 }
 
-/* Footer */
-footer {
-    background: #1e293b;
-    color: white;
-    padding: 3rem 0 1rem;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.footer-section h3 {
-    margin-bottom: 1rem;
-    color: #2563eb;
-}
-
-.footer-section ul {
-    list-style: none;
-}
-
-.footer-section ul li {
-    margin-bottom: 0.5rem;
-}
-
-.footer-section ul li a {
-    color: #cbd5e1;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.footer-section ul li a:hover {
-    color: white;
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid #374151;
-    color: #9ca3af;
-}
-
-/* Smooth Scrolling */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Animation */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.animate-fade-in {
-    animation: fadeInUp 0.8s ease-out;
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .hamburger {
-        display: flex;
-    }
-
-    nav {
-        display: none;
-    }
-
-    .nav-mobile {
-        display: block;
-    }
-
-    .hero {
-        background-attachment: scroll;
-        min-height: 80vh;
-        padding: 100px 0 40px;
-    }
-
-    .hero-text h1 {
-        font-size: 2.5rem;
-    }
-
-    .hero-text p {
-        font-size: 1.1rem;
-    }
-
-    .about-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .about-image img {
-        width: 250px;
-        height: 250px;
-    }
-
-    .booking-container {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-
-    .course-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .calendar-embed {
-        height: 400px;
-    }
-
-    .booking-header {
-        padding: 2rem 1.5rem;
-        margin-bottom: 2rem;
-        border-radius: 15px;
-    }
-
-    .booking-header .section-title {
-        font-size: 2rem;
-    }
-
-    .booking-subtitle {
-        font-size: 1.1rem;
-    }
-
-    .header-content {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .logo {
-        font-size: 1.2rem;
-    }
-
-    /* Mobile Pricing Table */
-    .pricing-table-container {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .pricing-table {
-        min-width: 600px;
-        font-size: 0.85rem;
-    }
-
-    .pricing-table th,
-    .pricing-table td {
-        padding: 0.8rem 0.6rem;
-    }
-
-    .price {
-        font-size: 1.4rem;
-    }
-
-    .pricing-notes {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    .note-item {
-        padding: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-text h1 {
-        font-size: 2rem;
-    }
-
-    .hero-text p {
-        font-size: 1rem;
-    }
-
-    .section-title {
-        font-size: 2rem;
-    }
-
-    .about-image img {
-        width: 200px;
-        height: 200px;
-    }
-
-    .course-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .booking-header {
-        padding: 1.5rem 1rem;
-        border-radius: 12px;
-    }
-
-    .booking-header .section-title {
-        font-size: 1.8rem;
-    }
-
-    .booking-subtitle {
-        font-size: 1rem;
-    }
-
-    .booking-form-section,
-    .calendar-section {
-        padding: 1.5rem;
-    }
-}
-
-/* Larger screens - better background handling */
-@media (min-width: 1200px) {
-    .hero {
-        background-attachment: fixed;
-        background-size: cover;
-        background-position: center top;
-    }
-}
-.btn-small {
-    padding: 8px 16px !important;
-    font-size: 0.875rem !important;
-    border-radius: 6px !important;
-}
-
-/* Enhanced Reservation Modal Styles */
+/* Modal Styles */
 .reservation-modal {
     display: none;
     position: fixed;
@@ -1077,17 +948,6 @@ html {
     overflow-y: auto;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     animation: modalSlideIn 0.3s ease-out;
-}
-
-@keyframes modalSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-50px) scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
 }
 
 .reservation-modal-header {
@@ -1174,51 +1034,6 @@ html {
     color: #1565c0;
 }
 
-form {
-    padding: 24px;
-}
-
-.reservation-form-group {
-    margin-bottom: 20px;
-}
-
-.reservation-form-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 500;
-    color: #333;
-    font-size: 14px;
-}
-
-.reservation-form-group input {
-    width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    box-sizing: border-box;
-}
-
-.reservation-form-group input:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
-}
-
-.reservation-form-group input:read-only {
-    background-color: #f8f9fa;
-    color: #6c757d;
-}
-
-.field-help {
-    display: block;
-    margin-top: 4px;
-    font-size: 12px;
-    color: #6c757d;
-    font-style: italic;
-}
-
 .reservation-info-section {
     background: #f8f9fa;
     border: 1px solid #e9ecef;
@@ -1243,7 +1058,7 @@ form {
     margin-bottom: 12px;
 }
 
-.step-number {
+.reservation-modal .step-number {
     background: #007bff;
     color: white;
     width: 24px;
@@ -1311,54 +1126,6 @@ form {
     background: #0056b3;
 }
 
-.reservation-success-message,
-.reservation-error-message {
-    display: none;
-    padding: 16px 24px;
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.reservation-success-message.show,
-.reservation-error-message.show {
-    display: block;
-}
-
-.reservation-success-message {
-    background: #d4edda;
-    border: 1px solid #c3e6cb;
-    color: #155724;
-}
-
-.reservation-error-message {
-    background: #f8d7da;
-    border: 1px solid #f5c6cb;
-    color: #721c24;
-}
-
-.reservation-loading {
-    display: none;
-    text-align: center;
-    padding: 20px;
-    color: #666;
-}
-
-.spinner {
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid #007bff;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 1s linear infinite;
-    margin: 0 auto 12px;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
 .reservation-modal-actions {
     display: flex;
     gap: 12px;
@@ -1367,45 +1134,7 @@ form {
     border-top: 1px solid #e9ecef;
 }
 
-.btn {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
-    transition: all 0.2s;
-}
-
-.btn-primary {
-    background: #007bff;
-    color: white;
-}
-
-.btn-primary:hover:not(:disabled) {
-    background: #0056b3;
-    transform: translateY(-1px);
-}
-
-.btn-primary:disabled {
-    background: #6c757d;
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-.btn-secondary {
-    background: #6c757d;
-    color: white;
-}
-
-.btn-secondary:hover {
-    background: #545b62;
-}
-
-/* Validation message styles */
+/* Validation Messages */
 .validation-message {
     margin-top: 8px;
     padding: 8px 12px;
@@ -1413,11 +1142,6 @@ form {
     font-size: 14px;
     display: none;
     animation: fadeIn 0.3s ease-in;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 .validation-message.error {
@@ -1438,15 +1162,11 @@ form {
     color: #4a5590;
 }
 
+/* Student Info Display */
 .student-info-display {
     margin-top: 12px;
     display: none;
     animation: slideIn 0.4s ease-out;
-}
-
-@keyframes slideIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 .student-info-card {
@@ -1482,40 +1202,7 @@ form {
     font-size: 12px;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-    .reservation-modal-content {
-        margin: 10px;
-        max-height: 95vh;
-    }
-    
-    .reservation-modal-header {
-        padding: 16px 20px;
-    }
-    
-    .reservation-modal-title {
-        font-size: 20px;
-    }
-    
-    form {
-        padding: 20px;
-    }
-    
-    .reservation-modal-actions {
-        flex-direction: column;
-    }
-    
-    .btn {
-        width: 100%;
-    }
-    
-    .reservation-contact-links {
-        flex-direction: column;
-    }
-}
-
-
-/* Additional CSS for the step-by-step trial booking */
+/* Trial Booking Specific Styles */
 .step-indicator {
     display: flex;
     justify-content: center;
@@ -1543,31 +1230,19 @@ form {
 .trial-booking-container {
     max-width: 800px;
     margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .trial-step {
-    display: none !important;
+    display: none;
     animation: fadeIn 0.5s ease-in;
 }
 
 .trial-step.active {
-    display: block !important;
-}
-
-/* Ensure step 2 and 3 are hidden by default */
-#trial-step-booking,
-#trial-step-complete {
-    display: none !important;
-}
-
-#trial-step-booking.active,
-#trial-step-complete.active {
-    display: block !important;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    display: block;
 }
 
 .student-info {
@@ -1649,10 +1324,6 @@ form {
     overflow: hidden;
 }
 
-.calendly-inline-widget {
-    border-radius: 8px !important;
-}
-
 .scheduler-button-container {
     padding: 30px;
     text-align: center;
@@ -1701,7 +1372,196 @@ form {
     font-size: 1.2em;
 }
 
+/* Footer */
+footer {
+    background: #1e293b;
+    color: white;
+    padding: 3rem 0 1rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+    margin-bottom: 1rem;
+    color: #2563eb;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #374151;
+    color: #9ca3af;
+}
+
+/* Mobile Responsive Styles */
 @media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .nav-mobile {
+        display: block;
+    }
+
+    .hero {
+        background-attachment: scroll;
+        min-height: 80vh;
+        padding: 100px 0 40px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-text p {
+        font-size: 1.1rem;
+    }
+
+    .step-number {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .about-image img {
+        width: 250px;
+        height: 250px;
+    }
+
+    .booking-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .course-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .calendar-embed {
+        height: 400px;
+    }
+
+    .booking-header {
+        padding: 2rem 1.5rem;
+        margin-bottom: 2rem;
+        border-radius: 15px;
+    }
+
+    .booking-header .section-title {
+        font-size: 2rem;
+    }
+
+    .booking-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .header-content {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    .pricing-table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .pricing-table {
+        min-width: 600px;
+        font-size: 0.85rem;
+    }
+
+    .pricing-table th,
+    .pricing-table td {
+        padding: 0.8rem 0.6rem;
+    }
+
+    .price {
+        font-size: 1.4rem;
+    }
+
+    .pricing-notes {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .note-item {
+        padding: 1rem;
+    }
+
+    .reservation-modal-content {
+        margin: 10px;
+        max-height: 95vh;
+    }
+    
+    .reservation-modal-header {
+        padding: 16px 20px;
+    }
+    
+    .reservation-modal-title {
+        font-size: 20px;
+    }
+    
+    form {
+        padding: 20px;
+    }
+    
+    .reservation-modal-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+    
+    .reservation-contact-links {
+        flex-direction: column;
+    }
+
+    .trial-booking-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
     .trial-booking-container {
         margin: 0;
         padding: 0 10px;
@@ -1725,5 +1585,79 @@ form {
     
     .scheduler-iframe {
         height: 500px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+
+    .hero-text p {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .step-number {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+    }
+
+    .about-image img {
+        width: 200px;
+        height: 200px;
+    }
+
+    .course-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-header {
+        padding: 1.5rem 1rem;
+        border-radius: 12px;
+    }
+
+    .booking-header .section-title {
+        font-size: 1.8rem;
+    }
+
+    .booking-subtitle {
+        font-size: 1rem;
+    }
+
+    .booking-form-section,
+    .calendar-section {
+        padding: 1.5rem;
+    }
+
+    .trial-booking-container {
+        padding: 15px;
+    }
+    
+    .section-title {
+        font-size: 24px;
+    }
+    
+    .booking-subtitle {
+        font-size: 14px;
+    }
+}
+
+/* Enhanced step numbers for larger screens */
+@media (min-width: 1200px) {
+    .hero {
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center top;
+    }
+
+    .step-number {
+        width: 90px;
+        height: 90px;
+        font-size: 3rem;
     }
 }

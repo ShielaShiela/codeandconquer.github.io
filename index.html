@@ -277,14 +277,13 @@
         </div>
     </section>
 
-  <!-- Enhanced Contact Section with Step-by-Step Booking -->
+  <!-- Enhanced Contact Section - Compact Design -->
 <section id="contact" class="section section-alt">
     <div class="container">
+        <div class="trial-booking-wrapper">
         <div class="booking-header">
             <h2 class="section-title">Book Your Free Trial Class</h2>
-            <p class="booking-subtitle">
-                Ready to start your programming journey? Complete the simple 2-step process below!
-            </p>
+            <p class="booking-subtitle">Complete the 2-step process below to get started!</p>
         </div>
 
         <!-- Step Indicator -->
@@ -297,22 +296,19 @@
             <!-- Step 1: Student Information Form -->
             <div class="trial-step active" id="trial-step-info">
                 <div class="booking-form-section">
-                    <h3 style="margin-bottom: 1.5rem; color: #333;">📝 Step 1: Your Information</h3>
-                    <p style="margin-bottom: 2rem; color: #666;">Please fill out your details below to get started:</p>
+                    <h3 style="margin-bottom: 1rem; color: #333; font-size: 20px;">📝 Step 1: Your Information</h3>
                     
                     <div class="success-message" id="successMessage">
-                        ✅ Your trial class request has been submitted successfully! 
-                        <br><strong>We'll contact you within 2-4 hours via email or WhatsApp.</strong>
-                        <br><small>💡 Please check your spam folder if you don't see our email.</small>
+                        ✅ Your trial class request has been submitted successfully!
                     </div>
 
                     <div class="error-message" id="errorMessage">
-                        ❌ There was an error submitting your form. Please try again or contact us directly.
+                        ❌ Please try again or contact us directly.
                     </div>
 
                     <form id="trialBookingForm">
                         <div class="form-group">
-                            <label for="nickName">Nickname or Preferred Name *</label>
+                            <label for="nickName">Nickname *</label>
                             <input type="text" id="nickName" name="nickName" required 
                                    placeholder="What should we call you?">
                         </div>
@@ -328,29 +324,24 @@
                             </div>
                         </div>
 
-                        <!-- NEW: Age Field -->
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="age">Age *</label>
                                 <input type="number" id="age" name="age" required 
-                                       min="3" max="100" 
-                                       placeholder="Enter your age">
-                                <small class="field-help">This helps us customize the curriculum for your level</small>
+                                       min="3" max="100" placeholder="Age">
+                                <small class="field-help">Helps us customize the curriculum</small>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email Address *</label>
+                                <label for="email">Email *</label>
                                 <input type="email" id="email" name="email" required>
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="country">Country *</label>
-                                <input type="text" id="country" name="country" required 
-                                       placeholder="Type your country..." 
-                                       autocomplete="country">
-                                <div id="countryDropdown" class="country-dropdown"></div>
-                            </div>
+                        <div class="form-group">
+                            <label for="country">Country *</label>
+                            <input type="text" id="country" name="country" required 
+                                   placeholder="Type your country..." autocomplete="country">
+                            <div id="countryDropdown" class="country-dropdown"></div>
                         </div>
 
                         <div class="form-group">
@@ -358,19 +349,19 @@
                             <div class="course-grid">
                                 <div class="course-option" data-course="scratch">
                                     <div class="course-icon">🧒</div>
-                                    <div>Scratch for Kids</div>
+                                    <div>Scratch</div>
                                 </div>
                                 <div class="course-option" data-course="python">
                                     <div class="course-icon">🐍</div>
-                                    <div>Python Programming</div>
+                                    <div>Python</div>
                                 </div>
                                 <div class="course-option" data-course="cpp">
                                     <div class="course-icon">⚡</div>
-                                    <div>C/C++ Programming</div>
+                                    <div>C/C++</div>
                                 </div>
                                 <div class="course-option" data-course="web">
                                     <div class="course-icon">🌐</div>
-                                    <div>Web Development</div>
+                                    <div>Web Dev</div>
                                 </div>
                                 <div class="course-option" data-course="data">
                                     <div class="course-icon">📊</div>
@@ -378,37 +369,34 @@
                                 </div>
                                 <div class="course-option" data-course="sql">
                                     <div class="course-icon">🗄️</div>
-                                    <div>SQL & Databases</div>
+                                    <div>SQL</div>
                                 </div>
                                 <div class="course-option" data-course="office">
                                     <div class="course-icon">💼</div>
-                                    <div>Microsoft Office</div>
+                                    <div>MS Office</div>
                                 </div>
                             </div>
                             <input type="hidden" id="selectedCourse" name="course" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="otherDetails">Goals & Additional Details</label>
-                            <textarea id="otherDetails" name="otherDetails" rows="4" 
-                                      placeholder="Tell us about your learning goals, preferred schedule, or any questions you have..."></textarea>
+                            <label for="otherDetails">Goals & Questions (Optional)</label>
+                            <textarea id="otherDetails" name="otherDetails" rows="3" 
+                                      placeholder="Tell us about your learning goals or questions..."></textarea>
                         </div>
 
-                        <!-- Privacy Notice -->
+                        <!-- Compact Privacy Notice -->
                         <div class="privacy-notice">
-                            <h4 style="margin: 0 0 0.5rem 0; color: #333; font-size: 1rem;">🔒 Your Privacy Matters</h4>
-                            <p style="margin: 0; line-height: 1.4;">
-                                We use your information solely to schedule your trial class and provide programming education services. 
-                                Your data is stored securely, never shared with third parties, and you can request updates or deletion at any time.
-                            </p>
+                            <h4>🔒 Privacy</h4>
+                            <p>We use your info only for scheduling classes. Data is secure, never shared, and you can request updates/deletion anytime.</p>
                         </div>
 
-                        <div class="loading" id="loadingIndicator">
+                        <div class="loading" id="loadingIndicator" style="display: none;">
                             <div class="spinner"></div>
-                            <p>Submitting your request...</p>
+                            <p>Submitting...</p>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" id="submitBtn" style="width: 100%; margin-bottom: 1rem;">
+                        <button type="submit" class="btn btn-primary" id="submitBtn" style="width: 100%;">
                             Submit & Continue to Booking
                         </button>
                     </form>
@@ -417,437 +405,84 @@
 
             <!-- Step 2: Schedule Your Trial -->
             <div class="trial-step" id="trial-step-booking">
-                <h3 style="margin-bottom: 1rem; color: #333;">📅 Step 2: Schedule Your Trial Class</h3>
+                <h3 style="margin-bottom: 1rem; color: #333; font-size: 20px;">📅 Step 2: Schedule Your Trial</h3>
                 
                 <div class="student-info" id="trialStudentInfo">
-                    <!-- Student info will be populated here after form submission -->
+                    <!-- Student info populated by JavaScript -->
                 </div>
 
                 <div class="booking-instructions">
-                    <h4><span class="calendar-icon">📋</span> How to Schedule Your Trial:</h4>
-                    <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #28a745;">
-                        <p style="margin: 0; font-weight: bold; color: #2d5a3d;">
-                            ✅ Your information has been received! We'll contact you within 2-4 hours to confirm.
+                    <div style="background: #e8f5e8; padding: 10px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #28a745;">
+                        <p style="margin: 0; font-weight: bold; color: #2d5a3d; font-size: 14px;">
+                            ✅ Request received! We'll contact you within 2-4 hours.
                         </p>
                     </div>
-                    <ol>
-                        <li><strong>Option 1 - Book Now:</strong> Use the calendar below to schedule immediately</li>
-                        <li><strong>Option 2 - We'll Contact You:</strong> Wait for our confirmation email or WhatsApp message</li>
-                        <li><strong>Important:</strong> Check your spam folder for emails from us</li>
-                        <li><strong>Class Details:</strong> 25-minute trial session via Zoom</li>
-                        <li><strong>Questions?</strong> WhatsApp us at +639302694206</li>
-                    </ol>
                     
-                    <div style="background: #fff3cd; padding: 10px; border-radius: 6px; margin-top: 15px; border-left: 3px solid #ffc107;">
-                        <p style="margin: 0; font-size: 14px;">
-                            <strong>💡 Pro Tip:</strong> If you don't receive an email confirmation within 30 minutes, 
-                            please check your spam folder or contact us directly via WhatsApp.
-                        </p>
-                    </div>
+                    <h4 style="font-size: 16px; margin-bottom: 8px;">📋 How to Schedule:</h4>
+                    <ol style="font-size: 14px; margin-bottom: 15px; padding-left: 18px;">
+                        <li><strong>Book Now:</strong> Use calendar below to schedule immediately</li>
+                        <li><strong>Wait for Contact:</strong> We'll email/WhatsApp you soon</li>
+                        <li><strong>Check Spam:</strong> Look for our confirmation email</li>
+                        <li><strong>Class:</strong> 25 minutes via Zoom</li>
+                        <li><strong>Questions?</strong> WhatsApp +639302694206</li>
+                    </ol>
                 </div>
 
-                <!-- Calendly Scheduler Container -->
+                <!-- Compact Calendly Scheduler -->
                 <div class="scheduler-container">
                     <div class="scheduler-header">
-                        <h4><span class="calendar-icon">📅</span> Schedule Your Trial Class</h4>
-                        <p>Select an available time slot below to book your free trial class:</p>
+                        <h4 style="font-size: 16px; margin-bottom: 8px;">📅 Select Your Time Slot</h4>
                     </div>
                     
                     <div class="calendly-container">
                         <!-- Calendly inline widget begin -->
                         <div class="calendly-inline-widget" 
                              data-url="https://calendly.com/shielacabahug96/30min" 
-                             style="min-width:320px;height:700px;border-radius:8px;overflow:hidden;">
+                             style="min-width:320px;height:500px;border-radius:8px;overflow:hidden;">
                         </div>
                         <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
                         <!-- Calendly inline widget end -->
                     </div>
                 </div>
                 
-                <!-- Alternative contact methods -->
-                <div class="contact-methods" style="margin-top: 2rem;">
-                    <h4 style="margin-bottom: 1rem; color: #333;">Or Contact Us Directly:</h4>
-                    <div class="contact-method">
-                        <div class="contact-method-icon">📧</div>
-                        <div>
-                            <strong>Email</strong><br>
-                            <a href="mailto:shiela@codeconquer.com">shiela@codeconquer.com</a>
-                        </div>
-                    </div>
-                    <div class="contact-method">
-                        <div class="contact-method-icon">💬</div>
-                        <div>
-                            <strong>WhatsApp</strong><br>
-                            <a href="https://wa.me/639302694206" target="_blank">+639302694206</a>
-                        </div>
-                    </div>
-                    <div class="contact-method">
-                        <div class="contact-method-icon">🌐</div>
-                        <div>
-                            <strong>Languages</strong><br>
-                            English, Filipino, Cebuano, Chinese
-                        </div>
-                    </div>
-                </div>
-
-                <div class="trial-actions">
-                    <button class="btn btn-secondary" onclick="goBackToTrialForm()" style="margin-top: 20px;">← Back to Form</button>
-                    <button class="btn" onclick="completeTrialBooking()" style="margin-top: 10px;">✅ I've Scheduled My Trial on Calendly</button>
+                <div class="trial-actions" style="margin-top: 15px;">
+                    <button class="btn btn-secondary" onclick="goBackToTrialForm()">← Back to Form</button>
+                    <button class="btn btn-primary" onclick="completeTrialBooking()" style="margin-left: 10px;">✅ I've Scheduled on Calendly</button>
                 </div>
             </div>
 
             <!-- Step 3: Completion -->
             <div class="trial-step" id="trial-step-complete">
                 <div class="confirmation-success">
-                    <div class="checkmark">✅</div>
-                    <h2>Trial Class Scheduled!</h2>
+                    <div class="checkmark" style="font-size: 48px; color: #28a745;">✅</div>
+                    <h2 style="color: #28a745; margin: 15px 0;">Trial Class Scheduled!</h2>
                     
                     <div class="success">
-                        <h3>Your free trial class has been successfully scheduled!</h3>
-                        <div id="finalTrialDetails">
-                            <!-- Final details will be populated here -->
+                        <h3 style="font-size: 18px; margin-bottom: 10px;">Success! Your trial class is booked!</h3>
+                        <div id="finalTrialDetails" style="background: #f8f9fa; padding: 10px; border-radius: 6px; margin-bottom: 15px;">
+                            <!-- Final details populated by JavaScript -->
                         </div>
                     </div>
 
                     <div class="info">
-                        <h4><span class="calendar-icon">📧</span> What's Next:</h4>
-                        <ul style="margin: 15px 0; padding-left: 20px; text-align: left;">
-                            <li><strong>We'll contact you within 2-4 hours</strong> to confirm your trial class</li>
-                            <li><strong>Check your email</strong> (including spam folder) for confirmation details</li>
-                            <li><strong>WhatsApp confirmation</strong> will also be sent to ensure you don't miss it</li>
-                            <li><strong>Meeting link</strong> will be provided before your scheduled class</li>
-                            <li><strong>Install Zoom</strong> on your device before the class</li>
-                            <li><strong>Prepare questions</strong> about programming you'd like to ask</li>
-                            <li><strong>Have fun!</strong> Your programming journey is about to begin 🚀</li>
+                        <h4 style="font-size: 16px; margin-bottom: 10px;">📧 What's Next:</h4>
+                        <ul style="font-size: 14px; line-height: 1.4; margin: 10px 0; padding-left: 18px; text-align: left;">
+                            <li>We'll confirm within 2-4 hours via email/WhatsApp</li>
+                            <li>Check your email (including spam folder)</li>
+                            <li>Zoom meeting link will be provided before class</li>
+                            <li>Install Zoom and prepare questions</li>
+                            <li>Have fun learning programming! 🚀</li>
                         </ul>
                     </div>
                     
-                    <button class="btn" onclick="scheduleAnotherTrial()" style="margin-top: 20px;">Schedule Another Trial</button>
-                    <a href="#courses" class="btn btn-secondary" style="margin-top: 10px; display: inline-block; text-decoration: none;">📚 Explore Courses</a>
+                    <button class="btn btn-primary" onclick="scheduleAnotherTrial()" style="margin-top: 15px;">Schedule Another Trial</button>
+                    <a href="#courses" class="btn btn-secondary" style="margin-top: 10px; margin-left: 10px; text-decoration: none;">📚 Explore Courses</a>
                 </div>
             </div>
         </div>
+        </div>
     </div>
 </section>
-
-
-<script>
-// Enhanced Trial Booking System with Step-by-Step Process
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🟢 Enhanced Trial Booking System Loading...');
-    
-    // Configuration - Replace with your actual URLs
-    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMsNeXMTLYv0Lq5Mk_ltj1Pi1FJkK8HxTd0p_HL4stqX5GCugB1ixDCXVBoztsTO-j/exec';
-    const ZOOM_SCHEDULER_URL = 'YOUR_ZOOM_SCHEDULER_LINK_HERE'; // Replace with your actual Zoom scheduler link
-    
-    // Store submitted form data
-    let submittedTrialData = null;
-    
-    // Initialize - Ensure only Step 1 is visible
-    function initializeTrialSteps() {
-        // Hide all steps first
-        document.querySelectorAll('.trial-step').forEach(step => {
-            step.classList.remove('active');
-        });
-        
-        // Show only Step 1
-        const step1 = document.getElementById('trial-step-info');
-        if (step1) {
-            step1.classList.add('active');
-        }
-        
-        // Set step indicator to Step 1
-        updateTrialStepIndicator(1);
-        
-        console.log('📍 Initialized to Step 1');
-    }
-    
-    // Update step indicators for trial booking
-    function updateTrialStepIndicator(currentStep) {
-        // Reset all dots
-        for (let i = 1; i <= 2; i++) {
-            const dot = document.getElementById(`trial-dot-${i}`);
-            if (dot) {
-                dot.classList.remove('active', 'completed');
-            }
-        }
-        
-        // Mark completed steps
-        for (let i = 1; i < currentStep; i++) {
-            const dot = document.getElementById(`trial-dot-${i}`);
-            if (dot) {
-                dot.classList.add('completed');
-            }
-        }
-        
-        // Mark current step
-        const currentDot = document.getElementById(`trial-dot-${currentStep}`);
-        if (currentDot) {
-            currentDot.classList.add('active');
-        }
-    }
-
-    // Show specific trial step
-    function showTrialStep(stepId, stepNumber) {
-        console.log(`🔄 Switching to step: ${stepId} (${stepNumber})`);
-        
-        // Hide all steps
-        document.querySelectorAll('.trial-step').forEach(step => {
-            step.classList.remove('active');
-        });
-        
-        // Show target step
-        const targetStep = document.getElementById(stepId);
-        if (targetStep) {
-            targetStep.classList.add('active');
-            console.log(`✅ Step ${stepId} is now active`);
-        } else {
-            console.error(`❌ Step ${stepId} not found`);
-        }
-        
-        updateTrialStepIndicator(stepNumber);
-    }
-
-    // Course selection functionality
-    document.querySelectorAll('.course-option').forEach(option => {
-        option.addEventListener('click', function() {
-            // Remove selected class from all options
-            document.querySelectorAll('.course-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            
-            // Add selected class to clicked option
-            this.classList.add('selected');
-            
-            // Update hidden input value
-            const selectedCourseInput = document.getElementById('selectedCourse');
-            if (selectedCourseInput) {
-                selectedCourseInput.value = this.dataset.course;
-            }
-        });
-    });
-
-    // Enhanced form submission
-    const form = document.getElementById('trialBookingForm');
-    const successMessage = document.getElementById('successMessage');
-    const errorMessage = document.getElementById('errorMessage');
-    const loadingDiv = document.getElementById('loadingIndicator');
-    const submitBtn = document.getElementById('submitBtn');
-
-    if (form) {
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            console.log('🟡 Trial form submission started');
-            
-            // Show loading state
-            if (loadingDiv) loadingDiv.style.display = 'block';
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Submitting...';
-            }
-
-            // Collect form data
-            const formData = new FormData(form);
-            const trialData = {
-                nickName: formData.get('nickName'),
-                firstName: formData.get('firstName'),
-                lastName: formData.get('lastName'),
-                age: formData.get('age'), // NEW: Include age
-                email: formData.get('email'),
-                country: formData.get('country'),
-                course: formData.get('course'),
-                otherDetails: formData.get('otherDetails') || ''
-            };
-
-            console.log('📝 Form Data:', trialData);
-
-            // Validate required fields (including age)
-            if (!trialData.nickName || !trialData.firstName || !trialData.lastName || 
-                !trialData.age || !trialData.email || !trialData.country || !trialData.course) {
-                console.log('❌ Validation failed');
-                showTrialError('Please fill in all required fields and select a course.');
-                return;
-            }
-
-            // Validate age range
-            const age = parseInt(trialData.age);
-            if (isNaN(age) || age < 3 || age > 100) {
-                console.log('❌ Age validation failed');
-                showTrialError('Please enter a valid age between 3 and 100.');
-                return;
-            }
-
-            try {
-                // Prepare FormData for submission
-                const formDataToSend = new FormData();
-                Object.keys(trialData).forEach(key => {
-                    formDataToSend.append(key, trialData[key]);
-                });
-                formDataToSend.append('action', 'trial_booking'); // Add action parameter
-
-                console.log('🚀 Sending trial booking...');
-
-                // Send to Google Apps Script
-                const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    body: formDataToSend
-                });
-
-                console.log('📡 Response status:', response.status);
-
-                if (!response.ok) {
-                    throw new Error(`Server responded with status: ${response.status}`);
-                }
-
-                const responseData = await response.json();
-                console.log('📬 Response data:', responseData);
-
-                if (responseData.success) {
-                    console.log('🟢 SUCCESS!');
-                    
-                    // Store submitted data
-                    submittedTrialData = trialData;
-                    
-                    // Hide loading
-                    if (loadingDiv) loadingDiv.style.display = 'none';
-                    
-                    // Show success message briefly
-                    if (successMessage) {
-                        successMessage.innerHTML = `✅ Information submitted successfully! Now let's schedule your trial class.`;
-                        successMessage.classList.add('show');
-                    }
-                    
-                    // Move to booking step after short delay
-                    setTimeout(() => {
-                        if (successMessage) successMessage.classList.remove('show');
-                        showBookingStep();
-                    }, 2000);
-
-                } else {
-                    throw new Error(responseData.message || 'Server returned an error');
-                }
-
-            } catch (error) {
-                console.error('❌ Error submitting trial form:', error);
-                showTrialError(`Error: ${error.message}`);
-            } finally {
-                // Reset button
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Submit & Continue to Booking';
-                }
-            }
-        });
-    }
-
-    // Show booking step with student info
-    function showBookingStep() {
-        console.log('🎯 Moving to booking step');
-        
-        if (submittedTrialData) {
-            // Populate student info (including age)
-            const studentInfo = document.getElementById('trialStudentInfo');
-            if (studentInfo) {
-                studentInfo.innerHTML = `
-                    <h3>Welcome, ${submittedTrialData.nickName}! (${submittedTrialData.firstName} ${submittedTrialData.lastName})</h3>
-                    <p><strong>Age:</strong> ${submittedTrialData.age} years old</p>
-                    <p><strong>Email:</strong> ${submittedTrialData.email}</p>
-                    <p><strong>Selected Course:</strong> ${getCourseDisplayName(submittedTrialData.course)}</p>
-                    <p><strong>Country:</strong> ${submittedTrialData.country}</p>
-                `;
-            }
-
-            // Set up Zoom scheduler link
-            const zoomLink = document.getElementById('zoomSchedulerLink');
-            if (zoomLink && ZOOM_SCHEDULER_URL !== 'YOUR_ZOOM_SCHEDULER_LINK_HERE') {
-                zoomLink.href = ZOOM_SCHEDULER_URL;
-            } else if (zoomLink) {
-                // Fallback if no Zoom link is provided
-                zoomLink.href = 'mailto:shiela@codeconquer.com?subject=Trial Class Booking&body=Hi, I would like to schedule a trial class. My name is ' + submittedTrialData.firstName + ' ' + submittedTrialData.lastName;
-                zoomLink.innerHTML = '📧 Email to Schedule';
-            }
-        }
-        
-        showTrialStep('trial-step-booking', 2);
-    }
-
-    // Get display name for course
-    function getCourseDisplayName(courseId) {
-        const courseNames = {
-            'scratch': 'Scratch for Kids',
-            'python': 'Python Programming', 
-            'cpp': 'C/C++ Programming',
-            'web': 'Web Development',
-            'data': 'Data Science',
-            'sql': 'SQL & Databases',
-            'office': 'Microsoft Office'
-        };
-        return courseNames[courseId] || courseId;
-    }
-
-    // Show trial error
-    function showTrialError(message) {
-        if (loadingDiv) loadingDiv.style.display = 'none';
-        if (errorMessage) {
-            errorMessage.innerHTML = `❌ ${message}`;
-            errorMessage.classList.add('show');
-        }
-    }
-
-    // Global functions for button clicks
-    window.goBackToTrialForm = function() {
-        console.log('🔙 Going back to trial form');
-        if (successMessage) successMessage.classList.remove('show');
-        if (errorMessage) errorMessage.classList.remove('show');
-        showTrialStep('trial-step-info', 1);
-    };
-
-    window.completeTrialBooking = function() {
-        console.log('✅ Completing trial booking');
-        if (submittedTrialData) {
-            // Populate final details (including age)
-            const finalDetails = document.getElementById('finalTrialDetails');
-            if (finalDetails) {
-                finalDetails.innerHTML = `
-                    <p><strong>👤 Student:</strong> ${submittedTrialData.firstName} ${submittedTrialData.lastName}</p>
-                    <p><strong>🎂 Age:</strong> ${submittedTrialData.age} years old</p>
-                    <p><strong>📧 Email:</strong> ${submittedTrialData.email}</p>
-                    <p><strong>📚 Course:</strong> ${getCourseDisplayName(submittedTrialData.course)}</p>
-                    <p><strong>⏰ Submission Time:</strong> ${new Date().toLocaleString()}</p>
-                `;
-            }
-        }
-        showTrialStep('trial-step-complete', 2);
-    };
-
-    window.scheduleAnotherTrial = function() {
-        console.log('🔄 Scheduling another trial');
-        // Reset form and data
-        if (form) form.reset();
-        submittedTrialData = null;
-        
-        // Clear course selection
-        document.querySelectorAll('.course-option').forEach(opt => {
-            opt.classList.remove('selected');
-        });
-        const selectedCourseInput = document.getElementById('selectedCourse');
-        if (selectedCourseInput) selectedCourseInput.value = '';
-        
-        // Clear messages
-        if (successMessage) successMessage.classList.remove('show');
-        if (errorMessage) errorMessage.classList.remove('show');
-        
-        // Go back to first step
-        showTrialStep('trial-step-info', 1);
-    };
-
-    // Initialize the trial booking system
-    initializeTrialSteps();
-    
-    console.log('🟢 Enhanced Trial Booking System Ready!');
-    console.log('⚠️ Remember to replace ZOOM_SCHEDULER_URL with your actual Zoom scheduler link');
-});
-</script>
 
 
 
@@ -1163,7 +798,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="footer-section">
                     <h3>Contact Info</h3>
                     <ul>
-                        <li>📧 shiela@codeconquer.com</li>
+                        <li>📧 info@codenconquer.com</li>
                         <li>💬 +639302694206</li>
                         <li>🌍 English, Filipino, Chinese</li>
                         <li>📍 Online & In-Person Available</li>

@@ -2,8 +2,7 @@
     'use strict';
     
     // Configuration
-    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyApGZECFVFq0CKDcJjHwFfzV_rq7NihZvDSxdEq8UYRe774-njAvyQauHgLXqLgaKi/exec';
-    const ZOOM_SCHEDULER_URL = 'https://scheduler.zoom.us/shiela-cabahug/codenconquerclasses'; // Replace with your actual Zoom scheduler link
+    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxfSYvCXtXM8XQkn2-DpQo-hI9SfAuFVXJFTxLLHmv9cFGkCoX31LvRIOiBxD2vHoAe/exec';
     
     // Store submitted form data
     let submittedTrialData = null;
@@ -18,8 +17,8 @@
     function initBookingForm() {
         console.log('🟢 Enhanced Trial Booking System Loading...');
         
-        // Add CSS for smooth transitions
-        addTransitionStyles();
+        // Add improved CSS for better layout and transitions
+        addImprovedStyles();
         
         // Check if elements exist before initializing
         const countryInput = document.getElementById('country');
@@ -47,29 +46,228 @@
         initGlobalFunctions();
         
         console.log('🟢 Enhanced Trial Booking System Ready!');
-        console.log('⚠️ Remember to replace ZOOM_SCHEDULER_URL with your actual Zoom scheduler link');
     }
     
-    // Add smooth transition styles
-    function addTransitionStyles() {
+    // Add improved styles for better layout and fixed scrolling
+    function addImprovedStyles() {
         const style = document.createElement('style');
         style.textContent = `
+            /* Smooth transitions */
             .trial-step {
-                transition: opacity 0.3s ease, transform 0.3s ease;
+                transition: opacity 0.4s ease, transform 0.4s ease;
+                min-height: 400px;
+                max-height: 90vh;
+                overflow-y: auto;
             }
             
+            /* Compact success/error messages */
             .success-message, .error-message {
                 transition: all 0.3s ease;
+                padding: 10px 15px;
+                margin-bottom: 15px;
+                border-radius: 6px;
+                font-size: 14px;
+                line-height: 1.4;
             }
             
+            .success-message {
+                background: #d4edda;
+                color: #155724;
+                border: 1px solid #c3e6cb;
+            }
+            
+            .error-message {
+                background: #f8d7da;
+                color: #721c24;
+                border: 1px solid #f5c6cb;
+            }
+            
+            /* Compact student welcome */
             .student-welcome {
                 animation: slideInUp 0.5s ease;
+                padding: 12px 15px;
+                margin-bottom: 15px;
+                background: #f8f9fa;
+                border-radius: 6px;
+                border-left: 4px solid #28a745;
             }
             
+            .student-welcome h3 {
+                margin: 0 0 8px 0;
+                font-size: 18px;
+                color: #28a745;
+            }
+            
+            .student-welcome p {
+                margin: 3px 0;
+                font-size: 14px;
+                line-height: 1.3;
+            }
+            
+            /* Compact form sections */
+            .form-row {
+                display: flex;
+                gap: 15px;
+                margin-bottom: 15px;
+            }
+            
+            .form-group {
+                margin-bottom: 15px;
+                flex: 1;
+            }
+            
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-size: 14px;
+                font-weight: 600;
+            }
+            
+            .form-group input, .form-group textarea {
+                width: 100%;
+                padding: 8px 12px;
+                border: 2px solid #e1e5e9;
+                border-radius: 6px;
+                font-size: 14px;
+                transition: border-color 0.2s ease;
+            }
+            
+            .form-group input:focus, .form-group textarea:focus {
+                outline: none;
+                border-color: #007bff;
+            }
+            
+            /* Compact course grid */
+            .course-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 8px;
+                margin-top: 8px;
+            }
+            
+            .course-option {
+                padding: 10px 8px;
+                border: 2px solid #e9ecef;
+                border-radius: 6px;
+                text-align: center;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                font-size: 13px;
+            }
+            
+            .course-option:hover {
+                border-color: #007bff;
+                background: #f8f9fa;
+            }
+            
+            .course-option.selected {
+                border-color: #007bff;
+                background: #e3f2fd;
+            }
+            
+            .course-icon {
+                font-size: 20px;
+                margin-bottom: 4px;
+            }
+            
+            /* Compact instructions */
+            .booking-instructions ol {
+                padding-left: 18px;
+                font-size: 14px;
+                line-height: 1.4;
+            }
+            
+            .booking-instructions li {
+                margin-bottom: 6px;
+            }
+            
+            /* Compact calendly container */
+            .calendly-container {
+                margin: 15px 0;
+                border-radius: 8px;
+                overflow: hidden;
+                max-height: 600px;
+            }
+            
+            .calendly-inline-widget {
+                height: 500px !important;
+                min-height: 500px !important;
+            }
+            
+            /* Privacy notice compact */
+            .privacy-notice {
+                background: #f8f9fa;
+                padding: 12px 15px;
+                border-radius: 6px;
+                margin: 15px 0;
+                font-size: 13px;
+                line-height: 1.4;
+            }
+            
+            .privacy-notice h4 {
+                margin: 0 0 6px 0;
+                font-size: 14px;
+                color: #333;
+            }
+            
+            .privacy-notice p {
+                margin: 0;
+            }
+            
+            /* Button improvements */
+            .btn {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 6px;
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                text-decoration: none;
+                display: inline-block;
+                text-align: center;
+            }
+            
+            .btn-primary {
+                background: #007bff;
+                color: white;
+            }
+            
+            .btn-primary:hover {
+                background: #0056b3;
+            }
+            
+            .btn-secondary {
+                background: #6c757d;
+                color: white;
+            }
+            
+            .btn:disabled {
+                opacity: 0.7;
+                cursor: not-allowed;
+            }
+            
+            /* Responsive improvements */
+            @media (max-width: 768px) {
+                .form-row {
+                    flex-direction: column;
+                    gap: 10px;
+                }
+                
+                .course-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                
+                .calendly-inline-widget {
+                    height: 400px !important;
+                }
+            }
+            
+            /* Animation keyframes */
             @keyframes slideInUp {
                 from {
                     opacity: 0;
-                    transform: translateY(20px);
+                    transform: translateY(15px);
                 }
                 to {
                     opacity: 1;
@@ -77,15 +275,40 @@
                 }
             }
             
-            .btn:disabled {
-                opacity: 0.7;
-                cursor: not-allowed;
+            /* Scroll management */
+            .trial-booking-container {
+                scroll-behavior: smooth;
+            }
+            
+            /* Step indicator improvements */
+            .step-indicator {
+                display: flex;
+                justify-content: center;
+                margin: 20px 0;
+                gap: 20px;
+            }
+            
+            .step-dot {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: #dee2e6;
+                transition: all 0.3s ease;
+            }
+            
+            .step-dot.active {
+                background: #007bff;
+                transform: scale(1.3);
+            }
+            
+            .step-dot.completed {
+                background: #28a745;
             }
         `;
         document.head.appendChild(style);
     }
     
-    // Initialize step system
+    // Initialize step system with better scroll management
     function initializeTrialSteps() {
         // Hide all steps first
         document.querySelectorAll('.trial-step').forEach(step => {
@@ -101,7 +324,21 @@
         // Set step indicator to Step 1
         updateTrialStepIndicator(1);
         
+        // Scroll to top of contact section
+        scrollToContactSection();
+        
         console.log('📍 Initialized to Step 1');
+    }
+    
+    // Scroll to contact section smoothly
+    function scrollToContactSection() {
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+            contactSection.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+        }
     }
     
     // Update step indicators for trial booking
@@ -129,7 +366,7 @@
         }
     }
 
-    // Show specific trial step
+    // Show specific trial step with improved scroll management
     function showTrialStep(stepId, stepNumber) {
         console.log(`🔄 Switching to step: ${stepId} (${stepNumber})`);
         
@@ -148,6 +385,11 @@
         }
         
         updateTrialStepIndicator(stepNumber);
+        
+        // Scroll to contact section to keep user oriented
+        setTimeout(() => {
+            scrollToContactSection();
+        }, 100);
     }
     
     // Country autocomplete functionality
@@ -172,7 +414,6 @@
 
         let highlightedIndex = -1;
 
-        // Country input events
         countryInput.addEventListener('input', function() {
             const value = this.value.toLowerCase();
             const filteredCountries = countries.filter(country => 
@@ -207,7 +448,7 @@
 
         function showCountryDropdown(countriesList) {
             countryDropdown.innerHTML = '';
-            countriesList.slice(0, 8).forEach(country => {
+            countriesList.slice(0, 6).forEach(country => {
                 const option = document.createElement('div');
                 option.className = 'country-option';
                 option.textContent = country;
@@ -234,7 +475,6 @@
             hideCountryDropdown();
         }
 
-        // Hide dropdown when clicking outside
         document.addEventListener('click', function(e) {
             if (countryInput && countryDropdown && 
                 !countryInput.contains(e.target) && !countryDropdown.contains(e.target)) {
@@ -247,13 +487,9 @@
     function initCourseSelection() {
         document.querySelectorAll('.course-option').forEach(option => {
             option.addEventListener('click', function() {
-                // Remove selected class from all options
                 document.querySelectorAll('.course-option').forEach(opt => opt.classList.remove('selected'));
-                
-                // Add selected class to clicked option
                 this.classList.add('selected');
                 
-                // Update hidden input
                 const selectedCourseInput = document.getElementById('selectedCourse');
                 if (selectedCourseInput) {
                     selectedCourseInput.value = this.dataset.course;
@@ -262,7 +498,7 @@
         });
     }
     
-    // Form submission with step progression
+    // Form submission with improved UX
     function initFormSubmission(bookingForm) {
         bookingForm.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -270,34 +506,22 @@
             
             console.log('🟡 Trial form submission started');
             
-            // Validate required fields (including age)
+            // Get form data
             const nickName = document.getElementById('nickName').value.trim();
             const firstName = document.getElementById('firstName').value.trim();
             const lastName = document.getElementById('lastName').value.trim();
-            const age = document.getElementById('age').value.trim(); // NEW: Age field
+            const age = document.getElementById('age').value.trim();
             const email = document.getElementById('email').value.trim();
             const country = document.getElementById('country').value.trim();
             const selectedCourse = document.getElementById('selectedCourse').value;
             const otherDetails = document.getElementById('otherDetails').value.trim() || '';
             
-            console.log('📝 Form Data:', {
-                nickName,
-                firstName, 
-                lastName,
-                age, // NEW: Include age in logging
-                email,
-                country,
-                selectedCourse,
-                otherDetails
-            });
-            
-            // Enhanced validation including age
+            // Validation
             if (!nickName || !firstName || !lastName || !age || !email || !country) {
-                showTrialError('Please fill in all required fields including age.');
+                showTrialError('Please fill in all required fields.');
                 return;
             }
             
-            // Validate age is a number and within range
             const ageNumber = parseInt(age);
             if (isNaN(ageNumber) || ageNumber < 3 || ageNumber > 100) {
                 showTrialError('Please enter a valid age between 3 and 100.');
@@ -309,114 +533,74 @@
                 return;
             }
             
-            // Show loading with immediate feedback
+            // Show loading
             const loadingIndicator = document.getElementById('loadingIndicator');
             const submitBtn = document.getElementById('submitBtn');
             const successMessage = document.getElementById('successMessage');
             const errorMessage = document.getElementById('errorMessage');
             
-            // Immediate feedback
             if (successMessage) {
-                successMessage.innerHTML = `🔄 Processing your trial class request... We'll contact you within 2-4 hours!`;
+                successMessage.innerHTML = `🔄 Submitting your request...`;
                 successMessage.classList.add('show');
             }
             if (errorMessage) errorMessage.classList.remove('show');
-            
             if (loadingIndicator) loadingIndicator.style.display = 'block';
             if (submitBtn) {
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Submitting...';
             }
             
-            // Create FormData object (avoids CORS preflight completely)
+            // Create FormData
             const formDataToSend = new FormData();
             formDataToSend.append('timestamp', new Date().toISOString());
             formDataToSend.append('nickName', nickName);
             formDataToSend.append('firstName', firstName);
             formDataToSend.append('lastName', lastName);
-            formDataToSend.append('age', age); // NEW: Include age in FormData
+            formDataToSend.append('age', age);
             formDataToSend.append('email', email);
             formDataToSend.append('country', country);
             formDataToSend.append('course', selectedCourse);
             formDataToSend.append('otherDetails', otherDetails);
-            formDataToSend.append('action', 'trial_booking'); // Add action for backend
-            
-            console.log('🚀 Sending trial booking...');
-            console.log('FormData being sent:');
-            for (let [key, value] of formDataToSend.entries()) {
-                console.log(`${key}: ${value}`);
-            }
             
             try {
-                console.log('Sending FormData to:', GOOGLE_APPS_SCRIPT_URL);
-                
-                // Send FormData WITHOUT any headers (this avoids CORS preflight)
                 const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
                     method: 'POST',
                     body: formDataToSend
-                    // NO headers property at all - this is crucial!
                 });
                 
-                console.log('📡 Response status:', response.status);
-                
                 if (!response.ok) {
-                    throw new Error(`Server responded with status: ${response.status}`);
+                    throw new Error(`Server error: ${response.status}`);
                 }
                 
                 const responseData = await response.json();
-                console.log('📬 Response data:', responseData);
                 
                 if (responseData.success) {
-                    console.log('🟢 SUCCESS!');
-                    
-                    // Store submitted data for Step 2 (including age)
                     submittedTrialData = {
-                        nickName,
-                        firstName,
-                        lastName,
-                        age, // NEW: Store age in submitted data
-                        email,
-                        country,
-                        course: selectedCourse,
-                        otherDetails
+                        nickName, firstName, lastName, age, email, country,
+                        course: selectedCourse, otherDetails
                     };
                     
-                    // Hide loading immediately
                     if (loadingIndicator) loadingIndicator.style.display = 'none';
-                    
-                    // Show success message with realistic expectations
-                    const successMessage = document.getElementById('successMessage');
-                    const errorMessage = document.getElementById('errorMessage');
-                    
                     if (successMessage) {
-                        successMessage.innerHTML = `✅ Trial class request submitted successfully! 
-                        <br><strong>Next:</strong> We'll contact you within 2-4 hours to confirm your booking.
-                        <br><small>💡 Check your email (including spam folder) for confirmation, or we'll reach out via WhatsApp.</small>`;
+                        successMessage.innerHTML = `✅ Request submitted! Moving to booking step...`;
                         successMessage.classList.add('show');
                     }
-                    if (errorMessage) errorMessage.classList.remove('show');
                     
-                    // Move to booking step with minimal delay for smooth transition
                     setTimeout(() => {
                         if (successMessage) successMessage.classList.remove('show');
                         showBookingStep();
-                    }, 800); // Reduced from 2000ms to 800ms for faster transition
+                    }, 1000);
                     
                 } else {
-                    throw new Error(responseData.message || responseData.error || 'Server returned an error');
+                    throw new Error(responseData.message || 'Server error');
                 }
                 
             } catch (error) {
-                console.error('❌ Error submitting trial form:', error);
-                
-                // Hide loading and reset success message
+                console.error('❌ Error:', error);
                 if (loadingIndicator) loadingIndicator.style.display = 'none';
                 if (successMessage) successMessage.classList.remove('show');
-                
                 showTrialError(`Error: ${error.message}`);
-                
             } finally {
-                // Reset button state
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Submit & Continue to Booking';
@@ -425,68 +609,26 @@
         });
     }
     
-    // Show booking step with student info
+    // Show booking step with compact layout
     function showBookingStep() {
         console.log('🎯 Moving to booking step');
         
-        // Add smooth transition effect
-        const currentStep = document.getElementById('trial-step-info');
-        const nextStep = document.getElementById('trial-step-booking');
-        
-        if (currentStep) {
-            currentStep.style.opacity = '0.5';
-            currentStep.style.transition = 'opacity 0.3s ease';
-        }
-        
         if (submittedTrialData) {
-            // Populate student info (including age)
             const studentInfo = document.getElementById('trialStudentInfo');
             if (studentInfo) {
                 studentInfo.innerHTML = `
-                    <div class="student-welcome" style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #28a745;">
-                        <h3 style="color: #28a745; margin: 0 0 10px 0;">Welcome, ${submittedTrialData.nickName}! 👋</h3>
-                        <p style="margin: 5px 0;"><strong>Full Name:</strong> ${submittedTrialData.firstName} ${submittedTrialData.lastName}</p>
-                        <p style="margin: 5px 0;"><strong>Age:</strong> ${submittedTrialData.age} years old</p>
-                        <p style="margin: 5px 0;"><strong>Email:</strong> ${submittedTrialData.email}</p>
-                        <p style="margin: 5px 0;"><strong>Selected Course:</strong> ${getCourseDisplayName(submittedTrialData.course)}</p>
-                        <p style="margin: 5px 0;"><strong>Country:</strong> ${submittedTrialData.country}</p>
+                    <div class="student-welcome">
+                        <h3>Welcome, ${submittedTrialData.nickName}! 👋</h3>
+                        <p><strong>Name:</strong> ${submittedTrialData.firstName} ${submittedTrialData.lastName}</p>
+                        <p><strong>Age:</strong> ${submittedTrialData.age} years old</p>
+                        <p><strong>Course:</strong> ${getCourseDisplayName(submittedTrialData.course)}</p>
+                        <p><strong>Email:</strong> ${submittedTrialData.email}</p>
                     </div>
                 `;
             }
-
-            // Set up Zoom scheduler link (updated email address)
-            const zoomLink = document.getElementById('zoomSchedulerLink');
-            if (zoomLink && ZOOM_SCHEDULER_URL !== 'YOUR_ZOOM_SCHEDULER_LINK_HERE') {
-                zoomLink.href = ZOOM_SCHEDULER_URL;
-            } else if (zoomLink) {
-                // Fallback if no Zoom link is provided (updated email address)
-                zoomLink.href = `mailto:shiela@codeconquer.com?subject=Trial Class Booking&body=Hi, I would like to schedule a trial class. My name is ${submittedTrialData.firstName} ${submittedTrialData.lastName}, age ${submittedTrialData.age}.`;
-                zoomLink.innerHTML = '📧 Email to Schedule';
-            }
         }
         
-        // Smooth transition to next step
-        setTimeout(() => {
-            showTrialStep('trial-step-booking', 2);
-            
-            // Reset opacity
-            if (currentStep) {
-                currentStep.style.opacity = '';
-                currentStep.style.transition = '';
-            }
-            
-            // Add entrance animation to next step
-            if (nextStep) {
-                nextStep.style.opacity = '0';
-                nextStep.style.transform = 'translateY(20px)';
-                nextStep.style.transition = 'all 0.5s ease';
-                
-                setTimeout(() => {
-                    nextStep.style.opacity = '1';
-                    nextStep.style.transform = 'translateY(0)';
-                }, 50);
-            }
-        }, 100);
+        showTrialStep('trial-step-booking', 2);
     }
     
     // Get display name for course
@@ -503,7 +645,7 @@
         return courseNames[courseId] || courseId;
     }
     
-    // Show trial error with better UX
+    // Show compact error messages
     function showTrialError(message) {
         const loadingIndicator = document.getElementById('loadingIndicator');
         const errorMessage = document.getElementById('errorMessage');
@@ -516,19 +658,14 @@
             errorMessage.innerHTML = `❌ ${message}`;
             errorMessage.classList.add('show');
             
-            // Auto-hide error after 8 seconds (reduced from 10)
             setTimeout(() => {
                 errorMessage.classList.remove('show');
-            }, 8000);
-            
-            // Scroll error message into view if needed
-            errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 6000);
         }
     }
     
-    // Initialize global functions for step navigation
+    // Initialize global functions
     function initGlobalFunctions() {
-        // Global functions for button clicks
         window.goBackToTrialForm = function() {
             console.log('🔙 Going back to trial form');
             const successMessage = document.getElementById('successMessage');
@@ -542,15 +679,13 @@
         window.completeTrialBooking = function() {
             console.log('✅ Completing trial booking');
             if (submittedTrialData) {
-                // Populate final details (including age)
                 const finalDetails = document.getElementById('finalTrialDetails');
                 if (finalDetails) {
                     finalDetails.innerHTML = `
-                        <p><strong>👤 Student:</strong> ${submittedTrialData.firstName} ${submittedTrialData.lastName}</p>
-                        <p><strong>🎂 Age:</strong> ${submittedTrialData.age} years old</p>
-                        <p><strong>📧 Email:</strong> ${submittedTrialData.email}</p>
-                        <p><strong>📚 Course:</strong> ${getCourseDisplayName(submittedTrialData.course)}</p>
-                        <p><strong>⏰ Submission Time:</strong> ${new Date().toLocaleString()}</p>
+                        <p><strong>Student:</strong> ${submittedTrialData.firstName} ${submittedTrialData.lastName}</p>
+                        <p><strong>Age:</strong> ${submittedTrialData.age} years old</p>
+                        <p><strong>Course:</strong> ${getCourseDisplayName(submittedTrialData.course)}</p>
+                        <p><strong>Submitted:</strong> ${new Date().toLocaleString()}</p>
                     `;
                 }
             }
@@ -563,22 +698,18 @@
             const successMessage = document.getElementById('successMessage');
             const errorMessage = document.getElementById('errorMessage');
             
-            // Reset form and data
             if (bookingForm) bookingForm.reset();
             submittedTrialData = null;
             
-            // Clear course selection
             document.querySelectorAll('.course-option').forEach(opt => {
                 opt.classList.remove('selected');
             });
             const selectedCourseInput = document.getElementById('selectedCourse');
             if (selectedCourseInput) selectedCourseInput.value = '';
             
-            // Clear messages
             if (successMessage) successMessage.classList.remove('show');
             if (errorMessage) errorMessage.classList.remove('show');
             
-            // Go back to first step
             showTrialStep('trial-step-info', 1);
         };
     }
