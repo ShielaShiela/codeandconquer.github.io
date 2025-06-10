@@ -20,7 +20,7 @@
                         <li><a href="#about">About</a></li>
                         <li><a href="#courses">Courses</a></li>
                         <li><a href="booking.html">Book A Class</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#reservation">reservation</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </nav>
@@ -42,7 +42,7 @@
             <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
             <li><a href="#courses" onclick="closeMobileMenu()">Courses</a></li>
             <li><a href="/booking.html" onclick="closeMobileMenu()">Book A Class</a></li>
-            <li><a href="#pricing" onclick="closeMobileMenu()">Pricing</a></li>
+            <li><a href="#reservation" onclick="closeMobileMenu()">reservation</a></li>
             <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
         </ul>
     </nav>
@@ -705,13 +705,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-<!--- Pricing Section -->
-    <section id="pricing" class="section section-alt">
+<!--- reservation Section -->
+    <section id="reservation" class="section section-alt">
     <div class="container">
         <h2 class="section-title">One-on-One Online Tutorial Packages</h2>
         
-        <div class="pricing-table-container">
-            <table class="pricing-table">
+        <div class="reservation-table-container">
+            <table class="reservation-table">
                 <thead>
                     <tr>
                         <th>Package</th>
@@ -846,7 +846,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </table>
         </div>
 
-        <div class="pricing-notes">
+        <div class="reservation-notes">
             <div class="note-item">
                 <span class="note-icon">⏱️</span>
                 <strong>The class is 1-on-1 online class on Zoom or Google Meet. Class runs for 50 minutes.</strong>
@@ -857,7 +857,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="note-item">
                 <span class="note-icon">📞</span>
-                <strong>Payment details are shown after package reservation.</strong>
+                <strong>Package details are shown after package reservation.</strong>
             </div>
         </div>
     </div>
@@ -973,7 +973,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#courses">Courses</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#reservation">Packages</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
@@ -1494,7 +1494,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 successMessage.innerHTML = `
                     ✅ Your package reservation has been submitted successfully!<br>
                     <strong>Reservation ID:</strong> ${responseData.reservationId}<br>
-                    <small>Payment details will be sent to your email within 24 hours.</small>
+                    <small>Confirmation details will be sent to your email within 24 hours.</small>
                 `;
                 successMessage.classList.add('show');
                 form.style.display = 'none';
