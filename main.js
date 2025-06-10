@@ -325,7 +325,7 @@
         updateTrialStepIndicator(1);
         
         // Scroll to top of contact section
-        scrollToContactSection();
+        // scrollToContactSection();
         
         console.log('📍 Initialized to Step 1');
     }
