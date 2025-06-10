@@ -716,8 +716,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     <tr>
                         <th>Package</th>
                         <th>Classes</th>
-                        <th>Price per Class</th>
-                        <th>Total Price</th>
                         <th>Validity Period</th>
                         <th>Best For</th>
                     </tr>
@@ -732,11 +730,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </td>
                         <td><strong>20</strong></td>
-                        <td class="price-cell">
-                            <span class="price">$20</span>
-                            <span class="savings">33% savings</span>
-                        </td>
-                        <td class="total-price">$400</td>
                         <td>Valid for 5 months</td>
                         <td>
                             Learn all basic to advance concepts of programming and more hands-on practices<br>
@@ -757,10 +750,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </td>
                         <td><strong>8</strong></td>
-                        <td class="price-cell">
-                            <span class="price">$20</span>
-                        </td>
-                        <td class="total-price">$160</td>
                         <td>Twice a week class</td>
                         <td>
                             Ideal for intensive skill development<br>
@@ -781,10 +770,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </td>
                         <td><strong>4</strong></td>
-                        <td class="price-cell">
-                            <span class="price">$22.5</span>
-                        </td>
-                        <td class="total-price">$90</td>
                         <td>Once a week class</td>
                         <td>
                             Perfect for steady progress<br>
@@ -805,10 +790,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </td>
                         <td><strong>10</strong></td>
-                        <td class="price-cell">
-                            <span class="price">$23.5</span>
-                        </td>
-                        <td class="total-price">$235</td>
                         <td>Valid for 3 months</td>
                         <td>
                             Getting started to learn all basics<br>
@@ -829,10 +810,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </td>
                         <td><strong>5</strong></td>
-                        <td class="price-cell">
-                            <span class="price">$26</span>
-                        </td>
-                        <td class="total-price">$130</td>
                         <td>Valid for 1 month</td>
                         <td>
                             Ideal for short-term goals or project completion<br>
@@ -853,10 +830,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </td>
                         <td><strong>1</strong></td>
-                        <td class="price-cell">
-                            <span class="price">$30</span>
-                        </td>
-                        <td class="total-price">$30</td>
                         <td>No commitment required</td>
                         <td>
                             Book individual class as needed<br>
@@ -899,7 +872,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
 
         <div class="reservation-success-message" id="reservationSuccessMessage">
-            ✅ Your reservation has been submitted successfully! We'll send payment details to your email within 24 hours.
+            ✅ Your reservation has been submitted successfully!.
         </div>
 
         <div class="reservation-error-message" id="reservationErrorMessage">
@@ -930,7 +903,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <label for="reservationEmail">Email Address *</label>
                 <input type="email" id="reservationEmail" name="email" required 
                        placeholder="your.email@example.com">
-                <small class="field-help">We'll send payment details to this email</small>
             </div>
 
             <div class="reservation-info-section">
@@ -946,15 +918,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="info-step">
                         <span class="step-number">2</span>
                         <div class="step-content">
-                            <strong>Payment Details</strong>
-                            <p>Payment instructions will be sent to your email within 24 hours</p>
+                            <strong>Confirmation</strong>
+                            <p>Confirmation email about the learning package selected</p>
                         </div>
                     </div>
                     <div class="info-step">
                         <span class="step-number">3</span>
                         <div class="step-content">
                             <strong>Class Scheduling</strong>
-                            <p>After payment, you'll receive a booking link to schedule your classes</p>
+                            <p>After confirmation, you'll receive a booking link to schedule your classes</p>
                         </div>
                     </div>
                 </div>
