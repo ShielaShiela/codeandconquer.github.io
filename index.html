@@ -46,87 +46,64 @@
             <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
         </ul>
     </nav>
-
     <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                      <h1>
-                             <br></br>
-                      </h1>
-                      <p> <br></br>
-                             <br></br>
-                     <br></br>
-                    <br></br>
-                            </p> 
-                    <div class="cta-buttons">
-                        <a href="#contact" class="btn btn-primary">Book a Free Trial</a>
-                        <a href="#courses" class="btn btn-secondary">Explore Courses</a>
-                    </div>
-                </div>
+<!-- Hero Section with Repositioned Elements -->
+<!-- Hero Section with Repositioned Elements -->
+<section id="home" class="hero">
+    <div class="container">
+        <div class="hero-content">
+             <div class="cta-buttons positioned-left">
+                <a href="#courses" class="btn btn-secondary">Explore Courses</a>
+                <a href="#contact" class="btn btn-primary">Book a Free Trial</a>
             </div>
         </div>
-    </section>
-
-    <!-- Highlights -->
-    <section class="highlights">
-        <div class="container">
+    </div>
+    <!-- Highlights Below Buttons -->
+    <div class="highlights-bottom">
             <div class="highlights-grid">
                 <div class="highlight-item">
-                    <div class="highlight-icon">✅</div>
-                    <h3>6+ Years of Teaching Experience</h3>
+                   
+                    <h3>🎓  6+ Years of Teaching Experience</h3>
                     <p>Proven track record in programming education</p>
                 </div>
                 <div class="highlight-item">
-                    <div class="highlight-icon">🎓</div>
-                    <h3>Specialized in multi-age teaching approaches</h3>
-                    <p>Professional academic teaching background</p>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🌍</div>
-                    <h3>Learn from anywhere online</h3>
+                    <h3>🌍 Learn from anywhere online</h3>
                     <p>Taught different students from every continent in the world</p>
                 </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">👥</div>
-                    <h3>Courses for Kids, Students & Professionals</h3>
-                    <p>Tailored programs for every age group</p>
-                </div>
             </div>
-        </div>
-    </section>
+    
+    </div>
+</section>
+
 
     <!-- About Me -->
-    <section id="about" class="section">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-image">
-                    <img src="photos/headshot.jpg" alt="Shiela - Programming Instructor">
-                </div>
-                <div class="about-text">
-                    <h3>Hi! I'm Shiela</h3>
-                    <p>A passionate programming educator with 6+ years of teaching experience — including 5 years as a college lecturer. I specialize in making code accessible and engaging for all age groups.</p>
-                    <p>Delivered 1500+ programming classes online.My mission is to break down complex programming concepts into digestible, fun lessons that inspire confidence and creativity in every student, regardless of their starting point.</p>
-                    
-                    <div class="credentials">
-                        <h4>Key Credentials</h4>
-                        <ul>
-                            <li>PhD Candidate Department of Electronic and Computer Engineering, NTUST</li>
-                            <li>Master of Science, National Taiwan University of Science and Technology(NTUST)</li>
-                            <li>6+ years of programming education experience</li>
-                            <li>5 years as college-level instructor</li>
-                            <li>Specialized in multi-age teaching approaches</li>
-                            <li>Fluent in English, Filipino</li>
-                            <li>Intermediate Chinese Mandarin</li>
-                            <li>Expert in Python, JavaScript, C/C++, AI & Machine Learning, desktop, mobile and web technologies</li>
-                        </ul>
-                    </div>
+<section id="about" class="section">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-image">
+                <h2 class="section-title">About Me</h2>
+                <img src="photos/headshot.jpg" alt="Shiela - Programming Instructor">
+            </div>
+            <div class="about-text">
+          
+                <p><h3>Hi! I'm Shiela</h3> a passionate programming educator with over 6 years of experience, including 5 years as a college lecturer. I specialize in making programming accessible and engaging for learners of all ages.</p>
+                <p>Having delivered more than 1500 online classes, I excel at breaking down complex coding concepts into fun, confidence-building lessons that inspire creativity from beginners to advanced students.</p>
+                <p>A passionate programming educator with 6+ years of teaching experience — including 5 years as a college lecturer. I specialize in making code accessible and engaging for all age groups.</p>
+                
+                <div class="credentials">
+                    <h4>Key Credentials</h4>
+                    <ul>
+                        <li>Currently a PhD candidate in Electronic and Computer Engineering at NTUST, I hold a Master of Science from the same institution.</li>
+                        <li>I am fluent in English, Cebuano, Filipino, with intermediate proficiency in Chinese Mandarin. </li>
+                        <li>My technical expertise spans C/C++, Python, JavaScript, AI & Machine Learning, and full-stack development for desktop, mobile, and web platforms.</li>
+                        <li>I mentor students for computing and programming contests, helping them develop problem-solving skills and competitive coding strategies.</li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- Courses -->
     <section id="courses" class="section section-alt">
@@ -221,6 +198,283 @@
         </div>
     </section>
 
+<!-- HTML Structure (Insert this where you want the carousel) -->
+<div class="testimonial-carousel">
+    <h2 class="carousel-title">What Students Say</h2>
+    
+    <div class="carousel-container">
+        <div class="carousel-wrapper">
+            <div class="carousel-track" id="testimonialCarouselTrack">
+                <!-- Review Screenshot 1 -->
+                <div class="testimonial-slide">
+                    <img src="photos/reviews/1.jpg" alt="Customer Review 1" class="review-screenshot">
+                    <div class="screenshot-caption">Previous and Current Student Review</div>
+                </div>
+
+                <!-- Review Screenshot 2 -->
+                <div class="testimonial-slide">
+                    <img src="photos/reviews/2.jpg" alt="Customer Review 2" class="review-screenshot">
+                    <div class="screenshot-caption">Previous and Current Student Review</div>
+                </div>
+
+                <!-- Review Screenshot 3 -->
+                <div class="testimonial-slide">
+                    <img src="photos/reviews/3.jpg" alt="Customer Review 3" class="review-screenshot">
+                    <div class="screenshot-caption">Previous and Current Student Review</div>
+                </div>
+
+                <!-- Review Screenshot 4 -->
+                <div class="testimonial-slide">
+                    <img src="photos/reviews/4.jpg" alt="Customer Review 4" class="review-screenshot">
+                    <div class="screenshot-caption">Previous and Current Student Review</div>
+                </div>
+
+                <!-- Review Screenshot 5 -->
+                <div class="testimonial-slide">
+                    <img src="photos/reviews/5.jpg" alt="Customer Review 5" class="review-screenshot">
+                    <div class="screenshot-caption">Previous and Current Student Review</div>
+                </div>
+
+                <!-- Review Screenshot 6 -->
+                <div class="testimonial-slide">
+                    <img src="photos/reviews/6.jpg" alt="Customer Review 6" class="review-screenshot">
+                    <div class="screenshot-caption">Previous and Current Student Review</div>
+                </div>
+
+                <!-- Review Screenshot 7 -->
+                <div class="testimonial-slide">
+                    <img src="photos/reviews/7.jpg" alt="Customer Review 7" class="review-screenshot">
+                    <div class="screenshot-caption">Previous and Current Student Review</div>
+                </div>
+
+                <!-- Review Screenshot 8 -->
+                <div class="testimonial-slide">
+                    <img src="photos/reviews/8.jpg" alt="Customer Review 8" class="review-screenshot">
+                    <div class="screenshot-caption">Previous and Current Student Review</div>
+                </div>
+
+                <!-- Review Screenshot 9 -->
+                <div class="testimonial-slide">
+                    <img src="photos/reviews/9.jpg" alt="Customer Review 9" class="review-screenshot">
+                    <div class="screenshot-caption">Previous and Current Student Review</div>
+                </div>
+
+                <!-- Review Screenshot 10 -->
+                <div class="testimonial-slide">
+                    <img src="photos/reviews/10.jpg" alt="Customer Review 10" class="review-screenshot">
+                    <div class="screenshot-caption">Previous and Current Student Review</div>
+                </div>
+
+                <!-- Review Screenshot 11 -->
+                <div class="testimonial-slide">
+                    <img src="photos/reviews/11.jpg" alt="Customer Review 11" class="review-screenshot">
+                    <div class="screenshot-caption">Previous and Current Student Review</div>
+                </div>
+
+                <!-- Review Screenshot 12 -->
+                <div class="testimonial-slide">
+                    <img src="photos/reviews/12.jpg" alt="Customer Review 12" class="review-screenshot">
+                    <div class="screenshot-caption">Previous and Current Student Review</div>
+                </div>
+
+                <!-- Review Screenshot 13 -->
+                <div class="testimonial-slide">
+                    <img src="photos/reviews/13.jpg" alt="Customer Review 13" class="review-screenshot">
+                    <div class="screenshot-caption">Previous and Current Student Review</div>
+                </div>
+
+                <!-- Review Screenshot 14 -->
+                <div class="testimonial-slide">
+                    <img src="photos/reviews/14.jpg" alt="Customer Review 14" class="review-screenshot">
+                    <div class="screenshot-caption">Previous and Current Student Review</div>
+                </div>
+
+                <!-- Review Screenshot 15 -->
+                <div class="testimonial-slide">
+                    <img src="photos/reviews/15.jpg" alt="Customer Review 15" class="review-screenshot">
+                    <div class="screenshot-caption">Previous and Current Student Review</div>
+                </div>
+
+                <!-- Review Screenshot 16 -->
+                <div class="testimonial-slide">
+                    <img src="photos/reviews/16.jpg" alt="Customer Review 16" class="review-screenshot">
+                    <div class="screenshot-caption">Previous and Current Student Review</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <button class="carousel-nav prev" onclick="testimonialCarousel.previousSlide()">
+            <svg viewBox="0 0 24 24">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+            </svg>
+        </button>
+        <button class="carousel-nav next" onclick="testimonialCarousel.nextSlide()">
+            <svg viewBox="0 0 24 24">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+            </svg>
+        </button>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="testimonialProgressFill"></div>
+        </div>
+
+        <!-- Dots Indicator -->
+        <div class="carousel-dots" id="testimonialCarouselDots">
+            <!-- Dots will be generated by JavaScript -->
+        </div>
+    </div>
+</div>
+
+
+<script>
+class TestimonialCarousel {
+    constructor() {
+        this.currentSlide = 0;
+        this.slides = document.querySelectorAll('.testimonial-carousel .testimonial-slide');
+        this.totalSlides = this.slides.length;
+        this.track = document.getElementById('testimonialCarouselTrack');
+        this.dotsContainer = document.getElementById('testimonialCarouselDots');
+        this.progressFill = document.getElementById('testimonialProgressFill');
+        this.autoPlayInterval = null;
+        this.autoPlayDuration = 5000; // 5 seconds
+        this.isAutoPlaying = true;
+
+        this.init();
+    }
+
+    init() {
+        this.createDots();
+        this.updateCarousel();
+        this.startAutoPlay();
+        this.addEventListeners();
+    }
+
+    createDots() {
+        for (let i = 0; i < this.totalSlides; i++) {
+            const dot = document.createElement('button');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => this.goToSlide(i));
+            this.dotsContainer.appendChild(dot);
+        }
+    }
+
+    updateCarousel() {
+        const translateX = -this.currentSlide * 100;
+        this.track.style.transform = `translateX(${translateX}%)`;
+        this.updateDots();
+    }
+
+    updateDots() {
+        const dots = document.querySelectorAll('.testimonial-carousel .dot');
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === this.currentSlide);
+        });
+    }
+
+    goToSlide(slideIndex) {
+        this.currentSlide = slideIndex;
+        this.updateCarousel();
+        this.resetAutoPlay();
+    }
+
+    nextSlide() {
+        this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+        this.updateCarousel();
+        this.resetAutoPlay();
+    }
+
+    previousSlide() {
+        this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        this.updateCarousel();
+        this.resetAutoPlay();
+    }
+
+    startAutoPlay() {
+        if (!this.isAutoPlaying) return;
+        
+        let progress = 0;
+        const progressInterval = setInterval(() => {
+            progress += 100 / (this.autoPlayDuration / 100);
+            this.progressFill.style.width = progress + '%';
+            
+            if (progress >= 100) {
+                clearInterval(progressInterval);
+            }
+        }, 100);
+
+        this.autoPlayInterval = setTimeout(() => {
+            this.nextSlide();
+            this.startAutoPlay();
+        }, this.autoPlayDuration);
+    }
+
+    stopAutoPlay() {
+        if (this.autoPlayInterval) {
+            clearTimeout(this.autoPlayInterval);
+            this.autoPlayInterval = null;
+        }
+        this.progressFill.style.width = '0%';
+    }
+
+    resetAutoPlay() {
+        this.stopAutoPlay();
+        this.startAutoPlay();
+    }
+
+    addEventListeners() {
+        // Pause autoplay on hover
+        const container = document.querySelector('.testimonial-carousel .carousel-container');
+        container.addEventListener('mouseenter', () => {
+            this.isAutoPlaying = false;
+            this.stopAutoPlay();
+        });
+        
+        container.addEventListener('mouseleave', () => {
+            this.isAutoPlaying = true;
+            this.startAutoPlay();
+        });
+
+        // Touch/swipe support for mobile
+        let startX = 0;
+        let isDragging = false;
+
+        container.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+        });
+
+        container.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+        });
+
+        container.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            const endX = e.changedTouches[0].clientX;
+            const diffX = startX - endX;
+
+            if (Math.abs(diffX) > 50) { // Minimum swipe distance
+                if (diffX > 0) {
+                    this.nextSlide();
+                } else {
+                    this.previousSlide();
+                }
+            }
+            isDragging = false;
+        });
+    }
+}
+
+// Initialize carousel when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    window.testimonialCarousel = new TestimonialCarousel();
+});
+</script>
+
+
     <!-- How It Works -->
     <section class="section">
         <div class="container">
@@ -255,32 +509,10 @@
         </div>
     </section>
 
-
-    <!-- Testimonials -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">What Students Say</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial">
-                    <div class="testimonial-text">"My daughter learned Scratch in just 4 weeks! Shiela's patient teaching style made all the difference."</div>
-                    <div class="testimonial-author">— Maria, Parent of a 10-year-old</div>
-                </div>
-                <div class="testimonial">
-                    <div class="testimonial-text">"Helped me pass my Python course at university. The explanations were clear and the examples were practical."</div>
-                    <div class="testimonial-author">— James, University Student</div>
-                </div>
-                <div class="testimonial">
-                    <div class="testimonial-text">"As a working professional, the flexible scheduling and focused lessons helped me transition into a tech career."</div>
-                    <div class="testimonial-author">— Sarah, Career Switcher</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
   <!-- Enhanced Contact Section - Compact Design -->
 <section id="contact" class="section section-alt">
+    <div class="trial-booking-wrapper"></div>
     <div class="container">
-        <div class="trial-booking-wrapper">
         <div class="booking-header">
             <h2 class="section-title">Book Your Free Trial Class</h2>
             <p class="booking-subtitle">Complete the 2-step process below to get started!</p>
@@ -671,7 +903,7 @@
     </div>
 </section>
 
-<!-- Enhanced Reservation Modal with Nickname Validation -->
+<!-- Enhanced Reservation Modal with Dedicated Styles -->
 <div id="reservationModal" class="reservation-modal">
     <div class="reservation-modal-content">
         <div class="reservation-modal-header">
@@ -757,14 +989,14 @@
                 <div class="spinner"></div>
                 <p>Submitting your reservation...</p>
             </div>
-
-            <div class="reservation-modal-actions">
-                <button type="button" class="btn btn-secondary" id="cancelReservationBtn">Cancel</button>
-                <button type="submit" class="btn btn-primary" id="submitReservationBtn" disabled>
-                    Please verify nickname first
-                </button>
-            </div>
         </form>
+
+        <div class="reservation-modal-actions">
+            <button type="button" class="btn btn-secondary" id="cancelReservationBtn">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="submitReservationBtn" form="reservationForm" disabled>
+                Please verify nickname first
+            </button>
+        </div>
     </div>
 </div>
 
