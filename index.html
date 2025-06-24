@@ -882,7 +882,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="new-student-notice">
             <h4>📝 For Existing Students Only</h4>
             <p>Package reservations are available only for students who have completed a trial class.</p>
-            <p><strong>New to Code & Conquer?</strong> Please <a href="#contact" onclick="document.getElementById('reservationModal').classList.remove('show'); document.body.style.overflow = 'auto';">book a free trial class first</a> to get started!</p>
+            <p><strong>New to Code&Conquer with Shiela?</strong> Please <a href="#contact" onclick="document.getElementById('reservationModal').classList.remove('show'); document.body.style.overflow = 'auto';">book a free trial class first</a> to get started!</p>
         </div>
 
         <form id="reservationForm">
@@ -1105,16 +1105,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     </script>
-
     <script>
-        // Enhanced Package Reservation System with Nickname Validation
-// Add this to your HTML page or update the existing reservation script
 
-document.addEventListener('DOMContentLoaded', function() {
+   document.addEventListener('DOMContentLoaded', function() {
     console.log('🟢 Enhanced Package Reservation System Loading...');
     
     // Configuration - Replace with your actual Google Apps Script URL
-    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMsNeXMTLYv0Lq5Mk_ltj1Pi1FJkK8HxTd0p_HL4stqX5GCugB1ixDCXVBoztsTO-j/exec';
+    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyzlL2zgIddyqYVkiI8d8eu6uWvvQZEbD4oggnHBq5N_lWej6AKXjEfQ_8P-W1H3J-Kzw/exec';
     
     // Get modal elements
     const modal = document.getElementById('reservationModal');
@@ -1144,23 +1141,22 @@ document.addEventListener('DOMContentLoaded', function() {
             // Get package data from button attributes
             const packageName = this.dataset.package;
             const classes = this.dataset.classes;
-            const price = this.dataset.price;
             const duration = this.dataset.duration;
 
-            console.log('📦 Package Data:', { packageName, classes, price, duration });
+            console.log('📦 Package Data:', { packageName, classes, duration });
 
-            // Store package data
+            // Store package data (note: price will be determined by the server)
             currentPackageData = {
                 packageName,
                 classes,
-                price,
                 duration
             };
 
             // Update package info in modal
             packageInfo.innerHTML = `
                 <h4>${packageName}</h4>
-                <p><strong>${classes} classes</strong> • <strong>${price}</strong> • Valid for <strong>${duration}</strong></p>
+                <p><strong>${classes} classes</strong> • Valid for <strong>${duration}</strong></p>
+                <p><small>💡 Price will be automatically calculated based on your selected package</small></p>
             `;
 
             // Reset form and validation state
@@ -1454,13 +1450,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         try {
             // Prepare FormData for package reservation
+            // UPDATED: Removed price parameter - it will be determined automatically by the server
             const formDataToSend = new FormData();
             formDataToSend.append('nickname', nickname);
             formDataToSend.append('email', email);
             formDataToSend.append('packageName', currentPackageData.packageName);
             formDataToSend.append('classes', currentPackageData.classes);
-            formDataToSend.append('price', currentPackageData.price);
             formDataToSend.append('duration', currentPackageData.duration);
+            // Note: price is no longer sent - it's automatically determined by the Google Apps Script
 
             console.log('🚀 Sending package reservation...');
             console.log('Data being sent:');
@@ -1485,21 +1482,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (responseData.success) {
                 console.log('🟢 SUCCESS!');
-                // Show success message
+                // Show success message with the determined price
                 loadingDiv.style.display = 'none';
                 successMessage.innerHTML = `
                     ✅ Your package reservation has been submitted successfully!<br>
                     <strong>Reservation ID:</strong> ${responseData.reservationId}<br>
-                    <small>Confirmation details will be sent to your email within 24 hours.</small>
+                    <small>Payment details and confirmation will be sent to your email within a few minutes.</small>
                 `;
                 successMessage.classList.add('show');
                 form.style.display = 'none';
 
-                // Auto-close modal after 5 seconds
+                // Auto-close modal after 7 seconds
                 setTimeout(() => {
                     closeModal();
                     form.style.display = 'block';
-                }, 5000);
+                }, 7000);
             } else {
                 throw new Error(responseData.message || 'Server returned an error');
             }
@@ -1597,6 +1594,37 @@ const reservationStyles = `
     color: #666;
     font-style: italic;
 }
+
+/* Loading state styles */
+#reservationLoading {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+/* Success/Error message styles */
+.show {
+    display: block !important;
+}
+
+.success-message, .error-message {
+    display: none;
+    padding: 15px;
+    border-radius: 6px;
+    margin: 15px 0;
+}
+
+.success-message {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
 </style>
 `;
 
@@ -1607,9 +1635,8 @@ if (!document.getElementById('reservationStyles')) {
     styleElement.innerHTML = reservationStyles;
     document.head.appendChild(styleElement);
 }
-    </script>
 
-
+</script>
     
 </body>
 </html>
