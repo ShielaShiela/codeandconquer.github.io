@@ -2,7 +2,7 @@
     'use strict';
     
     // Configuration
-    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxYb1Y0rxFFK5ln4GycyQc9bTPcpdQE8TqQIr0e5LocW7v0kDHOYDGaxKGnkGNX1YXt/exec';
+    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzhi6LVFTGLn5dFp2FiCZGVM9gtYowUKQaFs5C4g7BivWKZ1i3TXklWhodw0z_rkbH0/exec';
     
     // Store submitted form data
     let submittedTrialData = null;
