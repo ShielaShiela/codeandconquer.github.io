@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code & Conquer with Shiela - Book Your Private Class</title>
+    <title>Code&Conquer with Shiela - Book Your Private Class</title>
     <style>
         * {
             margin: 0;
@@ -232,6 +232,17 @@
             color: #0c4a6e;
             font-size: 1.8rem;
             margin-bottom: 0.5rem;
+        }
+
+        .package-display {
+            background: rgba(37, 99, 235, 0.1);
+            color: #1e40af;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+            border: 2px solid #2563eb;
         }
 
         .info-grid {
@@ -609,6 +620,7 @@
                 <div class="student-info" id="studentInfo">
                     <div class="welcome-message">
                         <h3>Welcome back, <span id="studentName"></span>! 🎉</h3>
+                        <div class="package-display" id="studentPackage">Package Name</div>
                         <p>Here's your current class status</p>
                     </div>
                     
@@ -618,8 +630,12 @@
                             <span class="label">Classes Remaining</span>
                         </div>
                         <div class="info-card">
+                            <span class="number" id="bookedClasses">0</span>
+                            <span class="label">Booked Classes</span>
+                        </div>
+                        <div class="info-card">
                             <span class="number" id="completedClasses">0</span>
-                            <span class="label">Classes Completed</span>
+                            <span class="label">Completed Classes</span>
                         </div>
                         <div class="info-card email-card">
                             <span class="email-display" id="studentEmail">-</span>
@@ -670,12 +686,20 @@
                             <span class="confirmation-value" id="confirmedStudentName">-</span>
                         </div>
                         <div class="confirmation-item">
+                            <span class="confirmation-label">Package:</span>
+                            <span class="confirmation-value" id="confirmedStudentPackage">-</span>
+                        </div>
+                        <div class="confirmation-item">
                             <span class="confirmation-label">Email:</span>
                             <span class="confirmation-value" id="confirmedStudentEmail">-</span>
                         </div>
                         <div class="confirmation-item">
                             <span class="confirmation-label">Current Remaining Classes:</span>
                             <span class="confirmation-value" id="confirmedRemainingClasses">-</span>
+                        </div>
+                        <div class="confirmation-item">
+                            <span class="confirmation-label">Total Booked Classes:</span>
+                            <span class="confirmation-value" id="confirmedBookedClasses">-</span>
                         </div>
                     </div>
 
@@ -710,12 +734,20 @@
                             <span class="confirmation-value" id="finalStudentName">-</span>
                         </div>
                         <div class="confirmation-item">
+                            <span class="confirmation-label">📦 Package:</span>
+                            <span class="confirmation-value" id="finalStudentPackage">-</span>
+                        </div>
+                        <div class="confirmation-item">
                             <span class="confirmation-label">📧 Confirmation sent to:</span>
                             <span class="confirmation-value" id="finalStudentEmail">-</span>
                         </div>
                         <div class="confirmation-item">
                             <span class="confirmation-label">📚 Classes Remaining After This Session:</span>
                             <span class="confirmation-value" id="finalRemainingClasses">-</span>
+                        </div>
+                        <div class="confirmation-item">
+                            <span class="confirmation-label">📝 Total Booked Classes:</span>
+                            <span class="confirmation-value" id="finalBookedClasses">-</span>
                         </div>
                     </div>
 
@@ -726,7 +758,8 @@
                             📅 <strong>Google Calendar invitation:</strong> You should have received a calendar invite with Zoom details<br>
                             🔗 <strong>Zoom link:</strong> The meeting link is included in your Google Calendar confirmation<br>
                             📱 <strong>Questions?</strong> Contact Shiela on WhatsApp for any assistance<br>
-                            👋 <strong>See you in class!</strong> Looking forward to our programming session
+                            👋 <strong>See you in class!</strong> Looking forward to our programming session<br>
+                            📊 <strong>Note:</strong> Your completed classes will be updated manually by Shiela after each session
                         </p>
                     </div>
 
@@ -788,7 +821,9 @@
                     
                     // Update student info display
                     document.getElementById('studentName').textContent = currentStudent.name;
+                    document.getElementById('studentPackage').textContent = currentStudent.package || 'Not specified';
                     document.getElementById('remainingClasses').textContent = currentStudent.remainingClasses;
+                    document.getElementById('bookedClasses').textContent = currentStudent.bookedClasses;
                     document.getElementById('completedClasses').textContent = currentStudent.completedClasses;
                     document.getElementById('studentEmail').textContent = currentStudent.email;
 
@@ -837,8 +872,10 @@
 
             // Update confirmation details
             document.getElementById('confirmedStudentName').textContent = currentStudent.name;
+            document.getElementById('confirmedStudentPackage').textContent = currentStudent.package || 'Not specified';
             document.getElementById('confirmedStudentEmail').textContent = currentStudent.email;
             document.getElementById('confirmedRemainingClasses').textContent = currentStudent.remainingClasses;
+            document.getElementById('confirmedBookedClasses').textContent = currentStudent.bookedClasses;
 
             goToStep(3);
         }
@@ -864,8 +901,10 @@
                 if (data.success) {
                     // Update final confirmation details
                     document.getElementById('finalStudentName').textContent = currentStudent.name;
+                    document.getElementById('finalStudentPackage').textContent = currentStudent.package || 'Not specified';
                     document.getElementById('finalStudentEmail').textContent = currentStudent.email;
                     document.getElementById('finalRemainingClasses').textContent = currentStudent.remainingClasses - 1;
+                    document.getElementById('finalBookedClasses').textContent = currentStudent.bookedClasses + 1;
 
                     // Go to final step
                     goToStep(4);
@@ -929,10 +968,8 @@
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🚀 Code & Conquer Booking System Ready!');
-            console.log('📝 Make sure to update:');
-            console.log('1. YOUR_CALENDLY_USERNAME in the Calendly iframe');
-            console.log('2. YOUR_SCRIPT_ID in GAS_WEB_APP_URL');
-            console.log('3. YOUR_WHATSAPP_NUMBER in the WhatsApp links');
+            console.log('📝 Updated to include BookedClasses and Package fields');
+            console.log('📋 New column structure: Nickname, Name, RemainingClasses, BookedClasses, CompletedClasses, Package, Email');
         });
     </script>
 </body>
