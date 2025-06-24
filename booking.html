@@ -642,15 +642,8 @@
                     </p>
                     
                     <div class="calendly-container">
-                        <!-- Replace YOUR_CALENDLY_USERNAME with your actual Calendly username -->
-                        <!-- <iframe class="calendly-embed" 
-                                src="https://calendly.com/YOUR_CALENDLY_USERNAME/code-conquer-session?hide_event_type_details=1&hide_gdpr_banner=1"
-                                frameborder="0">
-                        </iframe> -->
-                        <!-- Calendly inline widget begin -->
 <!-- Google Calendar Appointment Scheduling begin -->
-<iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3ocMwe_LAe20XIJByZXOA21W17Ke98igpkhdbOAtxhvgU3VLkNSya0VbpK22L7iD0Brk-Z0zHe?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
-<!-- end Google Calendar Appointment Scheduling -->
+<iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0K2kyFtC8OCGmU-WQD3e3RoLNqcloLvEVO_LISy1qg4jA1W8AwZo_rfgyVVfWXIDz-IVlgsmRE?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
 <!-- Calendly inline widget end -->
                     </div>
 
@@ -668,7 +661,7 @@
                 <div class="confirmation-section">
                     <h2>Step 3: Confirm Your Booking</h2>
                     <p style="color: #64748b; font-size: 1.1rem; margin-bottom: 2rem;">
-                        Please confirm that you've successfully booked your session through Calendly
+                        Please confirm that you've successfully booked your session through Google Calendar
                     </p>
 
                     <div class="confirmation-details">
@@ -687,13 +680,13 @@
                     </div>
 
                     <div class="calendly-notice">
-                        <h4>Did you complete your Calendly booking?</h4>
+                        <h4>Did you complete your Google Calendar booking?</h4>
                         <p style="margin-bottom: 1rem;">
-                            Make sure you've selected a date and time through the Calendly widget above and received a confirmation email from Calendly.
+                            Make sure you've selected a date and time through the Google Calendar widget above and received a confirmation email from Google Calendar.
                         </p>
                         <div style="display: flex; gap: 1rem; justify-content: center;">
                             <button class="restart-btn" onclick="goToStep(2)" style="background: #64748b;">
-                                Back to Calendly
+                                Back to Google Calendar
                             </button>
                             <button class="continue-btn" onclick="finalConfirmation()" style="width: auto;">
                                 Yes, I've booked my session
@@ -730,8 +723,8 @@
                         <h4>📬 What's Next?</h4>
                         <p>
                             ✅ <strong>Confirmation email sent!</strong> Check your inbox for booking details<br>
-                            📅 <strong>Calendly invitation:</strong> You should have received a calendar invite with Zoom details<br>
-                            🔗 <strong>Zoom link:</strong> The meeting link is included in your Calendly confirmation<br>
+                            📅 <strong>Google Calendar invitation:</strong> You should have received a calendar invite with Zoom details<br>
+                            🔗 <strong>Zoom link:</strong> The meeting link is included in your Google Calendar confirmation<br>
                             📱 <strong>Questions?</strong> Contact Shiela on WhatsApp for any assistance<br>
                             👋 <strong>See you in class!</strong> Looking forward to our programming session
                         </p>
@@ -887,12 +880,6 @@
                 confirmBtn.textContent = originalText;
                 confirmBtn.disabled = false;
             }
-        }
-
-        // Update student classes
-        async function updateStudentClasses() {
-            // This function is no longer used - replaced by finalConfirmation()
-            // Keeping for backward compatibility
         }
 
         // Navigate to specific step

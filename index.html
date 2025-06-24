@@ -642,7 +642,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <li><strong>Book Now:</strong> Use calendar below to schedule immediately</li>
                         <li><strong>Wait for Contact:</strong> We'll email/WhatsApp you soon</li>
                         <li><strong>Check Spam:</strong> Look for our confirmation email</li>
-                        <li><strong>Class:</strong> 25 minutes via Zoom</li>
+                        <li><strong>Class:</strong> 20 minutes via Zoom</li>
                         <li><strong>Questions?</strong> WhatsApp +639302694206</li>
                     </ol>
                 </div>
@@ -655,18 +655,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     <div class="calendly-container">
                         <!-- Calendly inline widget begin -->
-                        <div class="calendly-inline-widget" 
-                             data-url="https://calendly.com/shielacabahug96/30min" 
-                             style="min-width:320px;height:500px;border-radius:8px;overflow:hidden;">
-                        </div>
-                        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+                        <!-- Google Calendar Appointment Scheduling begin -->
+                    <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3Y7qal4d0BISKJBEby3R3lnEQ_Q661dniiUZCoXuFNDQwg0mOSer0VqAI8d-eQfMIo5LoZCz3t?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
+                    <!-- end Google Calendar Appointment Scheduling -->
+                      
                         <!-- Calendly inline widget end -->
                     </div>
                 </div>
                 
                 <div class="trial-actions" style="margin-top: 15px;">
                     <button class="btn btn-secondary" onclick="goBackToTrialForm()">← Back to Form</button>
-                    <button class="btn btn-primary" onclick="completeTrialBooking()" style="margin-left: 10px;">✅ I've Scheduled on Calendly</button>
+                    <button class="btn btn-primary" onclick="completeTrialBooking()" style="margin-left: 10px;">✅ I've Scheduled on Google Calendar</button>
                 </div>
             </div>
 
@@ -756,7 +755,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             <button class="btn btn-primary btn-small reserve-btn" 
                                     data-package="Monthly Subscription A" 
                                     data-classes="8" 
-                                    data-price="$180"
                                     data-duration="1 month">
                                 Reserve Now
                             </button>
@@ -776,7 +774,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             <button class="btn btn-primary btn-small reserve-btn" 
                                     data-package="Monthly Subscription B" 
                                     data-classes="4" 
-                                    data-price="$90"
                                     data-duration="1 month">
                                 Reserve Now
                             </button>
@@ -816,7 +813,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             <button class="btn btn-primary btn-small reserve-btn" 
                                     data-package="Class Package C" 
                                     data-classes="5" 
-                                    data-price="$130"
                                     data-duration="1 month">
                                 Reserve Now
                             </button>
@@ -836,7 +832,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             <button class="btn btn-primary btn-small reserve-btn" 
                                     data-package="Single Class" 
                                     data-classes="1" 
-                                    data-price="$30"
                                     data-duration="No expiry">
                                 Reserve Now
                             </button>
@@ -1614,15 +1609,7 @@ if (!document.getElementById('reservationStyles')) {
 }
     </script>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-J2P26NM9CS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-J2P26NM9CS');
-</script>
     
 </body>
 </html>
